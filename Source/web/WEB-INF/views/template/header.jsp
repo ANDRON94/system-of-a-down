@@ -2,7 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <header>
-  <nav class="navbar">
+  <nav class="navbar navbar-inverse">
     <div class="navbar-inner">
       <div class="pull-left">
          <h2 class="text-info">Calendar System</h2>

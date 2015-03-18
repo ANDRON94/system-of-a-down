@@ -13,17 +13,17 @@
         type="text/css"/>
 </head>
 <body>
-<div class="container" >
+
   <!-- Header -->
   <tiles:insertAttribute name="header" />
-
+  <div class="container-fluid">
   <div class="row">
     <!-- Menu Page -->
-    <div class="span2">
+    <div class="span2 well">
       <tiles:insertAttribute name="menu" />
     </div>
     <!-- Body Page -->
-    <div class="span10">
+    <div class="span10 well">
       <tiles:insertAttribute name="body" />
     </div>
   </div>
