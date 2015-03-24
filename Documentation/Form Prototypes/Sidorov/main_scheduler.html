@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>System</title>
+        <link href="ball/css/bootstrap.css" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="jquery.supercal.js"></script>
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+        <script type="text/javascript"  src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript">$(function(){$('#datetimepicker').datetimepicker()});</script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-inverse">
+                <div class="navbar-inner">
+                    <div class="pull-left">
+                        <h2 class="text-info">SSKPVT</h2>
+                    </div>
+                    <ul class=" nav pull-right">
+                        <li><a href="#"><h4>Logout</h4></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <div class="well">
+                        <h3>Menu</h3>
+                        <ul class="nav nav-list">
+                            <li><a href="main_scheduler.html">List of orders</a></li>
+                            <li><a href="view_calendar_scheduler.html">View calendar plan</a></li>
+                            <li><a href="#">Some more...</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span10 well">
+                    <form> 
+                        <div class="span4">
+                            <label for="id_prise">Prise: </label>
+                            <div class="input-prepend input-append">
+                                <span class="add-on">$</span>
+                                <input class="input-medium" id="id_prise" type="text">
+                                <span class="add-on">.00</span>
+                            </div>
+                            <label for="id_power">Power:</label>
+                            <select id="id_power">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                            <label for="id_qa">Quality:</label>
+                            <select id="id_qa">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+
+                        </div>
+                        <div class="span4">
+                            <label for="id_cpu">CPU: </label>
+                            <select id="id_cpu">
+                                <option selected="selected" value="0">None</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>4</option>
+                                <option>8</option>
+                                <option>16</option>
+                            </select>
+                            <label for="id_ram">RAM:</label>
+                            <select id="id_ran">
+                                <option selected="selected" value="0">None</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>4</option>
+                                <option>8</option>
+                                <option>16</option>
+                            </select>
+                            <label for="id_vc">Video card:</label>
+                            <select id="id_vc">
+                                <option selected="selected" value="0">None</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                            <div class="row span12" style="margin-top: 20px; padding-left: 50px;"><button class="btn btn-primary" type="submit">Make order</button></div>
+                        </div>
+                        <div class="span4">
+                            <label for="id_date">Final date: </label>
+                            <div id="datetimepicker" class="input-append date">
+                                <input data-format="dd/MM/yyyy" id="id_date" type="text"></input>
+                                <span class="add-on">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                </span> 
+                            </div>
+                            <label for="id_massege">Message: </label>
+                            <textarea id="id_massage" style="height: 90px;"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="pagination-centered">
+            <p>A-team, 2015</p>
+        </footer>
+    </body>
+</html>
