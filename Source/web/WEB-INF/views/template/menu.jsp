@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
   <aside>
-    <h2 class="text-info">Меню</h2>
+    <h3 >Меню</h3>
     <ul class="nav nav-list">
         <li><a href="/user/details">Деталі</a></li>
         <li><a href="/user/createDetail">Додати деталь</a></li>

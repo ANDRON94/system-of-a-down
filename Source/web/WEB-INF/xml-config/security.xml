@@ -6,25 +6,27 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-
+    <beans:bean id="mySuccessHandler" class="com.util.handler.UserSecuritySuccessHandler"/>
     <!-- enable use-expressions -->
    <http auto-config="true" use-expressions="true">
        <!--URLs access rules-->
-        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/planner/**" access="hasRole('ROLE_PLANNER')" />
         <intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
+       <intercept-url pattern="/manager/**" access="hasRole('ROLE_MANAGER')" />
        <!--if there are no rules-->
         <access-denied-handler error-page="/403" />
        <!--Login form properties-->
         <form-login
                 login-page="/login"
-                default-target-url="/user/details"
+                authentication-success-handler-ref="mySuccessHandler"
                 authentication-failure-url="/login?error"
                 username-parameter="email"
                 password-parameter="password" />
         <logout logout-success-url="/login?logout" />
         <csrf />
     </http>
-    <!--Spring Security bean service-->
+
+    <!--Spring Security bean service for Autorize-->
     <beans:bean id="myUserDetailsService" class="com.service.AuthenticationService"/>
     <!--choose provider (before)-->
     <authentication-manager>

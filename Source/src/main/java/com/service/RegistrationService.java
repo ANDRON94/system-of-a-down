@@ -33,7 +33,6 @@ public class RegistrationService {
             Set<UserRole> roles=new HashSet<UserRole>();
             roles.add(role);
 
-            user.setUserRole(roles);
             String key= MailUtil.hash(user.getEmail() + "." + user.getPassword());
             user.setKey(key);
             userRepository.save(user);

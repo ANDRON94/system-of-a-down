@@ -12,22 +12,20 @@
   <link rel="stylesheet" href="resources/css/screen.css" type="text/css"/>
 </head>
 <body>
-<div class="container" >
-  <!-- Header -->
-  <tiles:insertAttribute name="header" />
-
+<tiles:insertAttribute name="header" />
+<div class="container-fluid">
   <div class="row">
+    <!-- Menu Page -->
     <!-- Body Page -->
-    <div class="span12">
+    <div class="pagination-centered">
       <tiles:insertAttribute name="body" />
     </div>
   </div>
 
 
   <!-- Footer Page -->
-  <div class="span12">
+  <div class="row">
     <tiles:insertAttribute name="footer" />
   </div>
-</div>
 </body>
 </html>

@@ -17,7 +17,7 @@ public class User {
     private String lastName;
     private String key;
     private boolean enabled;
-    private Set<UserRole> userRole = new HashSet<UserRole>(0);
+    private UserRole userRole;
     private String keyActivate;
 
 
@@ -111,17 +111,13 @@ public class User {
         this.key = key;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name="rolelist",
-            joinColumns={@JoinColumn(name="user_iduser", referencedColumnName="iduser")},
-            inverseJoinColumns={@JoinColumn(name="role_user_role_id", referencedColumnName="user_role_id")})
-    public Set<UserRole> getUserRole() {
+   @ManyToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "role_user_role_id")
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(Set<UserRole> userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
-
 }

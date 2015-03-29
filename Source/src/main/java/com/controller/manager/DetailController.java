@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.manager;
 
 
 import com.model.Detail;
@@ -15,10 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/user") //mapping of pages
+@RequestMapping(value = "/manager") //mapping of pages
 public class DetailController {
 
-    public static final String TO_DETAILS_LIST="redirect:/user/details";
+    public static final String TO_DETAILS_LIST="redirect:/manager/details";
     //repository for CRUD
     @Autowired
     private DetailRepository detailRepository;
@@ -33,7 +33,7 @@ public class DetailController {
         // with params to this template
     }
     //all details action
-    @RequestMapping(value="details")
+    @RequestMapping(value="/details")
     public ModelAndView detailsAction() {
         ModelAndView model=new ModelAndView();
         //List<Detail> details= detailRepository.findAll();//all details

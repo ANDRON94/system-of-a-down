@@ -27,7 +27,9 @@ public class AuthenticationService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String email)
             throws UsernameNotFoundException {
         com.model.User user = userRepository.findOneByEmail(email); //find user by email
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
+        Set <UserRole> roles = new HashSet<UserRole>();
+        roles.add( user.getUserRole());
+        List<GrantedAuthority> authorities = buildUserAuthority(roles);
         return buildUserForAuthentication(user, authorities);
     }
 

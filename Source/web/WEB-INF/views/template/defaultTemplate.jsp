@@ -30,8 +30,8 @@
 
 
   <!-- Footer Page -->
-  <div class="span12">
-  <tiles:insertAttribute name="footer" />
+  <div class="row">
+    <tiles:insertAttribute name="footer" />
   </div>
 </div>
 </body>
