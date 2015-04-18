@@ -22,7 +22,7 @@ public class UserSecuritySuccessHandler implements AuthenticationSuccessHandler 
             return;
         }
         if (roles.contains("ROLE_PLANNER")){
-            httpServletResponse.sendRedirect("/planner/details");
+            httpServletResponse.sendRedirect("/planner/viewOrders");
             return;
         }
         if (roles.contains("ROLE_MANAGER")){
