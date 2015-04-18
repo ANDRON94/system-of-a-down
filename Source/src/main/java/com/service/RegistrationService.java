@@ -30,8 +30,7 @@ public class RegistrationService {
         }
             user.setEnabled(false);
             UserRole role=roleRepository.findOneByRole("ROLE_USER");
-            Set<UserRole> roles=new HashSet<UserRole>();
-            roles.add(role);
+            user.setUserRole(role);
 
             String key= MailUtil.hash(user.getEmail() + "." + user.getPassword());
             user.setKey(key);
