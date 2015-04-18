@@ -11,21 +11,22 @@
   <title>Spring MVC - Tiles Integration tutorial</title>
   <link rel="stylesheet" href="resources/css/screen.css" type="text/css"/>
 </head>
-<body>
-<tiles:insertAttribute name="header" />
-<div class="container-fluid">
-  <div class="row">
-    <!-- Menu Page -->
-    <!-- Body Page -->
-    <div class="pagination-centered">
-      <tiles:insertAttribute name="body" />
+  <body>
+  <tiles:insertAttribute name="header" />
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Menu Page -->
+      <!-- Body Page -->
+      <div class="pagination-centered">
+        <tiles:insertAttribute name="body" />
+      </div>
     </div>
-  </div>
 
 
-  <!-- Footer Page -->
-  <div class="row">
-    <tiles:insertAttribute name="footer" />
-  </div>
-</body>
+    <!-- Footer Page -->
+    <div class="row">
+      <tiles:insertAttribute name="footer" />
+    </div>
+    </div>
+  </body>
 </html>

@@ -1,3 +1,4 @@
+
 package com.model;
 
 import javax.persistence.*;
@@ -10,9 +11,11 @@ import javax.persistence.*;
 public class DetailType {
     private int id;
     private String name;
+    private int produceTime;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id",nullable = false,unique = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -30,6 +33,19 @@ public class DetailType {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    @Basic
+    @Column(name = "produce_time")
+    public int getProduceTime() {
+        return produceTime;
+    }
+
+    public void setProduceTime(int produceTime) {
+        this.produceTime = produceTime;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

@@ -10,7 +10,7 @@
     </definition>
     <definition name="DefaultTemplate" template="/WEB-INF/views/template/defaultTemplate.jsp">
         <put-attribute name="header" 	value="/WEB-INF/views/template/header.jsp" />
-        <put-attribute name="menu" 		value="/WEB-INF/views/template/menu.jsp" />
+        <put-attribute name="menu" 		value="" />
         <put-attribute name="body" 		value="" />
         <put-attribute name="footer" 	value="/WEB-INF/views/template/footer.jsp" />
     </definition>
