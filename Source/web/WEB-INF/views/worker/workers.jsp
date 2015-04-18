@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div>
-    <h1>${manager.idmanager}</h1><br><h1>${manager.password}</h1>
     <c:if test="${not empty workers}">
         <table class="table table-hover">
             <thead>
