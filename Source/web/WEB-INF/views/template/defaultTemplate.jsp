@@ -6,7 +6,7 @@
   <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
   <link href="<c:url value="/resources/css/bootstrap-responsive.css" />" rel="stylesheet">
   <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-  <script src="<c:url value="/resources/js/jquery.js" />"></script>
+  <script src="<c:url value="/resources/js/jquery-1.11.2.min.js" />"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Spring MVC - Tiles Integration tutorial</title>
   <link rel="stylesheet" href="resources/css/screen.css"
@@ -17,7 +17,7 @@
   <!-- Header -->
   <tiles:insertAttribute name="header" />
   <div class="container-fluid">
-  <div class="row">
+  <div class="row-fluid">
     <!-- Menu Page -->
     <div class="span2 well">
       <tiles:insertAttribute name="menu" />
@@ -28,9 +28,8 @@
     </div>
   </div>
 
-
   <!-- Footer Page -->
-  <div class="row">
+  <div class="row-fluid">
     <tiles:insertAttribute name="footer" />
   </div>
 </div>

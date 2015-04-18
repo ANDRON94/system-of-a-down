@@ -1,20 +1,24 @@
 package com.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by root on 17.03.15.
  */
 @Entity
+@Table(name = "worker")
 public class Worker {
     private int id;
     private String name;
+    private String sename;
+    private List<DetailType> specializations;
+    private int cash;
+
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -32,6 +36,39 @@ public class Worker {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Basic
+    @Column(name = "sename")
+    public String getSename() {
+        return sename;
+    }
+
+    public void setSename(String sename) {
+        this.sename = sename;
+    }
+    @Basic
+    @Column(name = "cash")
+    public int getCash() {
+        return cash;
+    }
+
+    public void setCash(int cash) {
+        this.cash = cash;
+    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="specialization",
+            joinColumns={@JoinColumn(name="worker_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="detail_type_id", referencedColumnName="id")})
+    public List<DetailType> getSpecializations() {
+        return specializations;
+    }
+
+    public void setSpecializations(List<DetailType> specializations) {
+        this.specializations = specializations;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<form:form method="post" action="/user/saveWorker" commandName="workerForm" >
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<form:form method="post" action="/manager/saveWorker" commandName="workerForm" >
     <table>
         <tr>
             <td colspan="2">Ім’я робочого:</td>
@@ -10,23 +11,26 @@
             <td colspan="2"><form:input path="name" cssStyle="width: 100%"/></td>
         </tr>
         <tr>
-            <td colspan="2">Список спеціалізацій:</td>
+            <td colspan="2">Прізвище робочого:</td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><form:input path="sename" cssStyle="width: 100%"/></td>
         </tr>
         <tr>
-            <td colspan="2">
-                <a class="btn ">
-                <i class="  icon-plus"></i>
-            </a>
+            <td colspan="2">Погодинна оплата робочого:</td>
+        </tr>
 
-                <a class="btn ">
-                    <i class="icon-minus"></i>
-                </a>
+        <tr>
+            <td colspan="2"><form:input path="cash" cssStyle="width: 100%"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">Cпеціалізації:</td>
+        </tr>
+        <tr>
+            <td>
+              <form:select path="specializations" multiple="true" items="${specializationTypes}" itemLabel="name" itemValue="id"/>
             </td>
-        </tr>
-
-        <tr>
-            <td>Деталь: <form:input path="name" cssStyle="width: 100%"/></td>
-            <td colspan="2">Час обробки:  <form:input path="name" cssStyle="width: 100%"/></td>
         </tr>
         <tr>
             <td colspan="2"></td>

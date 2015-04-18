@@ -1,24 +1,24 @@
+
 package com.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by root on 17.03.15.
  */
 @Entity
+@Table(name = "detail")
 public class Detail {
     private int id;
-    private int detailTypeId;
+    private DetailType detailType;
     private int price;
-    private String quality;
+    private int quality;
     private int power;
     private String name;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id",nullable = false,unique = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -27,14 +27,14 @@ public class Detail {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "detail_type_id")
-    public int getDetailTypeId() {
-        return detailTypeId;
+    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @JoinColumn(name="detail_type_id",referencedColumnName ="id")
+    public DetailType getDetailType() {
+        return detailType;
     }
 
-    public void setDetailTypeId(int detailTypeId) {
-        this.detailTypeId = detailTypeId;
+    public void setDetailType(DetailType detailType) {
+        this.detailType = detailType;
     }
 
     @Basic
@@ -49,11 +49,11 @@ public class Detail {
 
     @Basic
     @Column(name = "quality")
-    public String getQuality() {
+    public int getQuality() {
         return quality;
     }
 
-    public void setQuality(String quality) {
+    public void setQuality(int quality) {
         this.quality = quality;
     }
 
@@ -84,12 +84,11 @@ public class Detail {
 
         Detail detail = (Detail) o;
 
-        if (detailTypeId != detail.detailTypeId) return false;
+
         if (id != detail.id) return false;
         if (power != detail.power) return false;
         if (price != detail.price) return false;
         if (name != null ? !name.equals(detail.name) : detail.name != null) return false;
-        if (quality != null ? !quality.equals(detail.quality) : detail.quality != null) return false;
 
         return true;
     }
@@ -97,9 +96,7 @@ public class Detail {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + detailTypeId;
         result = 31 * result + price;
-        result = 31 * result + (quality != null ? quality.hashCode() : 0);
         result = 31 * result + power;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;

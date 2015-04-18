@@ -33,11 +33,9 @@
                          <!--views have original templates-->
                             <value>/WEB-INF/xml-config/layouts/views.xml</value>
                          <!--record - pages of crud operations-->
-                            <value>/WEB-INF/xml-config/layouts/resource.xml</value>
-                            <value>/WEB-INF/xml-config/layouts/user.xml</value>
+                            <value>/WEB-INF/xml-config/layouts/managerViews.xml</value>
+                            <value>/WEB-INF/xml-config/layouts/adminModule.xml</value>
                      </list>
               </property>
        </bean>
-
-
 </beans>

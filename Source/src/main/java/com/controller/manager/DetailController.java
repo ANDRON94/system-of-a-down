@@ -3,7 +3,9 @@ package com.controller.manager;
 
 import com.model.Detail;
 
+import com.model.DetailType;
 import com.repository.DetailRepository;
+import com.repository.DetailTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/manager") //mapping of pages
@@ -23,6 +28,8 @@ public class DetailController {
     @Autowired
     private DetailRepository detailRepository;
 
+    @Autowired
+    private DetailTypeRepository detailTypeRepository;
 
     //Action with REST parametr,Get - method
     @RequestMapping(value = "viewDetail/{id}",method = RequestMethod.GET)
@@ -36,36 +43,50 @@ public class DetailController {
     @RequestMapping(value="/details")
     public ModelAndView detailsAction() {
         ModelAndView model=new ModelAndView();
-        //List<Detail> details= detailRepository.findAll();//all details
-        List<Detail> details=null;
+        List<Detail> details= detailRepository.findAll();//all details
         model.addObject("details",details);
         model.setViewName("details");
         return model; //see first action
     }
     //generate form to edit
     @RequestMapping(value="editDetail/{id}",method = RequestMethod.GET)
-    public ModelAndView editDetailAction(@PathVariable Integer id,ModelMap model) {
+    public ModelAndView editDetailAction(@PathVariable Integer id) {
         Detail detail= detailRepository.findOne(id);
-        return new ModelAndView("editDetail", "detailForm", detail);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("editDetail");
+        modelAndView.addObject("detailForm",detail);
+        Map<Integer,String> types=new HashMap<Integer, String>();
+        for(DetailType detailType : detailTypeRepository.findAll()){
+            types.put(detailType.getId(),detailType.getName());
+        }
+        modelAndView.addObject("detailTypes",types);
+        return modelAndView;
     }
     //handling edit form before to edit
     @RequestMapping(value="editDetail/{id}",method = RequestMethod.POST)
     public String updateDetailAction(@PathVariable Integer id,@ModelAttribute("detailForm") Detail detail) {
-        Detail updateDetail= detailRepository.findOne(id);
-      //  updateDetail.setName(detail.setName());
-       // updateDetail.setData(detail.getData());
-        detailRepository.save(updateDetail);
+        detail.setDetailType(detailTypeRepository.findOne(detail.getDetailType().getId()));
+        detailRepository.save(detail);
         return TO_DETAILS_LIST;
     }
     //generate form to create
     @RequestMapping(value = "createDetail",method = RequestMethod.GET)
     public ModelAndView createDetailAction() {
         Detail detail = new Detail();
-        return new ModelAndView("createDetail","detailForm",detail);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("createDetail");
+        modelAndView.addObject("detailForm",detail);
+        Map<Integer,String> types=new HashMap<Integer, String>();
+        for(DetailType detailType : detailTypeRepository.findAll()){
+            types.put(detailType.getId(),detailType.getName());
+        }
+        modelAndView.addObject("detailTypes",types);
+        return modelAndView;
     }
      //handling create form before to save
     @RequestMapping(value = "saveDetail",method = RequestMethod.POST)
     public String saveDetailAction(@ModelAttribute("detailForm") Detail detail) {
+        detail.setDetailType(detailTypeRepository.findOne(detail.getDetailType().getId()));
         detailRepository.save(detail);
         return TO_DETAILS_LIST;
     }
