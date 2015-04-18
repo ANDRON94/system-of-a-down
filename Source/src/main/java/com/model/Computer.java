@@ -1,20 +1,31 @@
 package com.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by root on 17.03.15.
  */
 @Entity
+@Table(name="computer")
 public class Computer {
     private int id;
     private int price;
+    private List<Detail> detailList;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "detail_type_id",referencedColumnName = "id")
+    public List<Detail> getDetailList() {
+        return detailList;
+    }
+
+    public void setDetailList(List<Detail> detailList) {
+        this.detailList = detailList;
+    }
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id",nullable = false,unique = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
