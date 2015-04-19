@@ -7,4 +7,7 @@
        <definition name="viewOrders" extends="DefaultTemplate">
               <put-attribute name="body" value="/WEB-INF/views/planner/viewOrders.jsp" />
        </definition>
+       <definition name="schedule" extends="DefaultTemplate">
+              <put-attribute name="body" value="/WEB-INF/views/planner/schedule.jsp" />
+       </definition>
 </tiles-definitions>

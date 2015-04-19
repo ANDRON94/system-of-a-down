@@ -19,7 +19,7 @@ public class Order {
     private int countComputers;
     private String propouse;
     private Status status;
-
+    private User user;
 
 
     @Id
@@ -114,5 +114,15 @@ public class Order {
         result = 31 * result + (deadilne != null ? deadilne.hashCode() : 0);
         result = 31 * result + price;
         return result;
+    }
+
+    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_iduser",referencedColumnName = "iduser")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

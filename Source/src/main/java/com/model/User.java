@@ -2,6 +2,7 @@ package com.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,7 +20,7 @@ public class User {
     private boolean enabled;
     private UserRole userRole;
     private String keyActivate;
-
+    private List<Order> orders;
 
     @Id
     @Column(name = "iduser",nullable = false,unique = true)
@@ -119,5 +120,14 @@ public class User {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
