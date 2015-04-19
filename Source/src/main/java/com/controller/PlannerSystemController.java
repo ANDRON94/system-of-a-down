@@ -31,8 +31,8 @@ public class PlannerSystemController {
     }
     @RequestMapping(value = "schedule",method = RequestMethod.GET)
     public ModelAndView scheduleAction(HttpServletRequest request)throws Exception{
-            DHXPlanner s = new DHXPlanner("/resource/codebase/", DHXSkin.TERRACE);
-            s.setWidth(500);
+            DHXPlanner s = new DHXPlanner("/resources/codebase/", DHXSkin.TERRACE);
+            s.setWidth(900);
             s.setInitialDate(2013, 0, 21);
             s.views.clear();
             DHXTimelineView view = new DHXTimelineView( "event_type", "Type");
@@ -47,7 +47,8 @@ public class PlannerSystemController {
                 view.addOption(new DHXTimelineUnit(i, "Worker "+i));
             }
             s.setInitialView("event_type");
-        return  new ModelAndView("schedule","planner",s.render());
+        request.setAttribute("planner",s.render());
+        return  new ModelAndView("schedule");
     }
 }
 
