@@ -25,7 +25,6 @@
 
     <!-- Resolver for Templates (parse and view pages on templates) -->
        <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
-           <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
        </bean>
     <!-- Configure Resolver before -->
        <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
