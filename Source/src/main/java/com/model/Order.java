@@ -10,12 +10,16 @@ import java.sql.Timestamp;
  * Created by root on 17.03.15.
  */
 @Entity
-@Table(name = "order")
+@Table(name = "order_data")
 public class Order {
     private int id;
     private Timestamp deadilne;
     private int price;
     private Computer computer;
+    private int countComputers;
+    private String propouse;
+    private Status status;
+
 
 
     @Id
@@ -29,6 +33,24 @@ public class Order {
         this.id = id;
     }
 
+
+    @Column(name = "count_computers")
+    public int getCountComputers() {
+        return countComputers;
+    }
+
+    public void setCountComputers(int countComputers) {
+        this.countComputers = countComputers;
+    }
+
+    @Column(name = "propouse")
+    public String getPropouse() {
+        return propouse;
+    }
+
+    public void setPropouse(String propouse) {
+        this.propouse = propouse;
+    }
 
     @Basic
     @Column(name = "deadilne")
@@ -52,7 +74,6 @@ public class Order {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "computer_id",referencedColumnName = "id")
     public Computer getComputer() {
         return computer;
@@ -60,6 +81,16 @@ public class Order {
 
     public void setComputer(Computer computer) {
         this.computer = computer;
+    }
+
+    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_idstatus",referencedColumnName = "idstatus")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
