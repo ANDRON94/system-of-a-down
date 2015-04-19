@@ -1,5 +1,8 @@
 package com.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,7 +16,8 @@ public class Computer {
     private int price;
     private List<Detail> detailList;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "detail_type_id",referencedColumnName = "id")
     public List<Detail> getDetailList() {
         return detailList;

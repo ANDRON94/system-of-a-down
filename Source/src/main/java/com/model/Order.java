@@ -74,6 +74,7 @@ public class Order {
 
 
     @OneToOne(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "computer_id",referencedColumnName = "id")
     public Computer getComputer() {
         return computer;

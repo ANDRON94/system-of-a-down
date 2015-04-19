@@ -27,7 +27,7 @@ public class Detail {
         this.id = id;
     }
 
-    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="detail_type_id",referencedColumnName ="id")
     public DetailType getDetailType() {
         return detailType;
