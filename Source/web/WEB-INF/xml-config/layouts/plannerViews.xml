@@ -9,7 +9,9 @@
        </definition>
        <definition name="viewOrders" extends="PlanerTemplate">
               <put-attribute name="body" value="/WEB-INF/views/planner/viewOrders.jsp" />
-
+       </definition>
+       <definition name="viewOrder" extends="PlanerTemplate">
+              <put-attribute name="body" value="/WEB-INF/views/planner/viewOrder.jsp" />
        </definition>
        <definition name="schedule" extends="PlanerTemplate">
               <put-attribute name="body" value="/WEB-INF/views/planner/schedule.jsp" />

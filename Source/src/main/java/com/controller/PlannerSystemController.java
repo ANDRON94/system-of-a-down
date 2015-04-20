@@ -37,6 +37,13 @@ public class PlannerSystemController {
         );
         return new ModelAndView("viewOrders","page",page);
     }
+
+    @RequestMapping(value = "/viewOrder/{orderId}", method = RequestMethod.GET)
+    public ModelAndView viewOrderAction(@PathVariable Integer orderId ){
+        Order order = orderService.getOrderById(orderId);
+        return new ModelAndView("viewOrder","order",order);
+    }
+
     @RequestMapping(value = "schedule",method = RequestMethod.GET)
     public ModelAndView scheduleAction(HttpServletRequest request)throws Exception{
             DHXPlanner s = new DHXPlanner("/resources/codebase/", DHXSkin.TERRACE);

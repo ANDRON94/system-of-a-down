@@ -28,4 +28,10 @@ public class OrderService {
         );
         return orders;
     }
+
+    @Transactional
+    public Order getOrderById( Integer orderId ){
+        Order order = orderRepository.findOne(orderId);
+        return order;
+    }
 }
