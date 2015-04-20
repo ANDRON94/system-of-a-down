@@ -23,7 +23,7 @@ public class OrderTest {
 
     @Test
     public void  testSelectingOrders(){
-        List<Order> orderList= orderRepository.findAll();
+       /* List<Order> orderList= orderRepository.findAll();
         for(Order order : orderList){
             System.out.println(order.getDeadilne());
             Computer computer = order.getComputer();
@@ -39,7 +39,7 @@ public class OrderTest {
             System.out.println();
             System.out.println();
             System.out.println();
-        }
+        }*/
     }
 
 }

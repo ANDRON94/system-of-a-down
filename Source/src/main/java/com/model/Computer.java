@@ -14,6 +14,8 @@ import java.util.List;
 public class Computer {
     private int id;
     private int price;
+    private int quality;
+    private int power;
     private List<Detail> detailList;
 
 
@@ -50,6 +52,24 @@ public class Computer {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Column(name = "quality")
+    public int getQuality() {
+        return quality;
+    }
+
+    public void setQuality(int quality) {
+        this.quality = quality;
+    }
+
+    @Column(name = "power")
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
     }
 
     @Override
