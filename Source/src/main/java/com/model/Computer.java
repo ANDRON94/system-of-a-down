@@ -16,9 +16,13 @@ public class Computer {
     private int price;
     private List<Detail> detailList;
 
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @ManyToMany(cascade ={ CascadeType.PERSIST, CascadeType.MERGE})
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinColumn(name = "detail_type_id",referencedColumnName = "id")
+    @JoinTable(
+            name="computer_detail",
+            joinColumns={@JoinColumn(name="computer_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="detail_id", referencedColumnName="id")})
     public List<Detail> getDetailList() {
         return detailList;
     }
