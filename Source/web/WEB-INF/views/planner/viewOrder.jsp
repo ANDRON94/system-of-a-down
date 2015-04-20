@@ -31,14 +31,23 @@
 
 <div>
   <div class="row-fluid">
-    <h4 class="text-info span2">Id: ${order.getId()}</h4>
-    <h4 class="text-info span4">Client: ${order.getUser().getFirstName()} ${order.getUser().getLastName()}</h4>
-    <h4 class="text-info span6">Status: ${orderStatus}</h4>
+    <div class="span2">
+      <h4 class="text-info">Id:</h4>
+      <h4>${order.getId()}</h4>
+    </div>
+    <div class="span4">
+      <h4 class="text-info">Client:</h4>
+      <h4> ${order.getUser().getFirstName()} ${order.getUser().getLastName()}</h4>
+    </div>
+    <div class="span6">
+      <h4 class="text-info">Status:</h4>
+      <h4> ${orderStatus}</h4>
+    </div>
   </div>
   <table class="table table-bordered">
     <tr>
       <td>Price:</td>
-      <td>${order.getPrice()}</td>
+      <td>${order.getPrice()}$</td>
     </tr>
     <tr>
       <td>Count:</td>
