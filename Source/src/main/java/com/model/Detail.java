@@ -102,4 +102,9 @@ public class Detail {
         return result;
     }
 
+    @Override
+    public String toString(){
+        return  "Name: " + getName() + " Quality:" + getPower()
+                + " Power: " + getPower() + " Prise: " + getPrice();
+    }
 }
