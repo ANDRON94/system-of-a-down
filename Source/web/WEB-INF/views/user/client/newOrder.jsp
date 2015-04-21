@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false"%>
+
+<link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript"  src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">$(function(){$('#datetimepicker').datetimepicker()});</script>
 <div class="pagination-centered">
     <h1>
         New Order
@@ -81,15 +85,13 @@
                 <option>8</option>
                 <option>16</option>
             </select>
-            <label for="id_deadline">Deadline:</label>
-            <select id="id_deadline">
-                <option selected="selected" value="0">None</option>
-                <option>1</option>
-                <option>2</option>
-                <option>4</option>
-                <option>8</option>
-                <option>16</option>
-            </select>
+            <label for="id_date">Final date: </label>
+            <div id="datetimepicker" class="input-append date">
+                <form:input path="" data-format="dd/MM/yyyy" id="id_date"/>
+                                <span class="add-on">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                </span>
+            </div>
         </div>
     </form:form>
 
