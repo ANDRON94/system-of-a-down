@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Mantixop on 4/20/15.
@@ -16,11 +17,8 @@ public class OrderDTO {
     private int ramCount;
     private int hddCount;
 
-    private Timestamp deadilne;
+    private Date deadilne;
 
-    public OrderDTO() {
-
-    }
 
     public int getPrice() {
         return price;
@@ -78,11 +76,19 @@ public class OrderDTO {
         this.ramCount = ramCount;
     }
 
-    public Timestamp getDeadilne() {
+    public Date getDeadilne() {
         return deadilne;
     }
 
-    public void setDeadilne(Timestamp deadilne) {
+    public void setDeadilne(Date deadilne) {
         this.deadilne = deadilne;
+    }
+
+    public int getHddCount() {
+        return hddCount;
+    }
+
+    public void setHddCount(int hddCount) {
+        this.hddCount = hddCount;
     }
 }
