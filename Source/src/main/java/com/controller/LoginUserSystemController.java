@@ -3,6 +3,7 @@ package com.controller;
 import com.model.Order;
 import com.controller.OrderDTO;
 
+import com.service.ChoiceService;
 import com.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -28,18 +29,37 @@ import javax.validation.Valid;
 @RequestMapping(value = "/user/") //mapping of pages
 public class LoginUserSystemController {
     @Autowired
-    private RegistrationService registrationService;
+    private ChoiceService choiceService;
 
     @RequestMapping(value = "newOrder",method = RequestMethod.GET)
     public ModelAndView newOrderAction(){
         OrderDTO orderDTO = new OrderDTO();
+        //TODO finish and validate new order
         return new ModelAndView("newOrder","orderDTO", orderDTO);
+    }
+
+
+    @RequestMapping(value = "newOrder",method = RequestMethod.POST)
+    public ModelAndView checkNewOrder(){
+        System.out.println("New order posted!");
+        //TODO catch new oder
+        OrderDTO orderDTO = new OrderDTO();
+        if (choiceService.makeChoice(orderDTO) == null) {
+            System.out.println("Computer not found!");
+            return new ModelAndView("tryAgain");
+        }
+        else {
+            System.out.println("Computer found! Works starts!");
+            //TODO catch list of details for order
+            return new ModelAndView("viewClientOrders");
+        }
+
     }
 
     @RequestMapping(value = "viewClientOrders",method = RequestMethod.GET)
     public ModelAndView myOrderAction(){
-        Order order = new Order();
-        return new ModelAndView("viewClientOrders","order", order);
+        //TODO view of client orders
+        return new ModelAndView("viewClientOrders");
     }
 
 }

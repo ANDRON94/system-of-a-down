@@ -10,5 +10,5 @@ import java.util.List;
  */
 //Repository of Record (extends CrudOperations)
 public interface DetailRepository extends JpaRepository<Detail,Integer> {
-    public List<Detail> findByDetailType_Id(int id);
+    public List<Detail> findByDetailTypeId(int id);
 }

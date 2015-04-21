@@ -13,5 +13,8 @@
        <definition name="viewClientOrders"  extends="UserTemplate">
               <put-attribute name="body"	value="/WEB-INF/views/user/client/viewClientOrders.jsp" />
        </definition>
+       <definition name="tryAgain"  extends="UserTemplate">
+              <put-attribute name="body"	value="/WEB-INF/views/user/client/tryAgain.jsp" />
+       </definition>
        <!--template for authorization-->
 </tiles-definitions>
