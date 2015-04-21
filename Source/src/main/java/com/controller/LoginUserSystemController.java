@@ -3,8 +3,10 @@ package com.controller;
 import com.model.Order;
 import com.controller.OrderDTO;
 
+import com.model.User;
 import com.service.ChoiceService;
 import com.service.RegistrationService;
+import com.util.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -24,6 +26,7 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,6 +35,7 @@ import java.util.Map;
 public class LoginUserSystemController {
     @Autowired
     private ChoiceService choiceService;
+
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -84,13 +88,25 @@ public class LoginUserSystemController {
             //TODO catch list of details for order
             return new ModelAndView("viewClientOrders");
         }
-
     }
 
     @RequestMapping(value = "viewClientOrders",method = RequestMethod.GET)
-    public ModelAndView myOrderAction(){
+    public ModelAndView myOrdersAction(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<Order> orders= choiceService.findOrdersOfClient(auth.getName());
         //TODO view of client orders
-        return new ModelAndView("viewClientOrders");
+        return new ModelAndView("viewClientOrders","orders",orders);
+    }
+    @RequestMapping(value = "viewOrder/{orderId}", method = RequestMethod.GET)
+    public ModelAndView viewOrderAction(@PathVariable Integer orderId ){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Order order = choiceService.findOrderByIdAndEmail(orderId, auth.getName());
+        if(order!=null){
+            return new ModelAndView("viewOrderUser","order",order);
+
+        }else {
+            return new ModelAndView("403");
+        }
     }
 
 }

@@ -16,5 +16,9 @@
        <definition name="tryAgain"  extends="UserTemplate">
               <put-attribute name="body"	value="/WEB-INF/views/user/client/tryAgain.jsp" />
        </definition>
+       <definition name="viewOrderUser" extends="UserTemplate">
+              <put-attribute name="body" value="/WEB-INF/views/planner/viewOrder.jsp" />
+       </definition>
+
        <!--template for authorization-->
 </tiles-definitions>

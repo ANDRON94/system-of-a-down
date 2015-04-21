@@ -2,8 +2,13 @@ package com.service;
 
 import com.controller.OrderDTO;
 import com.model.Detail;
+import com.model.Order;
 import com.repository.DetailRepository;
+import com.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,8 +20,10 @@ import java.util.List;
 @Service
 public class ChoiceService {
 
+    private final int ORDERS_PER_PAGE = 10;
 
-
+    @Autowired
+    private OrderRepository orderRepository;
     @Autowired
     private DetailRepository detailRepository;
     private int detailTypeCount = 5;
@@ -97,4 +104,10 @@ public class ChoiceService {
         }
     }
 
+    public List<Order> findOrdersOfClient(String email){
+       return orderRepository.findByUser_Email(email);
+    }
+    public Order findOrderByIdAndEmail(int id,String email){
+        return orderRepository.findOneByIdAndUser_Email(id,email);
+    }
 }
