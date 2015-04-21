@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by root on 17.03.15.
@@ -13,7 +14,7 @@ import java.sql.Timestamp;
 @Table(name = "order_data")
 public class Order {
     private int id;
-    private Timestamp deadilne;
+    private Date deadilne;
     private int price;
     private Computer computer;
     private int countComputers;
@@ -52,13 +53,15 @@ public class Order {
         this.propouse = propouse;
     }
 
+
+
     @Basic
     @Column(name = "deadilne")
-    public Timestamp getDeadilne() {
+    public Date getDeadilne() {
         return deadilne;
     }
 
-    public void setDeadilne(Timestamp deadilne) {
+    public void setDeadilne(Date deadilne) {
         this.deadilne = deadilne;
     }
 
