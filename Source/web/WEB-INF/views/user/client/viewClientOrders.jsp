@@ -73,11 +73,16 @@
             <td>
               <c:choose>
                 <c:when test="${order.getStatus().getName()!='IN_PROSESS'
-             && order.getStatus().getName()!='DONE'
-             && order.getStatus().getName()!='SYSTEM_CANCEL'
-             && order.getStatus().getName()!='USER_CANCEL'}">
-                  <a href="#" class="btn error">Cancel</a>
+                             && order.getStatus().getName()!='DONE'
+                             && order.getStatus().getName()!='SYSTEM_CANCEL'
+                             && order.getStatus().getName()!='USER_CANCEL'}">
+                    <a href="#" class="btn btn-danger">Cancel</a>
                 </c:when>
+                <c:otherwise>
+                    <c:if test="${order.getStatus().getName()=='USER_CANCEL'}">
+                      <a href="#" class="btn  disabled">Cancelled</a>
+                    </c:if>
+                </c:otherwise>
               </c:choose>
               <a href="${url}" class="${btnStyle}">${btnName}</a>
             </td>
