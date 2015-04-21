@@ -101,4 +101,5 @@ public class Detail {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
+
 }
