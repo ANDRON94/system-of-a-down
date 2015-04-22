@@ -20,17 +20,20 @@ public class ChoiceService {
     @Autowired
     private DetailRepository detailRepository;
 
-    private static final int detailTypeCount = 5;
+    private static final int detailTypeCount = Unit.detailTypeCount;
+
+    private static final int evolutionSteps = 10000;
+
     private List<List<Detail>> db = new ArrayList<List<Detail>>(detailTypeCount);
     private Evolution evolution;
-
-
 
     public List<Detail> makeChoice(OrderDTO orderDTO){
         System.out.println("Choice service begin work!");
         init();
         if(evolution.createPopulation() != false){
-            System.out.println(evolution.getAlpha().toString());
+            System.out.println("Alpha before evolution\n" + evolution.getAlpha().toString());
+            evolution.makeStep(evolutionSteps);
+            System.out.println("Alpha after evolution\n" + evolution.getAlpha().toString());
             return evolution.getAlpha().getDetails();
         } else {
             return null;

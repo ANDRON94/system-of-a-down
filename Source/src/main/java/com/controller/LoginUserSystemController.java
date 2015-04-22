@@ -63,7 +63,6 @@ public class LoginUserSystemController {
         modelAndView.addObject("estimations",estimations);
         modelAndView.addObject("countsDetail",countsDetail);
         modelAndView.addObject("orderDTO", orderDTO);
-
         //TODO finish and validate new order
         return modelAndView;
     }
@@ -90,6 +89,7 @@ public class LoginUserSystemController {
     @RequestMapping(value = "viewClientOrders",method = RequestMethod.GET)
     public ModelAndView myOrderAction(){
         //TODO view of client orders
+        choiceService.makeChoice(new OrderDTO());
         return new ModelAndView("viewClientOrders");
     }
 
