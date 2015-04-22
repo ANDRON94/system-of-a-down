@@ -6,6 +6,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by root on 17.03.15.
@@ -21,6 +22,7 @@ public class Order {
     private String propouse;
     private Status status;
     private User user;
+    private List<Contract> contractList;
 
 
     @Id
@@ -127,5 +129,14 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "order")
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
     }
 }

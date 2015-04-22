@@ -48,7 +48,8 @@ public class ChoiceService {
         for (int i = 1; i <= detailTypeCount; i++ ){
             db.add(i - 1, detailRepository.findByDetailTypeId(i));
         }
-        evolution = new Evolution(3000, 3.0f, 3.0f, db);
+        int []A = {1,1,1,1,1};
+        evolution = new Evolution(3000, 3.0f, 3.0f, A, db);        //price , power , qa , array
     }
 
 

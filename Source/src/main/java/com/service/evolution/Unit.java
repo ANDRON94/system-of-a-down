@@ -10,6 +10,7 @@ import java.util.Random;
  * Created by Mantixop on 4/21/15.
  */
 public class Unit {
+    public static int[] detCount;
     private List<Detail> details;
     private int totalPrise;
     private float averageQuality;

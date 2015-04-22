@@ -21,7 +21,7 @@ public class Evolution {
     private float minPower;
     private float minQuality;
 
-    public Evolution(int prise, float power, float quality, List<List<Detail>> db) {
+    public Evolution(int prise, float power, float quality, int[] detailCount, List<List<Detail>> db) {
         this.db = db;
         minPower = power;
         maxPrise = prise;
