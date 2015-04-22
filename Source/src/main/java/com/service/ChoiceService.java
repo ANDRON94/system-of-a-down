@@ -24,7 +24,10 @@ public class ChoiceService {
     @Autowired
     private DetailRepository detailRepository;
 
-    private static final int detailTypeCount = 5;
+    private static final int detailTypeCount = Unit.detailTypeCount;
+
+    private static final int evolutionSteps = 10000;
+
     private List<List<Detail>> db = new ArrayList<List<Detail>>(detailTypeCount);
     private Evolution evolution;
 
@@ -34,8 +37,10 @@ public class ChoiceService {
         System.out.println("Choice service begin work!");
         init();
         if(evolution.createPopulation() != false){
-            System.out.println(evolution.getAlpha().toString());
-            return evolution.getAlpha().getDetails();
+            System.out.println("Alpha before evolution\n" + evolution.getPopulation().getAlpha().toString());
+            evolution.makeStep(evolutionSteps);
+            System.out.println("Alpha after evolution\n" + evolution.getPopulation().getAlpha().toString());
+            return evolution.getPopulation().getAlpha().getDetails();
         } else {
             return null;
         }
@@ -48,8 +53,7 @@ public class ChoiceService {
         for (int i = 1; i <= detailTypeCount; i++ ){
             db.add(i - 1, detailRepository.findByDetailTypeId(i));
         }
-        int []A = {1,1,1,1,1};
-        evolution = new Evolution(3000, 3.0f, 3.0f, A, db);        //price , power , qa , array
+        evolution = new Evolution(8000, 4.0f, 4.0f, db);
     }
 
 

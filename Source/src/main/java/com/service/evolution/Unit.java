@@ -16,7 +16,7 @@ public class Unit {
     private float averageQuality;
     private float averagePower;
     private boolean full;
-    private static final int detailTypeCount = 5;
+    public static final int detailTypeCount = 5;
 
     Unit() {
         totalPrise = 0;
@@ -53,6 +53,24 @@ public class Unit {
         }
     }
 
+    public List<Unit> crossWith(Unit parent){
+        int crossPoint = new Random().nextInt(detailTypeCount);
+        Unit firstChild = new Unit();
+        Unit secondChild = new Unit();
+        for(int i = 0; i < crossPoint; i++){
+            firstChild.setDetail(this.getDetails().get(i));
+            secondChild.setDetail(parent.getDetails().get(i));
+        }
+        for (int i = crossPoint; i < detailTypeCount; i++){
+            secondChild.setDetail(this.getDetails().get(i));
+            firstChild.setDetail(parent.getDetails().get(i));
+        }
+        List<Unit> rez = new ArrayList<Unit>(2);
+        rez.add(0, firstChild);
+        rez.add(1, secondChild);
+        return rez;
+    }
+
     @Override
     public String toString() {
         String str = "--------------------" + (full ? "Full" : "ТotFull") + "----------------------\n";
@@ -67,6 +85,14 @@ public class Unit {
     public void setDetail(Detail detail){
         details.add(detail.getDetailType().getId() - 1, detail);
         recount();
+    }
+
+    public boolean theSameAs(Unit unit){
+        for (int i = 0; i < detailTypeCount; i++){
+            if (this.details.get(i) != unit.details.get(i))
+                return false;
+        }
+        return true;
     }
 
     public List<Detail> getDetails() {

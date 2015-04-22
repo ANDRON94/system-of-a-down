@@ -36,7 +36,6 @@ public class LoginUserSystemController {
     @Autowired
     private ChoiceService choiceService;
 
-
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -88,6 +87,7 @@ public class LoginUserSystemController {
             //TODO catch list of details for order
             return new ModelAndView("viewClientOrders");
         }
+
     }
 
     @RequestMapping(value = "viewClientOrders",method = RequestMethod.GET)

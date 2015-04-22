@@ -4,58 +4,41 @@ import com.model.Detail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Mantixop on 4/21/15.
  */
 public class Evolution {
 
-    private static final int detailTypeCount = 5;
-    private static final int maxPopulationSize = 5;
-    private static final int maxAttempts = 100;
+    private Population population;
 
-    private List<List<Detail>> db;
-    private List<Unit> population = new ArrayList<Unit>();
-
-    private int maxPrise;
-    private float minPower;
-    private float minQuality;
-
-    public Evolution(int prise, float power, float quality, int[] detailCount, List<List<Detail>> db) {
-        this.db = db;
-        minPower = power;
-        maxPrise = prise;
-        minQuality = quality;
+    public Evolution(int prise, float power, float quality, List<List<Detail>> db) {
+        population = new Population(prise, power, quality, db);
     }
 
-    private boolean isAlive(Unit unit){
-        return !(unit.getAveragePower() < minPower || unit.getAverageQuality() < minQuality || unit.getTotalPrise() > maxPrise);
+    public Population getPopulation(){
+        return population;
     }
 
     public boolean createPopulation(){
-        int attempts = 0;
-        while ((attempts < maxAttempts) && (population.size() < maxPopulationSize)){
-            Unit rndUnit = Unit.getRandomUnit(db);
-            if(this.isAlive(rndUnit)) {
-                population.add(rndUnit);
-                System.out.print("ADDED: \n" + rndUnit.toString());
-            } else {
-                attempts++;
-            }
-        }
-        if (population.size() == 0)
-            return false;
-        else
-            return true;
+        return  population.selectThePoplation(100000);
     }
 
-    public Unit getAlpha(){
-        Unit alpha = population.get(0);
-        for (Unit unit : population){
-            if (unit.isBetterThan(alpha)){
-                alpha = unit;
+    public void makeStep(int count){
+        for (int i = 0; i < count; i++) {
+            List<Unit> childrens = population.getAlpha().crossWith(population.getRandomUnitFromPopulation());
+            for (int j = 0; j < 2; j++) {
+                Unit tempChild = childrens.get(j);
+                if ((population.isAlive(tempChild)) && (population.notInPopulation(tempChild)) && (tempChild.isBetterThan(population.getWorst()))) {
+                    population.add(tempChild);
+                    population.remove(population.getWorst());
+                } else {
+
+                }
             }
         }
-        return alpha;
     }
+
+
 }
