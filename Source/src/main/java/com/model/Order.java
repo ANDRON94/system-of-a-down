@@ -6,6 +6,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by root on 17.03.15.
@@ -21,6 +22,7 @@ public class Order implements Comparable<Order> {
     private String propouse;
     private Status status;
     private User user;
+    private List<Contract> contractList;
 
 
     @Id
@@ -129,7 +131,16 @@ public class Order implements Comparable<Order> {
         this.user = user;
     }
 
-    public int compareTo(Order o) {
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "order")
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
+    }
+
+	public int compareTo(Order o) {
         return this.getDeadilne().compareTo(o.getDeadilne());
     }
 }

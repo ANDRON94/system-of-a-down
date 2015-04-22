@@ -53,6 +53,11 @@ public class PlannerSystemController {
         Order order = orderService.getOrderById(orderId);
         return new ModelAndView("viewOrder","order",order);
     }
+    @RequestMapping(value = "planSchedule", method = RequestMethod.GET)
+    public ModelAndView planeScheduleAction(){
+
+        return new ModelAndView();
+    }
 
     @RequestMapping(value = "schedule",method = RequestMethod.GET)
     public ModelAndView scheduleAction(HttpServletRequest request)throws Exception{

@@ -1,4 +1,6 @@
 package com.service;
+import com.model.Order;
+import com.repository.OrderRepository;
 import com.service.evolution.Evolution;
 import com.service.evolution.Unit;
 import com.controller.OrderDTO;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 public class ChoiceService {
 
+    @Autowired
+    private OrderRepository orderRepository;
     @Autowired
     private DetailRepository detailRepository;
 
@@ -44,6 +48,16 @@ public class ChoiceService {
         for (int i = 1; i <= detailTypeCount; i++ ){
             db.add(i - 1, detailRepository.findByDetailTypeId(i));
         }
-        evolution = new Evolution(3000, 3.0f, 3.0f, db);
+        int []A = {1,1,1,1,1};
+        evolution = new Evolution(3000, 3.0f, 3.0f, A, db);        //price , power , qa , array
+    }
+
+
+
+    public List<Order> findOrdersOfClient(String email){
+        return orderRepository.findByUser_Email(email);
+    }
+    public Order findOrderByIdAndEmail(int id,String email){
+        return orderRepository.findOneByIdAndUser_Email(id, email);
     }
 }
