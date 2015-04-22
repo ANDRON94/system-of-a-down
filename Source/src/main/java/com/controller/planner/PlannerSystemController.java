@@ -8,6 +8,7 @@ import com.model.Order;
 import com.repository.ContractRepository;
 import com.repository.WorkerRepository;
 import com.service.OrderService;
+import com.service.algorithms.schedule.ScheduleService;
 import com.util.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -31,6 +32,8 @@ import java.util.Date;
 public class PlannerSystemController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ScheduleService scheduleService;
 
     @Autowired
     private ContractRepository contractRepository;
@@ -73,6 +76,7 @@ public class PlannerSystemController {
         request.setAttribute("planner",s.render());
         return  new ModelAndView("schedule");
     }
+
     @RequestMapping("/09_events")
     @ResponseBody
     public String events_09(HttpServletRequest request)

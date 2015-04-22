@@ -46,10 +46,4 @@ public class ChoiceService {
         }
         evolution = new Evolution(3000, 3.0f, 3.0f, db);
     }
-
-
-
-
-
-
 }

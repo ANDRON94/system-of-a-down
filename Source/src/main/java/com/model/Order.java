@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "order_data")
-public class Order {
+public class Order implements Comparable<Order> {
     private int id;
     private Date deadilne;
     private int price;
@@ -127,5 +127,9 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int compareTo(Order o) {
+        return this.getDeadilne().compareTo(o.getDeadilne());
     }
 }
