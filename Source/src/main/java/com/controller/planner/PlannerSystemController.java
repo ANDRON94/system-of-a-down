@@ -10,17 +10,18 @@ import com.repository.WorkerRepository;
 import com.service.OrderService;
 import com.service.algorithms.schedule.ScheduleService;
 import com.util.PageWrapper;
+import com.util.TodayManipulator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -39,6 +40,12 @@ public class PlannerSystemController {
     private ContractRepository contractRepository;
     @Autowired
     private WorkerRepository workerRepository;
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                dateFormat, false));
+    }
     //view orders page
     @RequestMapping(value = "/viewOrders/{pageNumber}",method = RequestMethod.GET)
     public ModelAndView viewOrdersAction(@PathVariable Integer pageNumber){
@@ -88,6 +95,17 @@ public class PlannerSystemController {
     {
         EventsManager eventsManager = new EventsManager(request);
         return eventsManager.start(contractRepository.findAll(),workerRepository.findAll());
+    }
+
+    @RequestMapping(value = "changeTodayDate",method = RequestMethod.GET)
+    public ModelAndView scheduleAction(){
+
+        return new ModelAndView("changeDate","date",TodayManipulator.readToday());
+    }
+    @RequestMapping(value = "changeTodayDate", method = RequestMethod.POST)
+    public String changeDateAction(@RequestParam("dateToday")Date date ){
+        TodayManipulator.writeToday(date);
+        return "redirect:/planner/viewOrders/1";
     }
 }
 

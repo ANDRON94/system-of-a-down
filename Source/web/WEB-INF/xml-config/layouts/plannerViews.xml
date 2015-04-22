@@ -16,4 +16,8 @@
        <definition name="schedule" extends="PlanerTemplate">
               <put-attribute name="body" value="/WEB-INF/views/planner/schedule.jsp" />
        </definition>
+       <definition name="changeDate" extends="StartTemplate">
+              <put-attribute name="body" value="/WEB-INF/views/planner/changeDate.jsp" />
+       </definition>
+
 </tiles-definitions>
