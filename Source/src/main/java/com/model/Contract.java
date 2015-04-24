@@ -57,7 +57,7 @@ public class Contract {
         this.detail = detail;
     }
 
-    @Column(name = "start")
+    @Column(name = "start_date")
     public Date getStart_date() {
         return start_date;
     }
@@ -66,7 +66,7 @@ public class Contract {
         this.start_date = start_date;
     }
 
-    @Column(name = "end")
+    @Column(name = "end_date")
     public Date getEnd_date() {
         return end_date;
     }

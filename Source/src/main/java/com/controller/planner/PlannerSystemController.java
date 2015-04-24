@@ -13,14 +13,14 @@ import com.util.PageWrapper;
 import com.util.TodayManipulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.support.PagedListHolder;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -103,9 +103,27 @@ public class PlannerSystemController {
         return new ModelAndView("changeDate","date",TodayManipulator.readToday());
     }
     @RequestMapping(value = "changeTodayDate", method = RequestMethod.POST)
-    public String changeDateAction(@RequestParam("dateToday")Date date ){
-        TodayManipulator.writeToday(date);
-        return "redirect:/planner/viewOrders/1";
+    public String changeDateAction(@RequestParam("dateToday")Date date ,ModelMap modelMap){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        System.out.println(date);
+        Date oldDate=null;
+        try {
+           oldDate= dateFormat.parse(TodayManipulator.readToday());
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+        System.out.println(oldDate);
+        if(date.compareTo(oldDate)<=0){
+            modelMap.addAttribute("error","This day ended or current! Please, enter future day!");
+            modelMap.addAttribute("date",TodayManipulator.readToday());
+            return "changeDate";
+        }
+        else{
+            TodayManipulator.writeToday(dateFormat.format(date));
+            orderService.backToTheFuture(date);
+            return "redirect:/planner/viewOrders/1";
+        }
     }
 }
 

@@ -33,14 +33,14 @@ public class ChoiceService {
 
 
 
-    public List<Detail> makeChoice(OrderDTO orderDTO){
+    public Unit makeChoice(OrderDTO orderDTO){
         System.out.println("Choice service begin work!");
-        init();
+        init(orderDTO);
         if(evolution.createPopulation() != false){
             System.out.println("Alpha before evolution\n" + evolution.getPopulation().getAlpha().toString());
             evolution.makeStep(evolutionSteps);
             System.out.println("Alpha after evolution\n" + evolution.getPopulation().getAlpha().toString());
-            return evolution.getPopulation().getAlpha().getDetails();
+            return evolution.getPopulation().getAlpha();
         } else {
             return null;
         }
@@ -49,11 +49,11 @@ public class ChoiceService {
 
 
 
-    private void init(){
+    private void init(OrderDTO orderDTO){
         for (int i = 1; i <= detailTypeCount; i++ ){
             db.add(i - 1, detailRepository.findByDetailTypeId(i));
         }
-        evolution = new Evolution(8000, 4.0f, 4.0f, db);
+        evolution = new Evolution(orderDTO.getPrice(), orderDTO.getPower(), orderDTO.getQuality(), db);
     }
 
 

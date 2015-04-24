@@ -1,11 +1,17 @@
 package com.controller;
 
+import com.model.Computer;
 import com.model.Order;
 import com.controller.OrderDTO;
 
+import com.model.Status;
 import com.model.User;
+import com.repository.OrderRepository;
+import com.repository.StatusRepository;
+import com.repository.UserRepository;
 import com.service.ChoiceService;
 import com.service.RegistrationService;
+import com.service.evolution.Unit;
 import com.util.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -35,7 +41,12 @@ import java.util.Map;
 public class LoginUserSystemController {
     @Autowired
     private ChoiceService choiceService;
-
+    @Autowired
+    private StatusRepository statusRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private OrderRepository orderRepository;
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -73,19 +84,35 @@ public class LoginUserSystemController {
 
 
     @RequestMapping(value = "newOrder",method = RequestMethod.POST)
-    public ModelAndView checkNewOrder(@ModelAttribute OrderDTO orderDTO){
+    public String checkNewOrder(@ModelAttribute OrderDTO orderDTO){
         System.out.println("New order posted!");
         //TODO catch new oder
         System.out.println(orderDTO.getRamCount());
-
-        if (choiceService.makeChoice(orderDTO) == null) {
+        Unit unit=choiceService.makeChoice(orderDTO);
+        if (unit == null) {
             System.out.println("Computer not found!");
-            return new ModelAndView("tryAgain");
+            return "tryAgain";
         }
         else {
+            Order order= new Order();
+            Computer computer = new Computer();
+            computer.setDetailList(unit.getDetails());
+            computer.setQuality(unit.getAverageQuality());
+            computer.setPower(unit.getAveragePower());
+            order.setComputer(computer);
+            order.setContractList(null);
+            order.setDeadilne(orderDTO.getDeadilne());
+            order.setPropouse(null);
+            order.setCountComputers(1);
+            order.setPrice(unit.getTotalPrise());
+            order.setStatus(statusRepository.findOne(1));
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            order.setUser(userRepository.findOneByEmail(auth.getName()));
+            orderRepository.save(order);
             System.out.println("Computer found! Works starts!");
+
             //TODO catch list of details for order
-            return new ModelAndView("viewClientOrders");
+            return "redirect:/user/viewClientOrders";
         }
 
     }

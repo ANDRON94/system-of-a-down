@@ -27,4 +27,12 @@ public interface OrderRepository extends PagingAndSortingRepository<Order,Intege
             " o.status as s inner join" +
             " o.contractList as c where s.name=:pending")
     public List<Order> findAllOrdersForPlane(@Param("pending") String pending);
+    @Query("select distinct o from  Order as o inner join o.contractList as c inner join o.status as s where c.start_date<:timeStep and s.id=2")
+    public List<Order> findAllThatMustProcessing(@Param("timeStep") Date timeStep);
+
+    @Query("select distinct o from  Order as o inner join o.contractList as c inner join o.status as s where o.deadilne<:timeStep and s.id=1")
+    public List<Order> findAllThatMustDecline(@Param("timeStep") Date timeStep);
+
+    @Query("select distinct o from  Order as o inner join o.contractList as c inner join o.status as s where c.end_date=( select max(k.end_date) from Contract k where k.end_date<:timeStep and k.order.id=o.id) and s.id=3")
+    public List<Order> findAllThatMustDone(@Param("timeStep") Date pending);
 }

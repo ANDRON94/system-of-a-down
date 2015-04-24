@@ -34,13 +34,12 @@ public class TodayManipulator {
         }
 
     }
-    public static void writeToday(Date date){
+    public static void writeToday(String date){
         try {
             URL url = PlannerSystemController.class.getResource("/today.txt");
             FileWriter fw = new FileWriter(new File(url.getPath()),false);
             BufferedWriter bw = new BufferedWriter(fw);
-
-            bw.write(String.valueOf(date));
+            bw.write(date);
             bw.close();
             System.out.println();
             System.out.println(readToday());
