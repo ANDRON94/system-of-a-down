@@ -6,8 +6,9 @@
 <head>
   <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
   <link href="<c:url value="/resources/css/bootstrap-responsive.css" />" rel="stylesheet">
-  <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
   <script src="<c:url value="/resources/js/jquery-1.11.2.min.js" />"></script>
+  <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+  <script src="<c:url value="/resources/js/bootstrap-modal.js" />"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Spring MVC - Tiles Integration tutorial</title>
 </head>

@@ -1,15 +1,3 @@
-
-<%--
-  Created by IntelliJ IDEA.
-  User: andron94
-  Date: 18.04.15
-  Time: 21:14
-  To change this template use File | Settings | File Templates.
---%>
-
-<%--TODO: add 'viewButton' to all orders--%>
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

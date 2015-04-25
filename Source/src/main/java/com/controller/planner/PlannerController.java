@@ -30,7 +30,7 @@ import java.util.Date;
 
 @Controller
 @RequestMapping(value = "/planner")
-public class PlannerSystemController {
+public class PlannerController {
     @Autowired
     private OrderService orderService;
     @Autowired

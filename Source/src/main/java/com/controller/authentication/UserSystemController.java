@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.authentication;
 
 import com.model.User;
 

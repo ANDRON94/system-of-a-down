@@ -1,34 +1,23 @@
-package com.controller;
+package com.controller.user;
 
+import com.controller.user.DTO.OrderDTO;
 import com.model.Computer;
 import com.model.Order;
-import com.controller.OrderDTO;
 
-import com.model.Status;
-import com.model.User;
 import com.repository.OrderRepository;
 import com.repository.StatusRepository;
 import com.repository.UserRepository;
 import com.service.ChoiceService;
-import com.service.RegistrationService;
 import com.service.evolution.Unit;
-import com.util.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,7 +27,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/user/") //mapping of pages
-public class LoginUserSystemController {
+public class UserController {
     @Autowired
     private ChoiceService choiceService;
     @Autowired

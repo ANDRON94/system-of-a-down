@@ -1,10 +1,9 @@
 package com.util;
 
-import com.controller.planner.PlannerSystemController;
+import com.controller.planner.PlannerController;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Date;
 
 /**
  * Created by root on 22.04.15.
@@ -15,7 +14,7 @@ public class TodayManipulator {
         try {
 
             String sCurrentLine;
-            URL url = PlannerSystemController.class.getResource("/today.txt");
+            URL url = PlannerController.class.getResource("/today.txt");
             File file = new File(url.getPath());
             br = new BufferedReader(new FileReader(file));
 
@@ -36,7 +35,7 @@ public class TodayManipulator {
     }
     public static void writeToday(String date){
         try {
-            URL url = PlannerSystemController.class.getResource("/today.txt");
+            URL url = PlannerController.class.getResource("/today.txt");
             FileWriter fw = new FileWriter(new File(url.getPath()),false);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(date);

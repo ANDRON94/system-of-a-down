@@ -6,12 +6,33 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css"/>">
 <script type="text/javascript"  src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js"/>"></script>
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 <script type="text/javascript">$(function(){$('#datetimepicker').datetimepicker()});</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#id_price").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+                        // Allow: Ctrl+A
+                    (e.keyCode == 65 && e.ctrlKey === true) ||
+                        // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 <div class="pagination-centered">
     <h1>
         New Order
     </h1>
-    <form:form method="POST" enctype="utf8" action="/user/newOrder" commandName="orderDTO">
+    <form:form id="myForm" method="POST" enctype="utf8" action="/user/newOrder" commandName="orderDTO">
         <div class="span4">
             <label for="price">Price: </label>
             <div class="input-prepend input-append">
@@ -19,11 +40,59 @@
                 <form:input cssClass="input-medium" id="id_price"  path="price"/>
                 <span class="add-on">.00</span>
             </div>
-            <label for="power">Power:</label>
-                <form:select path="power" items="${estimations}"/>
-            <label for="quality">Quality:</label>
-                <form:select path="quality" items="${estimations}"/>
 
+            <label for="power">Power:</label>
+            <div class="input-prepend input-append">
+                <span role="button" onclick="  $('#PowerHelp').modal({
+        keyboard: false
+
+    })" class="add-on">  <i class="icon-book"></i></span>
+                <form:select path="power" items="${estimations}"/>
+            </div>
+
+
+
+            <div class="modal hide fade" id="PowerHelp">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Power estimates</h3>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-list">
+                        <li><p><strong>1</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>2</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>3</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>4</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>5</strong> - DESCRIPTION</p></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <label for="quality">Quality:</label>
+            <div class="input-prepend input-append">
+                <span role="button" onclick="  $('#QualityHelp').modal({
+                    keyboard: false
+                        })" class="add-on">  <i class="icon-book"></i></span>
+                <form:select path="quality" items="${estimations}"/>
+            </div>
+
+
+            <div class="modal hide fade" id="QualityHelp">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Quality estimates</h3>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-list">
+                        <li><p><strong>1</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>2</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>3</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>4</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>5</strong> - DESCRIPTION</p></li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="span4">
             <label for="cpuCount">CPU: </label>
@@ -53,6 +122,20 @@
             </div>
         </div>
     </form:form>
-
+    <script>
+        // just for the demos, avoids form submit
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        $( "#myForm" ).validate({
+            rules: {
+                field: {
+                    required: true,
+                    date: true
+                }
+            }
+        });
+    </script>
 </div>
 
