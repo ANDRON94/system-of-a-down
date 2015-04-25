@@ -75,6 +75,16 @@
             <td>${order.getUser().getFirstName()} ${order.getUser().getLastName()}</td>
             <td>${orderStatus}</td>
               <td><a href="${url}" class="${btnStyle}">${btnName}</a></td>
+              <td>
+                <c:if test="${order.getStatus().getName()!='IN_PROSESS'
+                              && order.getStatus().getName()!='IN_QUEUE'
+                              && order.getStatus().getName()!='DONE'
+                }">
+                  <a href="viewOrder/${order.getId()}" class="btn btn-success">View order</a>
+                </c:if>
+
+
+              </td>
           </tr>
         </c:forEach>
       </table>
@@ -83,7 +93,6 @@
         <ul>
           <c:forEach var="pageItem" items="${page.getItems()}">
             <c:url var="pageUrl" value="./${pageItem.getNumber()}" />
-
             <c:choose>
                 <c:when test="${pageItem.isCurrent()==true}">
                   <li class="active">
