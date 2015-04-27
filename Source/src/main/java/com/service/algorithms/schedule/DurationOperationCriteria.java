@@ -23,7 +23,7 @@ public class DurationOperationCriteria implements FindOperationCriteria {
         } else{
             //TODO: get list from contracts
         }
-        Collections.sort(operations,Collections.reverseOrder());
+        Collections.sort(operations,new DurationOperationComparator().reversed());
         for( Detail operation : operations ){
             System.out.println("Detail: "+operation.getId() );
             System.out.println("Detail name : "+operation.getName());

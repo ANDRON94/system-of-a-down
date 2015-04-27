@@ -4,11 +4,9 @@ import com.model.Contract;
 import com.model.Detail;
 import com.model.Order;
 import com.model.Worker;
-import com.sun.corba.se.impl.ior.WireObjectKeyTemplate;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by andron94 on 20.04.15.
@@ -16,42 +14,53 @@ import java.util.List;
 public class AmazingScheduling  implements Scheduling{
 
     private Date start;
-    private List<Worker> freeWorkers;
+    private Map<Worker,Date> nextStartDate = new HashMap<Worker,Date>();
 
     public AmazingScheduling( Date start, List<Worker> freeWorkers){
         this.start = start;
-        this.freeWorkers = freeWorkers;
+        for( Worker worker : freeWorkers ){
+            //all workers start to execute operations
+            //from the beginning
+            nextStartDate.put(worker,start);
+        }
     }
-    //FUUUUUUUUUUUUUCK
+
     public List<Contract> makeSchedule(FindWorkCriteria findWorks,
                                        FindOperationCriteria findOperations,
                                        FindWorkerCriteria findWorkers,
                                        FindOptimizeCashCriteria c) {
-        /*List<Contract> temporaryContracts = new ArrayList<Contract>();
-        List<Order> orders = findWorks.find();
-        for( Order order : orders ){
-            List<Detail> details = findOperations.find(order);
-            for( Detail detail : details ){
-                Worker worker = findWorkers.find(temporaryContracts,freeWorkers);
-                //create contract
-                Contract some = new Contract();
-                some.setWorker(worker);
-                some.setDetail(detail);
-                some.setOrder(order);
-
-                temporaryContracts.add(some);
-            }
-        }
-        wjhi
-        //validation*/
+        List<Contract> temporaryContracts = new ArrayList<Contract>();
         while(findWorks.isWorkExist()){
             Order order = findWorks.next();
             List<Detail> operations = findOperations.find(order);
             for( Detail operation : operations ){
+                Worker worker = findWorkers.find(operation);
+                //create contract
+                Contract newContract = new Contract();
+                newContract.setOrder(order);
+                newContract.setDetail(operation);
+                newContract.setWorker(worker);
+                Date interval[] =  findPeriodOfWork(worker, operation);
+                newContract.setStart_date(interval[0]);
+                newContract.setEnd_date(interval[1]);
 
+                temporaryContracts.add(newContract);
             }
         }
-        return null;
+        return temporaryContracts;
+    }
+
+    private Date[] findPeriodOfWork(Worker worker, Detail operation){
+        Date interval[] = new Date[2];
+        interval[0] = nextStartDate.get(worker);
+        interval[1] = new Date( interval[0].getTime() +
+                TimeUnit.MINUTES.toMillis(operation.getDetailType().getProduceTime()));
+        if(false/*check*/){
+            //findPeriodOfWork new start date
+            //findPeriodOfWork new finish date
+        }
+        nextStartDate.put(worker,interval[1]);
+        return interval;
     }
 
 

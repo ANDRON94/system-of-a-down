@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "order_data")
-public class Order implements Comparable<Order> {
+public class Order {
     private int id;
     private Date deadilne;
     private int price;
@@ -138,9 +138,5 @@ public class Order implements Comparable<Order> {
 
     public void setContractList(List<Contract> contractList) {
         this.contractList = contractList;
-    }
-
-	public int compareTo(Order o) {
-        return this.getDeadilne().compareTo(o.getDeadilne());
     }
 }

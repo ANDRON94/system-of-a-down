@@ -14,7 +14,7 @@ public class DeadlineWorkCriteria implements FindWorkCriteria {
     DeadlineWorkCriteria( List<Order> works ){
         this.works = works;
 
-        Collections.sort(this.works);
+        Collections.sort(this.works, new DeadlineWorkComparator());
         for( Order work : works ){
             System.out.println("Order: "+work.getId() );
             System.out.println("Deadline: " + work.getDeadilne());
