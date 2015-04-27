@@ -62,16 +62,14 @@
             <td>${order.getId()}</td>
             <td>${order.getUser().getFirstName()} ${order.getUser().getLastName()}</td>
             <td>${orderStatus}</td>
-              <td><a href="${url}" class="${btnStyle}">${btnName}</a></td>
               <td>
+                <a href="${url}" class="${btnStyle}">${btnName}</a>
                 <c:if test="${order.getStatus().getName()!='IN_PROSESS'
                               && order.getStatus().getName()!='IN_QUEUE'
                               && order.getStatus().getName()!='DONE'
                 }">
-                  <a href="/planner/viewOrder/${order.getId()}" class="btn btn-success">View order</a>
+                  <a href="../viewOrder/${order.getId()}" class="btn btn-success">View order</a>
                 </c:if>
-
-
               </td>
           </tr>
         </c:forEach>

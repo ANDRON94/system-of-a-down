@@ -17,7 +17,7 @@ public class BusyWorkerCriteria implements  FindWorkerCriteria {
 
     private Map<Worker,Integer> busyFactor = new HashMap<Worker, Integer>();
 
-    BusyWorkerCriteria( List<Worker> freeWorkers, List<Contract> startContracts ){
+    public BusyWorkerCriteria( List<Worker> freeWorkers, List<Contract> startContracts ){
         for( Worker worker : freeWorkers ){
             //at start point all workers has zero busy factor
             busyFactor.put(worker,0);

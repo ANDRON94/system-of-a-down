@@ -11,14 +11,10 @@ public class DeadlineWorkCriteria implements FindWorkCriteria {
 
     private List<Order> works = new ArrayList<Order>();
 
-    DeadlineWorkCriteria( List<Order> works ){
+    public DeadlineWorkCriteria( List<Order> works ){
         this.works = works;
 
         Collections.sort(this.works, new DeadlineWorkComparator());
-        for( Order work : works ){
-            System.out.println("Order: "+work.getId() );
-            System.out.println("Deadline: " + work.getDeadilne());
-        }
     }
 
     public boolean isWorkExist() {
