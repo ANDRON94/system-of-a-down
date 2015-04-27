@@ -23,6 +23,7 @@ public class Order {
     private Status status;
     private User user;
     private List<Contract> contractList;
+    private int performance_time;
 
 
     @Id
@@ -36,6 +37,14 @@ public class Order {
         this.id = id;
     }
 
+    @Column(name="performance_time")
+    public int getPerformance_time() {
+        return performance_time;
+    }
+
+    public void setPerformance_time(int performance_time) {
+        this.performance_time = performance_time;
+    }
 
     @Column(name = "count_computers")
     public int getCountComputers() {

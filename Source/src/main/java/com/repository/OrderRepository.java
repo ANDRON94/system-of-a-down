@@ -1,5 +1,6 @@
 package com.repository;
 
+import com.model.Contract;
 import com.model.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,4 +50,9 @@ public interface OrderRepository extends PagingAndSortingRepository<Order,Intege
             "  o.computer as c inner join c.detailList k inner join k.detailType t " +
             " where o.id=:idOrder")
     public long findPerformanceTime(@Param("idOrder") int idOrder);
+
+    @Query("select  o from Order as o inner join" +
+            " o.contractList as c inner join o.status as s inner" +
+            " join c.detail as d where s.name=:procesing and c.start_date > :datePick")
+    public List<Order> findByStartAfterAndOrderStatusName(@Param("procesing")String statusName,@Param("datePick")Date date);
 }
