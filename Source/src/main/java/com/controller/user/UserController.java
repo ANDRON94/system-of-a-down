@@ -9,6 +9,8 @@ import com.repository.StatusRepository;
 import com.repository.UserRepository;
 import com.service.ChoiceService;
 import com.service.evolution.Unit;
+import com.util.DateTimeFormatter;
+import com.util.TodayManipulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
@@ -46,6 +48,7 @@ public class UserController {
     @RequestMapping(value = "newOrder",method = RequestMethod.GET)
     public ModelAndView newOrderAction(){
         OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setDeadilne(DateTimeFormatter.parseStringToDate(TodayManipulator.readToday()));
         Map<Integer,Integer> estimations = new HashMap<Integer, Integer>();
         for (int i = 1; i <= 5; i++) {
             estimations.put(i,i);

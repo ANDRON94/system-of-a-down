@@ -6,8 +6,6 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css"/>">
 <script type="text/javascript"  src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js"/>"></script>
-<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
-<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 <script type="text/javascript">$(function(){$('#datetimepicker').datetimepicker()});</script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -122,20 +120,5 @@
             </div>
         </div>
     </form:form>
-    <script>
-        // just for the demos, avoids form submit
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });
-        $( "#myForm" ).validate({
-            rules: {
-                field: {
-                    required: true,
-                    date: true
-                }
-            }
-        });
-    </script>
 </div>
 
