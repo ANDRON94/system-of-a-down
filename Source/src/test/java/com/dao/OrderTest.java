@@ -66,20 +66,20 @@ public class OrderTest {
             e.printStackTrace();
         }
 
-        List<Contract> contracts=contractRepository.findByStartAfterAndOrderStatusName("IN_PROSESS",date);
+        List<Order> orders=orderRepository.findByStartAfterAndOrderStatusName("IN_PROSESS",date);
         System.out.println("\n\n\n\n Process Order with contects after some date");
-        for(Contract contract : contracts){
-            System.out.println("ID:\t"+contract.getId());
-            System.out.println("Detail_id:\t"+contract.getDetail().getId());
-            System.out.println("Detail_name:\t"+contract.getDetail().getName());
-            System.out.println("START:\t"+contract.getStart_date());
-            System.out.println("ORDER:\t"+contract.getOrder().getId());
-            for(Contract contract1:contract.getOrder().getContractList()){
-                System.out.println(contract1.getId());
+        for(Order order : orders){
+            System.out.println("OrderID:\t" +order.getId());
+            for(Contract contract : order.getContractList()){
+                System.out.println("ID:\t"+contract.getId());
+                System.out.println("Detail_id:\t"+contract.getDetail().getId());
+                System.out.println("Detail_name:\t"+contract.getDetail().getName());
+                System.out.println("START:\t"+contract.getStart_date());
+                System.out.println();
+                System.out.println();
             }
-            System.out.println();
-            System.out.println();
         }
+
     }
 
     @Test
