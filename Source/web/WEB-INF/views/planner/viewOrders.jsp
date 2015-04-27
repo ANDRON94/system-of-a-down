@@ -1,15 +1,3 @@
-
-<%--
-  Created by IntelliJ IDEA.
-  User: andron94
-  Date: 18.04.15
-  Time: 21:14
-  To change this template use File | Settings | File Templates.
---%>
-
-<%--TODO: add 'viewButton' to all orders--%>
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -75,6 +63,16 @@
             <td>${order.getUser().getFirstName()} ${order.getUser().getLastName()}</td>
             <td>${orderStatus}</td>
               <td><a href="${url}" class="${btnStyle}">${btnName}</a></td>
+              <td>
+                <c:if test="${order.getStatus().getName()!='IN_PROSESS'
+                              && order.getStatus().getName()!='IN_QUEUE'
+                              && order.getStatus().getName()!='DONE'
+                }">
+                  <a href="/planner/viewOrder/${order.getId()}" class="btn btn-success">View order</a>
+                </c:if>
+
+
+              </td>
           </tr>
         </c:forEach>
       </table>
@@ -83,7 +81,6 @@
         <ul>
           <c:forEach var="pageItem" items="${page.getItems()}">
             <c:url var="pageUrl" value="./${pageItem.getNumber()}" />
-
             <c:choose>
                 <c:when test="${pageItem.isCurrent()==true}">
                   <li class="active">

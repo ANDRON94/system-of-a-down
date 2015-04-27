@@ -39,22 +39,9 @@ public class OrderTest {
     }
     @Test
     public void  testPedingOrders(){
-
-
+        System.out.println("\n\n\n\n\n Padding Test");
       List<Order> ordersList=orderRepository.findAllOrdersForPlane("IN_QUEUE");
-       /*   for (Order order:ordersList){
-            System.out.println("ID:\t"+order.getId());
-            System.out.println("StATUS:\t"+order.getStatus().getName());
-            System.out.println("CONTRACTS:");
-            for (Contract contract:order.getContractList()) {
-                System.out.println("contract_ID:\t" + contract.getId());
-                System.out.println("detail_Name:\t"+contract.getDetail().getName());
-            }
-            System.out.println();
-        }*/
-
-       /* List<Order> orderList= orderRepository.findAll();
-        for(Order order : orderList){
+        for(Order order : ordersList){
             System.out.println(order.getDeadilne());
             Computer computer = order.getComputer();
             System.out.println(order.getUser().getEmail());
@@ -69,7 +56,7 @@ public class OrderTest {
             System.out.println();
             System.out.println();
             System.out.println();
-        }*/
+        }
     }
     @Test
     public void  testProcisedOrders(){
@@ -80,6 +67,7 @@ public class OrderTest {
         }
 
         List<Contract> contracts=contractRepository.findByStartAfterAndOrderStatusName("IN_PROSESS",date);
+        System.out.println("\n\n\n\n Process Order with contects after some date");
         for(Contract contract : contracts){
             System.out.println("ID:\t"+contract.getId());
             System.out.println("Detail_id:\t"+contract.getDetail().getId());
@@ -92,7 +80,12 @@ public class OrderTest {
             System.out.println();
             System.out.println();
         }
+    }
 
+    @Test
+    public void testOrderPerformTimeResearch(){
+        System.out.println("\n\n\n\n Order Perform Time Research:");
+        System.out.println("TIME:\t"+orderRepository.findPerformanceTime(1));
     }
 
 }

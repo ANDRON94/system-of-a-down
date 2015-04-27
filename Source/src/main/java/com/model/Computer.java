@@ -13,11 +13,10 @@ import java.util.List;
 @Table(name="computer")
 public class Computer {
     private int id;
-    private int price;
-    private int quality;
-    private int power;
+    private float price;
+    private float quality;
+    private float power;
     private List<Detail> detailList;
-
 
     @ManyToMany(cascade ={ CascadeType.PERSIST, CascadeType.MERGE})
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -46,31 +45,34 @@ public class Computer {
 
     @Basic
     @Column(name = "price")
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
+
     @Column(name = "quality")
-    public int getQuality() {
+    public float getQuality() {
         return quality;
     }
 
-    public void setQuality(int quality) {
+    public void setQuality(float quality) {
         this.quality = quality;
     }
 
+
     @Column(name = "power")
-    public int getPower() {
+    public float getPower() {
         return power;
     }
 
-    public void setPower(int power) {
+    public void setPower(float power) {
         this.power = power;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -79,16 +81,7 @@ public class Computer {
 
         Computer computer = (Computer) o;
 
-        if (id != computer.id) return false;
-        if (price != computer.price) return false;
-
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + price;
-        return result;
-    }
 }

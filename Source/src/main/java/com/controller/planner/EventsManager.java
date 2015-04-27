@@ -31,9 +31,7 @@ public class EventsManager extends DHXEventsManager {
 
     @Override
     public Iterable<DHXEv> getEvents() {
-
         ArrayList <DHXEv> events = new ArrayList<DHXEv>();
-
         for(Contract contract :  contracts){
             EventUnits ev1 = new EventUnits();
             ev1.setId(contract.getId());

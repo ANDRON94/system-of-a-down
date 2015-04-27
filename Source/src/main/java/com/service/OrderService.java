@@ -2,6 +2,7 @@ package com.service;
 
 import com.model.Order;
 import com.repository.OrderRepository;
+import com.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by root on 18.04.15.
@@ -19,6 +22,8 @@ import javax.transaction.Transactional;
 public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private StatusRepository statusRepository;
     private final int ORDERS_PER_PAGE = 10;
 
     @Transactional
@@ -33,5 +38,34 @@ public class OrderService {
     public Order getOrderById( Integer orderId ){
         Order order = orderRepository.findOne(orderId);
         return order;
+    }
+    public void backToTheFuture(Date date){
+        List<Order> ordersForDecline=orderRepository.findAllThatMustDecline(date);
+        List<Order> ordersForDone=orderRepository.findAllThatMustDone(date);
+        List<Order> ordersForProcessing= orderRepository.findAllThatMustProcessing(date);
+
+        System.out.println("Orders for processing on date "+date);
+        for(Order order:ordersForProcessing){
+            System.out.println("Order:\t" + order.getId());
+            order.setStatus(statusRepository.findOne(3));
+            orderRepository.save(order);
+        }
+
+
+        System.out.println("Orders for decline on date "+date);
+        for(Order order:ordersForDecline){
+            System.out.println("Order:\t"+order.getId());
+            order.setStatus(statusRepository.findOne(5));
+            orderRepository.save(order);
+        }
+
+
+
+        System.out.println("Orders for done on date "+date);
+        for(Order order:ordersForDone){
+            order.setStatus(statusRepository.findOne(4));
+            System.out.println("Order:\t"+order.getId());
+            orderRepository.save(order);
+        }
     }
 }
