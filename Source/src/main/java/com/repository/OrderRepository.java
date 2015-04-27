@@ -20,19 +20,33 @@ public interface OrderRepository extends PagingAndSortingRepository<Order,Intege
     public Order findOneByIdAndUser_Email(int orderId,String email);
     public List<Order> findByStatus_Name(String statusName);
 
-    /*@Query("select distinct o from Order as o inner join" +
-            " o.status as s inner join" +
-            " o.contractList as c where s.name=:pending or (s.name=:processing and c.start_date > :datepick) ")*/
     @Query("select distinct o from Order as o inner join" +
             " o.status as s inner join" +
             " o.contractList as c where s.name=:pending")
     public List<Order> findAllOrdersForPlane(@Param("pending") String pending);
-    @Query("select distinct o from  Order as o inner join o.contractList as c inner join o.status as s where c.start_date<:timeStep and s.id=2")
+    @Query("select distinct o from  Order as o inner join" +
+            " o.contractList as c inner join" +
+            " o.status as s " +
+            "where c.start_date<:timeStep and s.id=2")
     public List<Order> findAllThatMustProcessing(@Param("timeStep") Date timeStep);
 
-    @Query("select distinct o from  Order as o inner join o.contractList as c inner join o.status as s where o.deadilne<:timeStep and s.id=1")
+    @Query("select distinct o from  Order as o inner join" +
+            " o.contractList as c inner join" +
+            " o.status as s" +
+            " where o.deadilne<:timeStep and s.id=1")
     public List<Order> findAllThatMustDecline(@Param("timeStep") Date timeStep);
 
-    @Query("select distinct o from  Order as o inner join o.contractList as c inner join o.status as s where c.end_date=( select max(k.end_date) from Contract k where k.end_date<:timeStep and k.order.id=o.id) and s.id=3")
+    @Query("select distinct o from  Order as o inner join" +
+            " o.contractList as c inner join" +
+            " o.status as s" +
+            " where c.end_date=" +
+                "( select max(k.end_date) from Contract k " +
+                 "where k.end_date<:timeStep and k.order.id=o.id)" +
+            " and s.id=3")
     public List<Order> findAllThatMustDone(@Param("timeStep") Date pending);
+
+    @Query("select sum(t.produceTime) from Order as o inner join" +
+            "  o.computer as c inner join c.detailList k inner join k.detailType t " +
+            " where o.id=:idOrder")
+    public long findPerformanceTime(@Param("idOrder") int idOrder);
 }

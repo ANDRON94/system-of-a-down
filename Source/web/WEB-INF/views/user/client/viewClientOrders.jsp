@@ -34,14 +34,7 @@
               <c:set var="rowStyle" value="warning" />
               <c:set var="btnStyle" value="btn btn-success" />
               <c:set var="btnName" value="View order" />
-              <c:set var="url" value="viewOrder/${order.getId()}" />
-            </c:when>
-            <c:when test="${order.getStatus().getName()=='DONE'}">
-              <c:set var="orderStatus" value="Success" />
-              <c:set var="rowStyle" value="success" />
-              <c:set var="btnStyle" value="btn btn-success" />
-              <c:set var="btnName" value="View order" />
-              <c:set var="url" value="viewOrder/${order.getId()}" />
+              <c:set var="url" value="/viewOrder/${order.getId()}" />
             </c:when>
             <c:when test="${order.getStatus().getName()=='SYSTEM_CANCEL'}">
               <c:set var="orderStatus" value="Canceled by client" />
@@ -80,7 +73,7 @@
               && order.getStatus().getName()!='IN_QUEUE'}">
           <a href="${url}" class="${btnStyle}">${btnName}</a>
               </c:if>
-              <a href="viewOrder/${order.getId()}" class="btn btn-success">View order</a>
+              <a href="/user/viewOrder/${order.getId()}" class="btn btn-success">View order</a>
             </td>
           </tr>
         </c:forEach>

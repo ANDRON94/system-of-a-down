@@ -68,7 +68,7 @@
                               && order.getStatus().getName()!='IN_QUEUE'
                               && order.getStatus().getName()!='DONE'
                 }">
-                  <a href="viewOrder/${order.getId()}" class="btn btn-success">View order</a>
+                  <a href="/planner/viewOrder/${order.getId()}" class="btn btn-success">View order</a>
                 </c:if>
 
 
