@@ -12,10 +12,7 @@ import com.util.TodayManipulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by andron94 on 20.04.15.
@@ -35,6 +32,11 @@ public class ScheduleService {
     public List<List<Contract>> schedule( Order newOrder ){
         List<List<Contract>> schedules = new ArrayList<>();
         Date startDate = DateTimeFormatter.parseStringToDate(TodayManipulator.readToday());
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(startDate);
+        calendar.add(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        startDate = calendar.getTime();
         List<Worker> freeWorkers = workerRepository.findAll();
         List<Order> pendingOrders = orderRepository.findAllOrdersForPlane("IN_QUEUE");
         List<Order> processingOrders = orderRepository.findByStartAfterAndOrderStatusName("IN_PROSESS", startDate);

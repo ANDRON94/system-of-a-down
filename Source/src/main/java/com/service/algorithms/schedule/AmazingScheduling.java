@@ -60,8 +60,6 @@ public class AmazingScheduling  implements Scheduling{
             calendar.setTime(interval[0]);
             calendar.add(Calendar.DATE, 1);//go to next day
             calendar.set(Calendar.HOUR_OF_DAY, 10); //start from 10:00:00
-            calendar.set( Calendar.MINUTE, 0 );
-            calendar.set( Calendar.SECOND, 0);
             interval[0] = calendar.getTime();
             interval[1] = new Date( interval[0].getTime() +
                     TimeUnit.MINUTES.toMillis(operation.getDetailType().getProduceTime()));;
