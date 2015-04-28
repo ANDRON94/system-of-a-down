@@ -27,7 +27,7 @@ public class DurationOperationCriteria implements FindOperationCriteria {
                 operations.add(contract.getDetail());
             }
         }
-        Collections.sort(operations,new DurationOperationComparator().reversed());
+        Collections.sort(operations,Collections.reverseOrder(new DurationOperationComparator()));
         return operations;
     }
 }
