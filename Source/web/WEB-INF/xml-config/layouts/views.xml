@@ -14,4 +14,10 @@
         <put-attribute name="body" 		value="" />
         <put-attribute name="footer" 	value="/WEB-INF/views/template/footer.jsp" />
     </definition>
+    <definition name="DefaultTemplateNonHTML" template="/WEB-INF/views/template/defaultTemplateNonHtml.jsp">
+        <put-attribute name="header" 	value="/WEB-INF/views/template/header.jsp" />
+        <put-attribute name="menu" 		value="" />
+        <put-attribute name="body" 		value="" />
+        <put-attribute name="footer" 	value="/WEB-INF/views/template/footer.jsp" />
+    </definition>
 </tiles-definitions>

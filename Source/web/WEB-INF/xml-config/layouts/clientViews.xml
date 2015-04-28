@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!--PAGE TEMPLATES -->
+<tiles-definitions>
+       <!-- Templates for User Control System-->
+       <!--template for  registration-->
+       <definition name="UserTemplate" extends="DefaultTemplate">
+              <put-attribute name="menu" value="/WEB-INF/views/template/roles/user/userMenu.jsp"/>
+       </definition>
+       <definition name="newOrder"  extends="UserTemplate">
+              <put-attribute name="body"	value="/WEB-INF/views/user/client/newOrder.jsp" />
+       </definition>
+       <definition name="viewClientOrders"  extends="UserTemplate">
+              <put-attribute name="body"	value="/WEB-INF/views/user/client/viewClientOrders.jsp" />
+       </definition>
+       <definition name="tryAgain"  extends="UserTemplate">
+              <put-attribute name="body"	value="/WEB-INF/views/user/client/tryAgain.jsp" />
+       </definition>
+       <definition name="viewOrderUser" extends="UserTemplate">
+              <put-attribute name="body" value="/WEB-INF/views/planner/viewOrder.jsp" />
+       </definition>
+
+       <!--template for authorization-->
+</tiles-definitions>

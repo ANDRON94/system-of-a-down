@@ -4,7 +4,23 @@
 <tiles-definitions>
        <!-- Templates for Planner Control System-->
        <!--template for  view orders-->
-       <definition name="viewOrders" extends="DefaultTemplate">
+       <definition name="PlanerTemplate" extends="DefaultTemplate">
+              <put-attribute name="menu" value="/WEB-INF/views/template/roles/planner/plannerMenu.jsp"/>
+       </definition>
+       <definition name="PlanerTemplateNonHtml" extends="DefaultTemplateNonHTML">
+              <put-attribute name="menu" value="/WEB-INF/views/template/roles/planner/plannerMenu.jsp"/>
+       </definition>
+       <definition name="viewOrders" extends="PlanerTemplate">
               <put-attribute name="body" value="/WEB-INF/views/planner/viewOrders.jsp" />
        </definition>
+       <definition name="viewOrder" extends="PlanerTemplate">
+              <put-attribute name="body" value="/WEB-INF/views/planner/viewOrder.jsp" />
+       </definition>
+       <definition name="schedule" extends="PlanerTemplateNonHtml">
+              <put-attribute name="body" value="/WEB-INF/views/planner/schedule.jsp" />
+       </definition>
+       <definition name="changeDate" extends="StartTemplate">
+              <put-attribute name="body" value="/WEB-INF/views/planner/changeDate.jsp" />
+       </definition>
+
 </tiles-definitions>

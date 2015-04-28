@@ -1,24 +1,34 @@
 package com.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by root on 17.03.15.
  */
 @Entity
+@Table(name = "order_data")
 public class Order {
     private int id;
-    private int computerId;
-    private Timestamp deadilne;
+    private Date deadilne;
     private int price;
-    private int userIduser;
+    private Computer computer;
+    private int countComputers;
+    private String propouse;
+    private Status status;
+    private User user;
+    private List<Contract> contractList;
+    private int performance_time;
+
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id",nullable = false,unique = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -27,23 +37,42 @@ public class Order {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "computer_id")
-    public int getComputerId() {
-        return computerId;
+    @Column(name="performance_time")
+    public int getPerformance_time() {
+        return performance_time;
     }
 
-    public void setComputerId(int computerId) {
-        this.computerId = computerId;
+    public void setPerformance_time(int performance_time) {
+        this.performance_time = performance_time;
     }
+
+    @Column(name = "count_computers")
+    public int getCountComputers() {
+        return countComputers;
+    }
+
+    public void setCountComputers(int countComputers) {
+        this.countComputers = countComputers;
+    }
+
+    @Column(name = "propouse")
+    public String getPropouse() {
+        return propouse;
+    }
+
+    public void setPropouse(String propouse) {
+        this.propouse = propouse;
+    }
+
+
 
     @Basic
     @Column(name = "deadilne")
-    public Timestamp getDeadilne() {
+    public Date getDeadilne() {
         return deadilne;
     }
 
-    public void setDeadilne(Timestamp deadilne) {
+    public void setDeadilne(Date deadilne) {
         this.deadilne = deadilne;
     }
 
@@ -57,14 +86,26 @@ public class Order {
         this.price = price;
     }
 
-    @Basic
-    @Column(name = "user_iduser")
-    public int getUserIduser() {
-        return userIduser;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "computer_id",referencedColumnName = "id")
+    public Computer getComputer() {
+        return computer;
     }
 
-    public void setUserIduser(int userIduser) {
-        this.userIduser = userIduser;
+    public void setComputer(Computer computer) {
+        this.computer = computer;
+    }
+
+    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_idstatus",referencedColumnName = "idstatus")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
@@ -74,10 +115,8 @@ public class Order {
 
         Order order = (Order) o;
 
-        if (computerId != order.computerId) return false;
         if (id != order.id) return false;
         if (price != order.price) return false;
-        if (userIduser != order.userIduser) return false;
         if (deadilne != null ? !deadilne.equals(order.deadilne) : order.deadilne != null) return false;
 
         return true;
@@ -86,10 +125,27 @@ public class Order {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + computerId;
         result = 31 * result + (deadilne != null ? deadilne.hashCode() : 0);
         result = 31 * result + price;
-        result = 31 * result + userIduser;
         return result;
+    }
+
+    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_iduser",referencedColumnName = "iduser")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "order")
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
     }
 }

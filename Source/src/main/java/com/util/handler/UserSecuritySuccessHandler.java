@@ -18,11 +18,11 @@ public class UserSecuritySuccessHandler implements AuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_USER")){
-            httpServletResponse.sendRedirect("/user/details");
+            httpServletResponse.sendRedirect("/user/viewClientOrders");
             return;
         }
         if (roles.contains("ROLE_PLANNER")){
-            httpServletResponse.sendRedirect("/planner/viewOrders");
+            httpServletResponse.sendRedirect("/planner/viewOrders/1");
             return;
         }
         if (roles.contains("ROLE_MANAGER")){

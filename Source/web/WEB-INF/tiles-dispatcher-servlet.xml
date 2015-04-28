@@ -24,7 +24,9 @@
        <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <!-- Resolver for Templates (parse and view pages on templates) -->
-       <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
+       <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+           <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+       </bean>
     <!-- Configure Resolver before -->
        <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
            <!-- xml configure-mapping files for apachi tiles -->
@@ -35,6 +37,8 @@
                          <!--record - pages of crud operations-->
                             <value>/WEB-INF/xml-config/layouts/managerViews.xml</value>
                             <value>/WEB-INF/xml-config/layouts/adminModule.xml</value>
+                            <value>/WEB-INF/xml-config/layouts/plannerViews.xml</value>
+                            <value>/WEB-INF/xml-config/layouts/clientViews.xml</value>
                      </list>
               </property>
        </bean>

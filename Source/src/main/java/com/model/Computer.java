@@ -1,20 +1,40 @@
 package com.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by root on 17.03.15.
  */
 @Entity
+@Table(name="computer")
 public class Computer {
     private int id;
-    private int price;
+    private float price;
+    private float quality;
+    private float power;
+    private List<Detail> detailList;
+
+    @ManyToMany(cascade ={ CascadeType.PERSIST, CascadeType.MERGE})
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(
+            name="computer_detail",
+            joinColumns={@JoinColumn(name="computer_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="detail_id", referencedColumnName="id")})
+    public List<Detail> getDetailList() {
+        return detailList;
+    }
+
+    public void setDetailList(List<Detail> detailList) {
+        this.detailList = detailList;
+    }
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id",nullable = false,unique = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -25,13 +45,34 @@ public class Computer {
 
     @Basic
     @Column(name = "price")
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
+
+
+    @Column(name = "quality")
+    public float getQuality() {
+        return quality;
+    }
+
+    public void setQuality(float quality) {
+        this.quality = quality;
+    }
+
+
+    @Column(name = "power")
+    public float getPower() {
+        return power;
+    }
+
+    public void setPower(float power) {
+        this.power = power;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -40,16 +81,7 @@ public class Computer {
 
         Computer computer = (Computer) o;
 
-        if (id != computer.id) return false;
-        if (price != computer.price) return false;
-
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + price;
-        return result;
-    }
 }

@@ -1,7 +1,11 @@
 package com.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,15 +15,19 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
     private int iduser;
+    @NotNull
     private String password;
+    @Email
     private String email;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
     private String key;
     private boolean enabled;
     private UserRole userRole;
     private String keyActivate;
-
+    private List<Order> orders;
 
     @Id
     @Column(name = "iduser",nullable = false,unique = true)
@@ -119,5 +127,14 @@ public class User {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

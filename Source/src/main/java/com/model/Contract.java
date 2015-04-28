@@ -1,69 +1,77 @@
 package com.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by root on 17.03.15.
  */
 @Entity
-@IdClass(ContractPK.class)
+@Table(name = "contract")
 public class Contract {
-    private int workerId;
-    private int orderId;
-    private int computerDetailId;
+    private int id;
+    private Worker worker;
+    private Order order;
+    private Detail detail;
+    private Date start_date;
+    private Date end_date;
+
 
     @Id
-    @Column(name = "worker_id")
-    public int getWorkerId() {
-        return workerId;
+    @Column(name = "id",nullable = false,unique = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    public int getId() {
+        return id;
     }
 
-    public void setWorkerId(int workerId) {
-        this.workerId = workerId;
+    public void setId(int id) {
+        this.id = id;
+    }
+    @ManyToOne(cascade ={ CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @JoinColumn(name = "worker_id",referencedColumnName = "id")
+    public Worker getWorker() {
+        return worker;
+    }
+    public void setWorker(Worker worker) {
+        this.worker = worker;
     }
 
-    @Id
-    @Column(name = "order_id")
-    public int getOrderId() {
-        return orderId;
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id",referencedColumnName = "id")
+    public Order getOrder() {
+        return order;
+    }
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+
+
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @JoinColumn(name = "detail_id",referencedColumnName = "id")
+    public Detail getDetail() {
+        return detail;
     }
 
-    @Id
-    @Column(name = "computer_detail_id")
-    public int getComputerDetailId() {
-        return computerDetailId;
+    public void setDetail(Detail detail) {
+        this.detail = detail;
     }
 
-    public void setComputerDetailId(int computerDetailId) {
-        this.computerDetailId = computerDetailId;
+    @Column(name = "start_date")
+    public Date getStart_date() {
+        return start_date;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Contract contract = (Contract) o;
-
-        if (computerDetailId != contract.computerDetailId) return false;
-        if (orderId != contract.orderId) return false;
-        if (workerId != contract.workerId) return false;
-
-        return true;
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
     }
 
-    @Override
-    public int hashCode() {
-        int result = workerId;
-        result = 31 * result + orderId;
-        result = 31 * result + computerDetailId;
-        return result;
+    @Column(name = "end_date")
+    public Date getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
 }

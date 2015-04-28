@@ -27,7 +27,7 @@ public class Detail {
         this.id = id;
     }
 
-    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @ManyToOne(cascade ={ CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="detail_type_id",referencedColumnName ="id")
     public DetailType getDetailType() {
         return detailType;
@@ -100,5 +100,11 @@ public class Detail {
         result = 31 * result + power;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString(){
+        return  "Name: " + getName() + " Quality:" + getPower()
+                + " Power: " + getPower() + " Prise: " + getPrice();
     }
 }
