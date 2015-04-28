@@ -5,7 +5,9 @@
 <%@ page session="false"%>
 
 <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css"/>">
-<script type="text/javascript"  src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js"/>"></script>
+<script type="text/javascript"
+        src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js"/>">
+</script>
 <script type="text/javascript">$(function(){$('#datetimepicker').datetimepicker()});</script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -24,9 +26,12 @@
                 e.preventDefault();
             }
         });
+
     });
 </script>
-<div class="pagination-centered">
+
+
+<div  class="row-fluid pagination-centered">
     <h1>
         New Order
     </h1>
@@ -35,7 +40,7 @@
             <label for="price">Price: </label>
             <div class="input-prepend input-append">
                 <span class="add-on">$</span>
-                <form:input cssClass="input-medium" id="id_price"  path="price"/>
+                <form:input cssClass="input-medium"  id="id_price"  path="price"/>
                 <span class="add-on">.00</span>
             </div>
 
@@ -121,4 +126,11 @@
         </div>
     </form:form>
 </div>
+<c:if test="${not empty errors}">
+    <div class="alert alert-block alert-error fade in">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <h4 class="alert-heading">${errors}</h4>
+    </div>
+
+</c:if>
 

@@ -45,7 +45,26 @@ public class UserSystemController {
             registered = createUserAccount(user, result);
         }
         if (registered == null) {
-            result.rejectValue("email", "emailExistError","Such email exist");
+            result.rejectValue("firstName","firstNameError","");
+            if(user.getFirstName().contains(" ") || user.getLastName().contains(" ") || user.getPassword().contains(" ")  ){
+                result.rejectValue("firstName","firstNameError","incorrect data");
+            }
+            else if(user.getFirstName().equals("")){
+                result.rejectValue("firstName", "emailExistError","first name required");
+            }
+            else if (user.getPassword().equals("")) {
+                result.rejectValue("password", "emailExistError", "password name required");
+            }
+            else if(user.getLastName().equals((""))){
+                result.rejectValue("lastName", "emailExistError","last name required");
+            }
+            else if(user.getEmail().equals((""))){
+                result.rejectValue("lastName", "emailExistError","email name required");
+            }
+            else {
+                result.rejectValue("email", "emailExistError","Bad email data");
+            }
+
             return new ModelAndView("registration","user",user);
         }
         if(registrationService.sendActivationLetter(registered.getEmail(),registered.getKey())){

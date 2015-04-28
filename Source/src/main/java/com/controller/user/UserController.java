@@ -2,6 +2,7 @@ package com.controller.user;
 
 import com.controller.user.DTO.OrderDTO;
 import com.model.Computer;
+import com.model.Detail;
 import com.model.Order;
 
 import com.repository.OrderRepository;
@@ -16,10 +17,13 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,9 +50,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "newOrder",method = RequestMethod.GET)
-    public ModelAndView newOrderAction(){
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setDeadilne(DateTimeFormatter.parseStringToDate(TodayManipulator.readToday()));
+    public String newOrderAction(ModelMap modelMap){
+       modelMap=initNewOrder(modelMap);
+        //TODO finish and validate new order
+        return "newOrder";
+    }
+
+    private ModelMap initNewOrder(ModelMap modelMap){
+        OrderDTO newOrderDTO = new OrderDTO();
+        newOrderDTO.setDeadilne(DateTimeFormatter.parseStringToDate(TodayManipulator.readToday()));
         Map<Integer,Integer> estimations = new HashMap<Integer, Integer>();
         for (int i = 1; i <= 5; i++) {
             estimations.put(i,i);
@@ -64,19 +74,19 @@ public class UserController {
                 count*=2;
             }
         }
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("newOrder");
-        modelAndView.addObject("estimations",estimations);
-        modelAndView.addObject("countsDetail",countsDetail);
-        modelAndView.addObject("orderDTO", orderDTO);
-
-        //TODO finish and validate new order
-        return modelAndView;
+        modelMap.addAttribute("estimations",estimations);
+        modelMap.addAttribute("countsDetail", countsDetail);
+        modelMap.addAttribute("orderDTO", newOrderDTO);
+        return modelMap;
     }
 
-
     @RequestMapping(value = "newOrder",method = RequestMethod.POST)
-    public String checkNewOrder(@ModelAttribute OrderDTO orderDTO){
+    public String checkNewOrder(@ModelAttribute @Valid OrderDTO orderDTO,BindingResult result,ModelMap modelMap){
+        if(result.hasErrors()){
+            modelMap=initNewOrder(modelMap);
+            modelMap.addAttribute("errors","Not valid data");
+            return "newOrder";
+        }
         System.out.println("New order posted!");
         //TODO catch new oder
         System.out.println(orderDTO.getRamCount());
@@ -89,6 +99,11 @@ public class UserController {
             Order order= new Order();
             Computer computer = new Computer();
             computer.setDetailList(unit.getDetails());
+            int produceTime=0;
+            for(Detail detail:unit.getDetails()){
+                produceTime+=detail.getDetailType().getProduceTime();
+            }
+            order.setPerformance_time(produceTime);
             computer.setQuality(unit.getAverageQuality());
             computer.setPower(unit.getAveragePower());
             order.setComputer(computer);

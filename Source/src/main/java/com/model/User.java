@@ -1,6 +1,9 @@
 package com.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,9 +15,13 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
     private int iduser;
+    @NotNull
     private String password;
+    @Email
     private String email;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
     private String key;
     private boolean enabled;

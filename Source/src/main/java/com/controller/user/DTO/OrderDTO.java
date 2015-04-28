@@ -1,5 +1,11 @@
 package com.controller.user.DTO;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -7,6 +13,7 @@ import java.util.Date;
  * Created by Mantixop on 4/20/15.
  */
 public class OrderDTO {
+    @NotNull @Min(0)
     private int price;
     private int power;
     private int quality;
@@ -16,7 +23,8 @@ public class OrderDTO {
     private int mbCount;
     private int ramCount;
     private int hddCount;
-
+    @DateTimeFormat(pattern="MM/dd/yyyy")
+    @NotNull
     private Date deadilne;
 
 
