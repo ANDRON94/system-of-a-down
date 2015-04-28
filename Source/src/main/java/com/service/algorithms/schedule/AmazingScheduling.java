@@ -69,6 +69,4 @@ public class AmazingScheduling  implements Scheduling{
         nextStartDate.put(worker,interval[1]);
         return interval;
     }
-
-
 }

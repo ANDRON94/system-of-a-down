@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -54,12 +55,29 @@ public class ScheduleService {
         ));
         //second algorithm
         //bla bla bla
-
+        //validate schedules
+        Iterator<List<Contract>> currSchedule = schedules.iterator();
+        while( currSchedule.hasNext() ){
+            if( validateSchedule(currSchedule.next()) ){
+                currSchedule.remove();
+            }
+        }
         return  schedules;
     }
 
-    public Order validateSchedule( List<Contract> schedule ){
-        return  new Order();
+    private boolean validateSchedule( List<Contract> schedule ){
+        Contract lastContract = null;
+        for( Contract contract : schedule ){
+            if( lastContract == null ||
+                lastContract.getStart_date()
+                        .compareTo(contract.getStart_date()) > 0  )
+            {
+                lastContract = contract;
+            }
+        }
+        boolean isValid = lastContract.getEnd_date()
+                .compareTo( lastContract.getOrder().getDeadilne() ) <= 0;
+        return  isValid;
         //TODO: validate schedule
     }
 }
