@@ -61,7 +61,7 @@ public class PlannerController {
         return new ModelAndView("viewOrder","order",order);
     }
     @RequestMapping(value = "planSchedule", method = RequestMethod.GET)
-    public ModelAndView planeScheduleAction(){
+    public ModelAndView planScheduleAction(){
 
         return new ModelAndView();
     }

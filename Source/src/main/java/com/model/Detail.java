@@ -8,7 +8,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "detail")
-public class Detail implements Comparable<Detail> {
+public class Detail {
     private int id;
     private DetailType detailType;
     private int price;
@@ -106,10 +106,5 @@ public class Detail implements Comparable<Detail> {
     public String toString(){
         return  "Name: " + getName() + " Quality:" + getPower()
                 + " Power: " + getPower() + " Prise: " + getPrice();
-    }
-
-    public int compareTo(Detail o) {
-        return Integer.compare( this.getDetailType().getProduceTime(),
-                o.getDetailType().getProduceTime() );
     }
 }

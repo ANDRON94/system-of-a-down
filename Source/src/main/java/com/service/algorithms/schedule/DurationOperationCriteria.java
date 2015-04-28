@@ -1,5 +1,6 @@
 package com.service.algorithms.schedule;
 
+import com.model.Contract;
 import com.model.Detail;
 import com.model.Order;
 
@@ -22,13 +23,11 @@ public class DurationOperationCriteria implements FindOperationCriteria {
             }
         } else{
             //TODO: get list from contracts
+            for( Contract contract : order.getContractList() ){
+                operations.add(contract.getDetail());
+            }
         }
-        Collections.sort(operations,Collections.reverseOrder());
-        for( Detail operation : operations ){
-            System.out.println("Detail: "+operation.getId() );
-            System.out.println("Detail name : "+operation.getName());
-            System.out.println("Prdoduce time: " + operation.getDetailType().getProduceTime());
-        }
+        Collections.sort(operations,new DurationOperationComparator().reversed());
         return operations;
     }
 }
