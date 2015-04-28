@@ -11,6 +11,5 @@ import java.util.List;
 public interface Scheduling {
     public List<Contract> makeSchedule( FindWorkCriteria findWorks,
                                         FindOperationCriteria findOperations,
-                                        FindWorkerCriteria findWorkers,
-                                        FindOptimizeCashCriteria c );
+                                        FindWorkerCriteria findWorkers );
 }

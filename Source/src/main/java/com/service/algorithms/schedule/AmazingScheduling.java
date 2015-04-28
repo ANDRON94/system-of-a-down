@@ -27,8 +27,7 @@ public class AmazingScheduling  implements Scheduling{
 
     public List<Contract> makeSchedule(FindWorkCriteria findWorks,
                                        FindOperationCriteria findOperations,
-                                       FindWorkerCriteria findWorkers,
-                                       FindOptimizeCashCriteria c) {
+                                       FindWorkerCriteria findWorkers) {
         List<Contract> temporaryContracts = new ArrayList<Contract>();
         while(findWorks.isWorkExist()){
             Order order = findWorks.next();
@@ -55,9 +54,17 @@ public class AmazingScheduling  implements Scheduling{
         interval[0] = nextStartDate.get(worker);
         interval[1] = new Date( interval[0].getTime() +
                 TimeUnit.MINUTES.toMillis(operation.getDetailType().getProduceTime()));
-        if(false/*check*/){
-            //findPeriodOfWork new start date
-            //findPeriodOfWork new finish date
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(interval[1]);
+        if( calendar.get(Calendar.HOUR_OF_DAY) > 18 ){
+            calendar.setTime(interval[0]);
+            calendar.add(Calendar.DATE, 1);//go to next day
+            calendar.set(Calendar.HOUR_OF_DAY, 10); //start from 10:00:00
+            calendar.set( Calendar.MINUTE, 0 );
+            calendar.set( Calendar.SECOND, 0);
+            interval[0] = calendar.getTime();
+            interval[1] = new Date( interval[0].getTime() +
+                    TimeUnit.MINUTES.toMillis(operation.getDetailType().getProduceTime()));;
         }
         nextStartDate.put(worker,interval[1]);
         return interval;
