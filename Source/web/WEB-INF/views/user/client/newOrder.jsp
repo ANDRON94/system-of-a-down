@@ -112,7 +112,7 @@
             <label for="hddCount">HDD: </label>
             <form:select path="hddCount" items="${countsDetail}">
             </form:select>
-            <label for="mbCount">Motherbord:</label>
+            <label for="mbCount">Motherboard:</label>
             <form:select path="mbCount" items="${countsDetail}">
             </form:select>
             <label for="id_date">Final date: </label>

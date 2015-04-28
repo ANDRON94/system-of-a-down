@@ -1,8 +1,10 @@
 package com.service;
 
 import com.model.Order;
+import com.model.Worker;
 import com.repository.OrderRepository;
 import com.repository.StatusRepository;
+import com.repository.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,8 @@ public class OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private StatusRepository statusRepository;
+    @Autowired
+    private WorkerRepository workerRepository;
     private final int ORDERS_PER_PAGE = 10;
 
     @Transactional
@@ -34,6 +38,9 @@ public class OrderService {
         return orders;
     }
 
+    public List<Worker> getAllWorkers(){
+       return workerRepository.findAll();
+    }
     @Transactional
     public Order getOrderById( Integer orderId ){
         Order order = orderRepository.findOne(orderId);

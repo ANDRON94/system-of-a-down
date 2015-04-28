@@ -87,6 +87,11 @@ public class UserController {
             modelMap.addAttribute("errors","Not valid data");
             return "newOrder";
         }
+        if(orderDTO.getDeadilne().compareTo(DateTimeFormatter.parseStringToDate(TodayManipulator.readToday()))<=0){
+            modelMap=initNewOrder(modelMap);
+            modelMap.addAttribute("errors","This day ended or current! Please, enter future day!");
+            return "newOrder";
+        }
         System.out.println("New order posted!");
         //TODO catch new oder
         System.out.println(orderDTO.getRamCount());

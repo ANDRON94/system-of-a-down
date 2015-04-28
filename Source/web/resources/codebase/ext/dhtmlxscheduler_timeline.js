@@ -177,10 +177,10 @@ scheduler.createTimelineView=function(obj){
 		}
 		//border cases
 		if (xind == 0 && this._ignores[0]) {
-			xind = 1; ratio = 0; 
+			xind = 1; ratio = 0;
 			while (this._ignores[xind]) xind++;
 		} else if ( xind == this._cols.length && this._ignores[xind-1]) {
-			xind = this._cols.length-1; ratio = 0; 
+			xind = this._cols.length-1; ratio = 0;
 			while (this._ignores[xind]) xind--;
 			xind++;
 		}
@@ -224,7 +224,7 @@ scheduler.createTimelineView=function(obj){
 		}
 
 		// as we can simply be calling _locate_cell_timeline
-		if (this._drag_mode == "move" && this._drag_id && this._drag_event) { 
+		if (this._drag_mode == "move" && this._drag_id && this._drag_event) {
 			var ev = this.getEvent(this._drag_id);
 			var drag_event = this._drag_event;
 
@@ -237,8 +237,8 @@ scheduler.createTimelineView=function(obj){
 				}
 			}
 
-			
-			
+
+
 
 			//preserve visible size of event
 			if (this.config.preserve_length && pos._ignores){
@@ -356,14 +356,14 @@ scheduler.render_timeline_event = function(ev, attach){
 	}
 	html += (text+'</div>');
 
-	if (!attach) 
+	if (!attach)
 		return html;
 	else {
 		var d = document.createElement("DIV");
 		d.innerHTML = html;
 		var ind = this.order[section];
 		var parent = scheduler._els["dhx_cal_data"][0].firstChild.rows[ind].cells[1].firstChild;
-		
+
 		scheduler._rendered.push(d.firstChild);
 		parent.appendChild(d.firstChild);
 	}
@@ -372,7 +372,7 @@ function trace_events(){
 	//minimize event set
 	var evs = scheduler.get_visible_events();
 	var matrix =[];
-	for (var i=0; i < this.y_unit.length; i++) 
+	for (var i=0; i < this.y_unit.length; i++)
 		matrix[i]=[];
 
 	//next code defines row for undefined key
@@ -382,7 +382,7 @@ function trace_events(){
 
 	for (var i=0; i < evs.length; i++) {
 		var y = this.order[evs[i][this.y_property]];
-		var x = 0; 
+		var x = 0;
 		while (this._trace_x[x+1] && evs[i].start_date>=this._trace_x[x+1]) x++;
 		while (this._trace_x[x] && evs[i].end_date>this._trace_x[x]) {
 			if (!matrix[y][x]) matrix[y][x]=[];
@@ -553,7 +553,7 @@ function get_events_html(evs) {
 	}
 	return html;
 }
-	
+
 
 function y_scale(d) {
 	var html = "<table style='table-layout:fixed;' cellspacing='0' cellpadding='0'>";
@@ -589,7 +589,7 @@ function y_scale(d) {
 		}
 	}
 
-	var summ = 0; 
+	var summ = 0;
 	for (var i=0; i < scheduler._cols.length; i++)
 		summ+=scheduler._cols[i];
 
@@ -599,7 +599,7 @@ function y_scale(d) {
 	this._step = step;
 	this._summ = summ;
 
-	var heights = scheduler._colsS.heights=[]; 
+	var heights = scheduler._colsS.heights=[];
 
 	this._events_height = {};
 	this._section_height = {};
@@ -711,7 +711,7 @@ function x_scale(h){
 	var size = this.x_size + (preserve ? scheduler._ignores_detected : 0);
 	if (size != this.x_size)
 		scheduler._max_date = scheduler.date.add(scheduler._min_date, size*this.x_step, this.x_unit);
-	
+
 	var realcount = size - scheduler._ignores_detected;
 	for (var k=0; k<size; k++){
 		// dates calculation
@@ -777,7 +777,7 @@ function x_scale(h){
 		start = this._trace_x[i];
 		scheduler._render_x_header(i, left[i], start, h);
 		var cs = scheduler.templates[this.name+"_scalex_class"](start);
-		if (cs)	
+		if (cs)
 			h.lastChild.className += " "+cs;
 	}
 	scheduler.xy.scale_height = current_sh; // restoring current value
@@ -832,19 +832,19 @@ function set_full_view(mode){
 }
 
 
-function hideToolTip(){ 
+function hideToolTip(){
 	if (scheduler._tooltip){
 		scheduler._tooltip.style.display = "none";
 		scheduler._tooltip.date = "";
 	}
 }
-function showToolTip(obj,pos,offset){ 
+function showToolTip(obj,pos,offset){
 	if (obj.render != "cell") return;
-	var mark = pos.x+"_"+pos.y;		
+	var mark = pos.x+"_"+pos.y;
 	var evs = obj._matrix[pos.y][pos.x];
-	
+
 	if (!evs) return hideToolTip();
-	
+
 	evs.sort(function(a,b){ return a.start_date>b.start_date?1:-1; });
 
 	if (scheduler._tooltip){
@@ -856,7 +856,7 @@ function showToolTip(obj,pos,offset){
 		document.body.appendChild(t);
 		t.onclick = scheduler._click.dhx_cal_data;
 	}
-	
+
 	var html = "";
 
 	for (var i=0; i<evs.length; i++){
@@ -868,7 +868,7 @@ function showToolTip(obj,pos,offset){
 		html+=scheduler.templates[obj.name+"_tooltip"](evs[i].start_date, evs[i].end_date,evs[i])+"</div>";
 	}
 
-	scheduler._tooltip.style.display="";   
+	scheduler._tooltip.style.display="";
 	scheduler._tooltip.style.top = "0px";
 
 	if (document.body.offsetWidth-offset.left-scheduler._tooltip.offsetWidth < 0)
@@ -927,7 +927,7 @@ scheduler._renderMatrix = function(mode, refresh) {
 
 function html_index(el) {
 	var p = el.parentNode.childNodes;
-	for (var i=0; i < p.length; i++) 
+	for (var i=0; i < p.length; i++)
 		if (p[i] == el) return i;
 	return -1;
 }
@@ -1018,7 +1018,7 @@ scheduler._isRender = function(mode){
 
 scheduler.attachEvent("onCellDblClick", function (x, y, a, b, event){
 	if (this.config.readonly|| (event.type == "dblclick" && !this.config.dblclick_create)) return;
-	
+
 	var obj = scheduler.matrix[scheduler._mode];
 	var event_options = {};
 	event_options.start_date = obj._trace_x[x];
@@ -1031,7 +1031,7 @@ scheduler.attachEvent("onCellDblClick", function (x, y, a, b, event){
 
 	event_options[obj.y_property] = obj.y_unit[y].key;
 	scheduler.addEventNow(event_options, null, event);
-});	
+});
 
 scheduler.attachEvent("onBeforeDrag", function (event_id, mode, native_event_object){
 	return !scheduler._isRender("cell");
