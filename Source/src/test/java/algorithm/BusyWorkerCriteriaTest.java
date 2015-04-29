@@ -35,13 +35,13 @@ public class BusyWorkerCriteriaTest {
     public void testBusyWorkerCriteria(){
         Date date = null;
         try {
-            date= new SimpleDateFormat("yyyy-mm-dd").parse("2012-05-9 14:00:00");
+            date= new SimpleDateFormat("yyyy-mm-dd").parse("2015-04-23 00:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
         List<Worker> workers = workerRepository.findAll();
         BusyWorkerCriteria busyWorkerCriteria = new BusyWorkerCriteria(workers,null);
-        Order order = orderRepository.findByStartAfterAndOrderStatusName("NEW_ORDER", date).get(0);
+        Order order = orderRepository.findByStatus_Name("NEW_ORDER").get(0);
         DurationOperationCriteria durationOperationCriteria = new DurationOperationCriteria();
         List<Detail> details = durationOperationCriteria.find(order);
         for (Detail detail : details) {

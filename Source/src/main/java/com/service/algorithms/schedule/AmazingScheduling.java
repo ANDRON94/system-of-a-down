@@ -46,8 +46,8 @@ public class AmazingScheduling  implements Scheduling{
                 Date interval[] =  findPeriodOfWork(worker, operation);
                 newContract.setStart_date(interval[0]);
                 newContract.setEnd_date(interval[1]);
-                System.out.println("START_DATE:\t"+interval[0]);
-                System.out.println("END_DATE:\t"+interval[1]);
+                System.out.println("START_DATE:\t" + interval[0]);
+                System.out.println("END_DATE:\t" + interval[1]);
                 temporaryContracts.add(newContract);
             }
         }
@@ -61,10 +61,12 @@ public class AmazingScheduling  implements Scheduling{
                 TimeUnit.MINUTES.toMillis(operation.getDetailType().getProduceTime()));
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(interval[1]);
-        if( calendar.get(Calendar.HOUR_OF_DAY) > 18 ){
+        if( calendar.get(Calendar.HOUR_OF_DAY) > 17 ){
             calendar.setTime(interval[0]);
             calendar.add(Calendar.DATE, 1);//go to next day
             calendar.set(Calendar.HOUR_OF_DAY, 10); //start from 10:00:00
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND,0);
             interval[0] = calendar.getTime();
             interval[1] = new Date( interval[0].getTime() +
                     TimeUnit.MINUTES.toMillis(operation.getDetailType().getProduceTime()));;
