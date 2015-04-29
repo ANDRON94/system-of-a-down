@@ -6,6 +6,8 @@ import com.dhtmlx.planner.DHXSkin;
 import com.dhtmlx.planner.controls.DHXMiniCalendar;
 import com.dhtmlx.planner.controls.DHXTimelineUnit;
 import com.dhtmlx.planner.controls.DHXTimelineView;
+import com.util.DateTimeFormatter;
+import com.util.TodayManipulator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -21,7 +23,7 @@ public class Schedule {
     public Schedule(List<Contract> contracts, List<Worker> workers,HttpServletRequest request) {
         s = new DHXPlanner("/resources/codebase/", DHXSkin.CLASSIC);
         s.setWidth(900);
-        s.setInitialDate(new Date());
+        s.setInitialDate(DateTimeFormatter.parseStringToDate(TodayManipulator.readToday()));
         s.views.clear();
         eventsManager = new EventsManager(request);
         eventsManager.initContracts(contracts);
@@ -33,9 +35,9 @@ public class Schedule {
             DHXTimelineUnit unit= new DHXTimelineUnit(worker.getId()+"", worker.getSename());
             view.addOption(unit);
         }
-        view.setXStep(1);
+        view.setXStep(10);
         view.setXSize(16);
-        view.setXStart(500);
+        view.setXStart(60);
         view.setXLength(0);
         view.setServerList("topic");
         s.views.add(view);

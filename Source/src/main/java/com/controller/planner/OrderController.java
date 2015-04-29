@@ -48,7 +48,9 @@ public class OrderController {
                 scheduleList.add(newSchedule);
             }
             scheduleService.deleteContractsAfterStartDate(startDate);
+            System.out.println("Delete old contracts");
             scheduleService.saveListOfContracts(scheduleContractVariants.get(0));
+            System.out.println("Save new contracts");
             modelMap.addAttribute("scheduleVariants",scheduleList);
             return "scheduleVariants";
         }

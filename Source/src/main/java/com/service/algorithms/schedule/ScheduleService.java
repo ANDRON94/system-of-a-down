@@ -68,7 +68,7 @@ public class ScheduleService {
             System.out.println("START_DATE:\t"+contract.getStart_date());
             if( lastContract == null ||
                 lastContract.getStart_date()
-                        .compareTo(contract.getStart_date()) > 0  )
+                        .compareTo(contract.getStart_date()) <= 0  )
             {
                 lastContract = contract;
 

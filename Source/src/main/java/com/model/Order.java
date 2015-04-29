@@ -140,7 +140,7 @@ public class Order {
         this.user = user;
     }
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "order")
+    @OneToMany(cascade ={ CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy = "order")
     public List<Contract> getContractList() {
         return contractList;
     }

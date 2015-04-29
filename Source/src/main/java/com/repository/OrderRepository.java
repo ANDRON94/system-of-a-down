@@ -40,9 +40,9 @@ public interface OrderRepository extends PagingAndSortingRepository<Order,Intege
     @Query("select distinct o from  Order as o inner join" +
             " o.contractList as c inner join" +
             " o.status as s" +
-            " where c.end_date=" +
+            " where :timeStep >=" +
                 "( select max(k.end_date) from Contract k " +
-                 "where k.end_date<:timeStep and k.order.id=o.id)" +
+                 "where k.order.id=o.id)" +
             " and s.id=3")
     public List<Order> findAllThatMustDone(@Param("timeStep") Date pending);
 

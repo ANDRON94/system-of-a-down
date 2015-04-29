@@ -21,7 +21,7 @@ public interface ContractRepository extends JpaRepository<Contract,Integer> {
 
     @Modifying
     @Transactional
-    @Query("delete from Contract where start_date <= :time")
+    @Query("delete from Contract c where c.start_date >= :time")
     public void deleteContractsAfterDateAnd(@Param("time")Date name);
 
 }
