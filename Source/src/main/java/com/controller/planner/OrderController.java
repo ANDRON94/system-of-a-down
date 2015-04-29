@@ -35,7 +35,7 @@ public class OrderController {
         Date startDate = initStartDate();
         List<List<Contract>> scheduleContractVariants = scheduleService.schedule(newOrder,startDate);
         if(scheduleContractVariants.isEmpty()){
-            newOrder.setStatus(orderService.findStatusByName("PRE_CANCEL"));
+            newOrder.setStatus(orderService.findStatusByName("SYSTEM_CANCEL"));
             orderService.saveOrder(newOrder);
             return "redirect:/planner/viewOrders/1";
         }

@@ -48,20 +48,13 @@
               <c:set var="rowStyle" value="error" />
               <c:set var="btnStyle" value="btn btn-danger disabled" />
               <c:set var="btnName" value="Propose was send" />
-              <c:set var="url" value="error" />
+              <c:set var="url" value="" />
             </c:when>
             <c:when test="${order.getStatus().getName()=='USER_CANCEL'}">
               <c:set var="orderStatus" value="Canceled by client" />
               <c:set var="rowStyle" value="error" />
               <c:set var="btnStyle" value="btn disabled" />
               <c:set var="btnName" value="Canceled" />
-              <c:set var="url" value="error" />
-            </c:when>
-            <c:when test="${order.getStatus().getName()=='PRE_CANCEL'}">
-              <c:set var="orderStatus" value="Canceled by system" />
-              <c:set var="rowStyle" value="error" />
-              <c:set var="btnStyle" value="btn btn-danger" />
-              <c:set var="btnName" value="Send propose" />
               <c:set var="url" value="error" />
             </c:when>
           </c:choose>
