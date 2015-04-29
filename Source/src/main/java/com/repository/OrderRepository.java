@@ -32,9 +32,8 @@ public interface OrderRepository extends PagingAndSortingRepository<Order,Intege
     public List<Order> findAllThatMustProcessing(@Param("timeStep") Date timeStep);
 
     @Query("select distinct o from  Order as o inner join" +
-            " o.contractList as c inner join" +
             " o.status as s" +
-            " where o.deadilne<:timeStep and s.id=1")
+            " where o.deadilne<= :timeStep and s.name='NEW_ORDER'")
     public List<Order> findAllThatMustDecline(@Param("timeStep") Date timeStep);
 
     @Query("select distinct o from  Order as o inner join" +

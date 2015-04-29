@@ -32,7 +32,7 @@ public class OrderTest {
     @Before
     public void initDate(){
         try {
-            date= new SimpleDateFormat("yyyy-mm-dd").parse("2012-05-20 14:00:00");
+            date= new SimpleDateFormat("yyyy-MM-dd").parse("2015-05-20");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -102,6 +102,15 @@ public class OrderTest {
 
     }
 
+    @Test
+    public void testMustDeclineOrders(){
+        System.out.println("Order Must Decline test");
+        for(Order order:orderRepository.findAllThatMustDecline(date)){
+            System.out.println("ORDER_ID:\t"+order.getId());
+            System.out.println("PARAM_DATE:\t"+date);
+        }
+
+    }
     @Test
     public void testOrderPerformTimeResearch(){
  //       System.out.println("\n\n\n\n Order Perform Time Research:");
