@@ -118,7 +118,7 @@
             <label for="id_date">Final date: </label>
             <div id="datetimepicker" class="input-append date">
 
-                <form:input path="deadilne"  id="id_date"/>
+                <form:input path="deadilne" disabled="true" id="id_date"/>
                                 <span class="add-on">
                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                 </span>
