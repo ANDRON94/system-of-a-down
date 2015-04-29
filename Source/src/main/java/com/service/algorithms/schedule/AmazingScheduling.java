@@ -25,9 +25,16 @@ public class AmazingScheduling  implements Scheduling{
         }
     }
 
+    private void initScheduler(){
+        for(Map.Entry<Worker,Date> workerDateEntry : nextStartDate.entrySet() ){
+            workerDateEntry.setValue(start);
+        }
+    }
+
     public List<Contract> makeSchedule(FindWorkCriteria findWorks,
                                        FindOperationCriteria findOperations,
                                        FindWorkerCriteria findWorkers) {
+        initScheduler();
         List<Contract> temporaryContracts = new ArrayList<Contract>();
         while(findWorks.isWorkExist()){
             Order order = findWorks.next();
