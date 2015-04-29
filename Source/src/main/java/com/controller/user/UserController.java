@@ -103,20 +103,24 @@ public class UserController {
         else {
             Order order= new Order();
             Computer computer = new Computer();
-            computer.setDetailList(unit.getDetails());
+
             int produceTime=0;
             for(Detail detail:unit.getDetails()){
                 produceTime+=detail.getDetailType().getProduceTime();
             }
+            computer.setDetailList(unit.getDetails());
+            order.setPerformance_time(produceTime);
             order.setPerformance_time(produceTime);
             computer.setQuality(unit.getAverageQuality());
             computer.setPower(unit.getAveragePower());
+            computer.setPrice(unit.getTotalPrise());
             order.setComputer(computer);
             order.setContractList(null);
             order.setDeadilne(orderDTO.getDeadilne());
             order.setPropouse(null);
             order.setCountComputers(1);
-            order.setPrice(unit.getTotalPrise());
+            order.setPrice(unit.getTotalPrise()*orderDTO.getCount());
+            order.setCountComputers(orderDTO.getCount());
             order.setStatus(statusRepository.findOne(1));
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             order.setUser(userRepository.findOneByEmail(auth.getName()));

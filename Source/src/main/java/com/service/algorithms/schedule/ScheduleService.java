@@ -29,14 +29,8 @@ public class ScheduleService {
     @Autowired
     private DetailRepository detailRepository;
 
-    public List<List<Contract>> schedule( Order newOrder ){
+    public List<List<Contract>> schedule( Order newOrder ,Date startDate){
         List<List<Contract>> schedules = new ArrayList<>();
-        Date startDate = DateTimeFormatter.parseStringToDate(TodayManipulator.readToday());
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(startDate);
-        calendar.add(Calendar.DATE, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        startDate = calendar.getTime();
         List<Worker> freeWorkers = workerRepository.findAll();
         List<Order> pendingOrders = orderRepository.findAllOrdersForPlane("IN_QUEUE");
         List<Order> processingOrders = orderRepository.findByStartAfterAndOrderStatusName("IN_PROSESS", startDate);
@@ -87,5 +81,14 @@ public class ScheduleService {
         return lastContract.getEnd_date()
                 .compareTo(lastContract.getOrder().getDeadilne()) <= 0;
         //TODO: validate schedule
+    }
+
+    public void deleteContractsAfterStartDate(Date startDate){
+        contractRepository.deleteContractsAfterDateAnd(startDate);
+    }
+    public void saveListOfContracts(List<Contract> contracts){
+        for(Contract contract : contracts){
+            contractRepository.save(contract);
+        }
     }
 }

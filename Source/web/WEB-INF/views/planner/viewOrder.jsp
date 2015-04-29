@@ -46,8 +46,12 @@
   </div>
   <table class="table table-bordered">
     <tr>
-      <td>Price:</td>
+      <td>All Price:</td>
       <td>${order.getPrice()}$</td>
+    </tr>
+    <tr>
+      <td>Computer price:</td>
+      <td>${order.getComputer().getPrice()}</td>
     </tr>
     <tr>
       <td>Count:</td>

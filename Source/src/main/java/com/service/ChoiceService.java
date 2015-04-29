@@ -52,7 +52,8 @@ public class ChoiceService {
         for (int i = 1; i <= detailTypeCount; i++ ){
             db.add(i - 1, detailRepository.findByDetailTypeId(i));
         }
-        evolution = new Evolution(orderDTO.getPrice(), orderDTO.getPower(), orderDTO.getQuality(), db);
+        int [] a = {orderDTO.getCpuCount(),orderDTO.getGpuCount(),orderDTO.getMbCount(),orderDTO.getRamCount(),orderDTO.getHddCount()};
+        evolution = new Evolution(orderDTO.getPrice(), orderDTO.getPower(), orderDTO.getQuality(), db, a);
     }
 
 

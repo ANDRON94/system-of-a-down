@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.Order;
+import com.model.Status;
 import com.model.Worker;
 import com.repository.OrderRepository;
 import com.repository.StatusRepository;
@@ -41,6 +42,9 @@ public class OrderService {
     public List<Worker> getAllWorkers(){
        return workerRepository.findAll();
     }
+    public Status findStatusByName(String statusName){
+        return statusRepository.findOneByName(statusName);
+    }
     @Transactional
     public Order getOrderById( Integer orderId ){
         Order order = orderRepository.findOne(orderId);
@@ -74,5 +78,8 @@ public class OrderService {
             System.out.println("Order:\t"+order.getId());
             orderRepository.save(order);
         }
+    }
+    public void saveOrder(Order order){
+        orderRepository.save(order);
     }
 }

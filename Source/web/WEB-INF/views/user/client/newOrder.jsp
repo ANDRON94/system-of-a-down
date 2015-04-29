@@ -123,6 +123,8 @@
                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                 </span>
             </div>
+            <label for="mbCount">Count of computers:</label>
+            <form:input cssClass="input-medium"  id="id_count"  path="count"/>
         </div>
     </form:form>
 </div>
