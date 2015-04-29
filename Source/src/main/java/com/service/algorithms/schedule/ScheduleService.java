@@ -90,8 +90,6 @@ public class ScheduleService {
         contractRepository.deleteContractsAfterDateAnd(startDate);
     }
     public void saveListOfContracts(List<Contract> contracts){
-        for(Contract contract : contracts){
-            contractRepository.save(contract);
-        }
+            contractRepository.save(contracts);
     }
 }
