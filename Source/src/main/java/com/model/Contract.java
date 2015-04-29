@@ -27,7 +27,7 @@ public class Contract {
     public void setId(int id) {
         this.id = id;
     }
-    @ManyToOne(cascade ={ CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @ManyToOne(cascade ={ CascadeType.PERSIST},fetch = FetchType.EAGER)
     @JoinColumn(name = "worker_id",referencedColumnName = "id")
     public Worker getWorker() {
         return worker;
@@ -36,7 +36,7 @@ public class Contract {
         this.worker = worker;
     }
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST},fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id",referencedColumnName = "id")
     public Order getOrder() {
         return order;
@@ -47,7 +47,7 @@ public class Contract {
 
 
 
-    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.PERSIST},fetch = FetchType.EAGER)
     @JoinColumn(name = "detail_id",referencedColumnName = "id")
     public Detail getDetail() {
         return detail;
@@ -74,4 +74,6 @@ public class Contract {
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
     }
+
+
 }

@@ -25,10 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -59,6 +56,9 @@ public class UserController {
     private ModelMap initNewOrder(ModelMap modelMap){
         OrderDTO newOrderDTO = new OrderDTO();
         newOrderDTO.setDeadilne(DateTimeFormatter.parseStringToDate(TodayManipulator.readToday()));
+        newOrderDTO.setPrice(10000);
+        newOrderDTO.setCount(2);
+
         Map<Integer,Integer> estimations = new HashMap<Integer, Integer>();
         for (int i = 1; i <= 5; i++) {
             estimations.put(i,i);
@@ -67,7 +67,6 @@ public class UserController {
         int count=0;
         for (int i = 0; i < 5; i++) {
             if(i==0){
-                countsDetail.put(count,"None");
                 count=1;
             }else{
                 countsDetail.put(count,count+"");
@@ -108,7 +107,27 @@ public class UserController {
             for(Detail detail:unit.getDetails()){
                 produceTime+=detail.getDetailType().getProduceTime();
             }
-            computer.setDetailList(unit.getDetails());
+            List<Detail> allDetails=new ArrayList<>();
+            for (int i=0; i<orderDTO.getCpuCount();i++){
+                   allDetails.add(unit.getDetails().get(0).clone());
+            }
+            for (int i=0; i<orderDTO.getGpuCount();i++){
+                allDetails.add(unit.getDetails().get(1).clone());
+            }
+            for (int i=0; i<orderDTO.getMbCount();i++){
+                allDetails.add(unit.getDetails().get(2).clone());
+            }
+            for (int i=0; i<orderDTO.getRamCount();i++){
+                allDetails.add(unit.getDetails().get(3).clone());
+            }
+            for (int i=0; i<orderDTO.getHddCount();i++){
+                allDetails.add(unit.getDetails().get(4).clone());
+            }
+            for(Detail detail:allDetails){
+                System.out.println("NAME:\t"+detail.getName());
+            }
+
+            computer.setDetailList(allDetails);
             order.setPerformance_time(produceTime);
             order.setPerformance_time(produceTime);
             computer.setQuality(unit.getAverageQuality());

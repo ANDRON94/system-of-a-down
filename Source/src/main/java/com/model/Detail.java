@@ -2,13 +2,14 @@
 package com.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by root on 17.03.15.
  */
 @Entity
 @Table(name = "detail")
-public class Detail {
+public class Detail{
     private int id;
     private DetailType detailType;
     private int price;
@@ -106,5 +107,18 @@ public class Detail {
     public String toString(){
         return  "Name: " + getName() + " Quality:" + getPower()
                 + " Power: " + getPower() + " Prise: " + getPrice();
+    }
+
+
+    public Detail clone() {
+
+        Detail detail1= new Detail();
+        detail1.setId(this.id);
+        detail1.setName(this.name);
+        detail1.setPrice(this.price);
+        detail1.setPower(this.power);
+        detail1.setQuality(this.quality);
+        detail1.setDetailType(this.detailType);
+        return detail1;
     }
 }
