@@ -62,11 +62,11 @@
                 </div>
                 <div class="modal-body">
                     <ul class="nav nav-list">
-                        <li><p><strong>1</strong> - DESCRIPTION</p></li>
-                        <li><p><strong>2</strong> - DESCRIPTION</p></li>
-                        <li><p><strong>3</strong> - DESCRIPTION</p></li>
-                        <li><p><strong>4</strong> - DESCRIPTION</p></li>
-                        <li><p><strong>5</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>1</strong> - Awful power. For Word and Exel typing and calculating </p></li>
+                        <li><p><strong>2</strong> - Bad power. Secondhand devices and devices which been at repairing, so power lower then  normal statement</p></li>
+                        <li><p><strong>3</strong> - Average power.  You can programming watch films,listening music and so one </p></li>
+                        <li><p><strong>4</strong> - Computer details to a long time with hard loading. For remote web server or gaming platform. But computer can`t work with latest programs</p></li>
+                        <li><p><strong>5</strong> - Best of the Best.In this case details are expensive but perfect</p></li>
                     </ul>
                 </div>
             </div>
@@ -88,11 +88,11 @@
                 </div>
                 <div class="modal-body">
                     <ul class="nav nav-list">
-                        <li><p><strong>1</strong> - DESCRIPTION</p></li>
-                        <li><p><strong>2</strong> - DESCRIPTION</p></li>
-                        <li><p><strong>3</strong> - DESCRIPTION</p></li>
-                        <li><p><strong>4</strong> - DESCRIPTION</p></li>
-                        <li><p><strong>5</strong> - DESCRIPTION</p></li>
+                        <li><p><strong>1</strong> - Awful quality. Unknown device providers.</p></li>
+                        <li><p><strong>2</strong> - Bad quality. Secondhand devices and devices which been at repairing</p></li>
+                        <li><p><strong>3</strong> - Average quality.  Devices with low price for average person </p></li>
+                        <li><p><strong>4</strong> - Computer details to a long time with hard loading. For romote web server or gaming platform</p></li>
+                        <li><p><strong>5</strong> - Best of the Best.In this case details are expensive but perfect</p></li>
                     </ul>
                 </div>
             </div>
