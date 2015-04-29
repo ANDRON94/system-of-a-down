@@ -51,8 +51,8 @@ public class OrderService {
         return order;
     }
     public void backToTheFuture(Date date){
-        List<Order> ordersForDecline=orderRepository.findAllThatMustDecline(date);
-        List<Order> ordersForDone=orderRepository.findAllThatMustDone(date);
+
+
         List<Order> ordersForProcessing= orderRepository.findAllThatMustProcessing(date);
 
         System.out.println("Orders for processing on date "+date);
@@ -61,7 +61,7 @@ public class OrderService {
             order.setStatus(statusRepository.findOne(3));
             orderRepository.save(order);
         }
-
+        List<Order> ordersForDecline=orderRepository.findAllThatMustDecline(date);
 
         System.out.println("Orders for decline on date "+date);
         for(Order order:ordersForDecline){
@@ -71,7 +71,7 @@ public class OrderService {
         }
 
 
-
+        List<Order> ordersForDone=orderRepository.findAllThatMustDone(date);
         System.out.println("Orders for done on date "+date);
         for(Order order:ordersForDone){
             order.setStatus(statusRepository.findOne(4));

@@ -3,6 +3,7 @@ package com.model;
 import com.controller.planner.EventsManager;
 import com.dhtmlx.planner.DHXPlanner;
 import com.dhtmlx.planner.DHXSkin;
+import com.dhtmlx.planner.controls.DHXMiniCalendar;
 import com.dhtmlx.planner.controls.DHXTimelineUnit;
 import com.dhtmlx.planner.controls.DHXTimelineView;
 
@@ -32,14 +33,15 @@ public class Schedule {
             DHXTimelineUnit unit= new DHXTimelineUnit(worker.getId()+"", worker.getSename());
             view.addOption(unit);
         }
-        view.setXStep(5);
+        view.setXStep(1);
         view.setXSize(16);
-        view.setXStart(120);
+        view.setXStart(500);
         view.setXLength(0);
         view.setServerList("topic");
         s.views.add(view);
         s.setInitialView("topic");
         s.calendars.attachMiniCalendar();
+
     }
     public DHXPlanner getPlanner(){
         return s;

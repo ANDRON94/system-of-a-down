@@ -24,7 +24,6 @@ public class BackToTheFutureController {
     private OrderService orderService;
     @RequestMapping(value = "changeTodayDate",method = RequestMethod.GET)
     public ModelAndView scheduleAction(){
-
         return new ModelAndView("changeDate","date", TodayManipulator.readToday());
     }
     @RequestMapping(value = "changeTodayDate", method = RequestMethod.POST)
