@@ -31,7 +31,7 @@
                              && order.getStatus().getName()!='DONE'
                              && order.getStatus().getName()!='SYSTEM_CANCEL'
                              && order.getStatus().getName()!='USER_CANCEL'}">
-                    <a href="#" class="btn btn-danger">Cancel</a>
+                    <a href="/user/cancel/${order.getId()}" class="btn btn-danger">Cancel</a>
                 </c:when>
                 <c:otherwise>
                     <c:if test="${order.getStatus().getName()=='USER_CANCEL'}">

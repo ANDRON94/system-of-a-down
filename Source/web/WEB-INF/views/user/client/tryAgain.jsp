@@ -11,6 +11,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false"%>
 <div class="pagination-centered">
+  <h1>Nothing computer find on yours cafeterias</h1>
   <a href="/user/newOrder"><button class="btn btn-primary">Try again!</button></a>
 </div>
 

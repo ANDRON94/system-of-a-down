@@ -7,6 +7,8 @@ import com.repository.ContractRepository;
 import com.repository.DetailRepository;
 import com.repository.OrderRepository;
 import com.repository.WorkerRepository;
+import com.util.DateTimeFormatter;
+import com.util.TodayManipulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,14 @@ public class ScheduleService {
     @Autowired
     private DetailRepository detailRepository;
 
+    public Date initStartDate(){
+        Date startDate = DateTimeFormatter.parseStringToDate(TodayManipulator.readToday());
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(startDate);
+        calendar.add(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        return calendar.getTime();
+    }
     public List<List<Contract>> schedule( Order newOrder ,Date startDate){
         List<List<Contract>> schedules = new ArrayList<>();
         List<Worker> freeWorkers = workerRepository.findAll();
@@ -38,7 +48,11 @@ public class ScheduleService {
         List<Order> works = new ArrayList<>();
         works.addAll(pendingOrders);
         works.addAll(processingOrders);
-        works.add(newOrder);
+
+        if(newOrder!=null){
+            works.add(newOrder);
+        }
+
         AmazingScheduling scheduler = new AmazingScheduling(startDate,freeWorkers);
         //first algorithm
         DeadlineWorkCriteria deadlineWorkCriteria = new DeadlineWorkCriteria(works);

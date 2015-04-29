@@ -32,10 +32,11 @@ public class OrderController {
     @RequestMapping(value = "planSchedule/{orderId}", method = RequestMethod.GET)
     public String planScheduleAction(@PathVariable Integer orderId,HttpServletRequest request,ModelMap modelMap){
        Order newOrder= orderService.getOrderById(orderId);
-        Date startDate = initStartDate();
+        Date startDate = scheduleService.initStartDate();
         List<List<Contract>> scheduleContractVariants = scheduleService.schedule(newOrder,startDate);
         if(scheduleContractVariants.isEmpty()){
             newOrder.setStatus(orderService.findStatusByName("SYSTEM_CANCEL"));
+            newOrder.setPropouse("Sorry we can`t perform this order. But if you increase deadline for few days,we`ll have done it");
             orderService.saveOrder(newOrder);
             return "redirect:/planner/viewOrders/1";
         }
@@ -56,14 +57,6 @@ public class OrderController {
         }
 
 
-    }
-    private Date initStartDate(){
-        Date startDate = DateTimeFormatter.parseStringToDate(TodayManipulator.readToday());
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(startDate);
-        calendar.add(Calendar.DATE, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        return calendar.getTime();
     }
     @RequestMapping(value = "/viewOrder/{orderId}", method = RequestMethod.GET)
     public ModelAndView viewOrderAction(@PathVariable Integer orderId ){

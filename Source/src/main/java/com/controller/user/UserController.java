@@ -9,6 +9,7 @@ import com.repository.OrderRepository;
 import com.repository.StatusRepository;
 import com.repository.UserRepository;
 import com.service.ChoiceService;
+import com.service.algorithms.schedule.ScheduleService;
 import com.service.evolution.Unit;
 import com.util.DateTimeFormatter;
 import com.util.TodayManipulator;
@@ -39,6 +40,8 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private ScheduleService scheduleService;
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -173,6 +176,18 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "cancel/{orderId}",method = RequestMethod.GET)
+    public String cancelOrderAction(@PathVariable Integer orderId ){
+        Order order=orderRepository.findOne(orderId);
+        Date startDate = scheduleService.initStartDate();
+        scheduleService.deleteContractsAfterStartDate(startDate);
+        System.out.println("Delete old contracts");
+        scheduleService.saveListOfContracts(scheduleService.schedule(null,startDate).get(0));
+        System.out.println("Save new contracts");
+        order.setStatus(statusRepository.findOneByName("USER_CANCEL"));
+        orderRepository.save(order);
+        return "redirect:/user/viewClientOrders";
+    }
 }
 
 
