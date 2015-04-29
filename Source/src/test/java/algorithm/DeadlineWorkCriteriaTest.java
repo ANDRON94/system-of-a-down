@@ -25,6 +25,7 @@ public class DeadlineWorkCriteriaTest extends Assert {
     @Test
     public void testDeadlineCriteria(){
         List<Order> orders = orderRepository.findAllOrdersForPlane("IN_QUEUE");
+        System.out.println("Orders: " + orders.size());
         DeadlineWorkCriteria deadlineWorkCriteria = new DeadlineWorkCriteria(orders);
 
         while (deadlineWorkCriteria.isWorkExist()){
