@@ -1,5 +1,7 @@
 package com.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -140,7 +142,7 @@ public class Order {
         this.user = user;
     }
 
-    @OneToMany(cascade ={ CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy = "order")
+    @OneToMany(cascade ={ CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "order")
     public List<Contract> getContractList() {
         return contractList;
     }
