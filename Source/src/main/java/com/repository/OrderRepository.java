@@ -22,11 +22,11 @@ public interface OrderRepository extends PagingAndSortingRepository<Order,Intege
     public List<Order> findByStatus_Name(String statusName);
 
     @Query("select distinct o from Order as o inner join" +
-            " o.status as s inner join" +
+            " o.status as s inner join fetch" +
             " o.contractList as c where s.name=:pending")
     public List<Order> findAllOrdersForPlane(@Param("pending") String pending);
-    @Query("select distinct o from  Order as o inner join" +
-            " o.contractList as c inner join" +
+    @Query("select distinct o from  Order as o inner join " +
+            " o.contractList as c inner join " +
             " o.status as s " +
             "where c.start_date<:timeStep and s.id=2")
     public List<Order> findAllThatMustProcessing(@Param("timeStep") Date timeStep);
@@ -51,8 +51,10 @@ public interface OrderRepository extends PagingAndSortingRepository<Order,Intege
             " where o.id=:idOrder")
     public long findPerformanceTime(@Param("idOrder") int idOrder);
 
-    @Query("select distinct o from Order as o inner join" +
-            " o.contractList as c inner join o.status as s inner" +
-            " join c.detail as d where s.name=:procesing and c.start_date > :datePick")
-    public List<Order> findByStartAfterAndOrderStatusName(@Param("procesing")String statusName,@Param("datePick")Date date);
+    @Query("select distinct o from Order as o inner" +
+            " join o.status as s " +
+            "where  s.name=:procesing  ")
+    public List<Order> findByStartAfterAndOrderStatusName(@Param("procesing")String statusName);
 }
+
+

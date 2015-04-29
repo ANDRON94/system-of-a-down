@@ -33,7 +33,10 @@ public class ScheduleService {
         List<List<Contract>> schedules = new ArrayList<>();
         List<Worker> freeWorkers = workerRepository.findAll();
         List<Order> pendingOrders = orderRepository.findAllOrdersForPlane("IN_QUEUE");
-        List<Order> processingOrders = orderRepository.findByStartAfterAndOrderStatusName("IN_PROSESS", startDate);
+        List<Order> processingOrders =orderRepository.findByStatus_Name("IN_PROSESS");
+        for(Order order : processingOrders){
+            order.setContractList(contractRepository.getContractsAfterDateByIdOrder(startDate,order.getId()));
+        }
         List<Order> works = new ArrayList<>();
         works.addAll(pendingOrders);
         works.addAll(processingOrders);
