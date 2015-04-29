@@ -21,10 +21,7 @@ import java.util.List;
  * Created by root on 29.03.15.
  */
 public class EventsManager extends DHXEventsManager {
-
-
     private List<Contract> contracts;
-    private List<Worker> workers;
     public EventsManager(HttpServletRequest request) {
         super(request);
     }
@@ -45,26 +42,9 @@ public class EventsManager extends DHXEventsManager {
         return events;
     }
 
-    @Override
-    public HashMap<String, Iterable<DHXCollection>> getCollections()
-    {
 
-        ArrayList<DHXCollection> event_type = new ArrayList<DHXCollection>();
 
-        for(Worker worker :workers){
-            DHXCollection unit= new DHXCollection(worker.getId()+"", worker.getSename());
-            event_type.add(unit);
-
-        }
-
-        HashMap<String, Iterable<DHXCollection>> c = new HashMap<String, Iterable<DHXCollection>>();
-        c.put("topic", event_type);
-        return c;
-    }
-
-    public String start(List<Contract> contracts,List<Worker> workers){
+    public void initContracts(List<Contract> contracts){
         this.contracts=contracts;
-        this.workers=workers;
-        return  this.run();
     }
 }

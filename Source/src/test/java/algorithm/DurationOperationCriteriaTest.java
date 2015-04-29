@@ -40,7 +40,8 @@ public class DurationOperationCriteriaTest {
             e.printStackTrace();
         }
 
-        List<Order> orders = orderRepository.findByStartAfterAndOrderStatusName("NEW_ORDER", date);
+        List<Order> orders = orderRepository.findByStatus_Name("NEW_ORDER");
+        System.out.println("Orders: " + orders.size());
         for( Order order : orders) {
             System.out.println("Order Id:" + order.getId());
             DurationOperationCriteria durationOperationCriteria = new DurationOperationCriteria();

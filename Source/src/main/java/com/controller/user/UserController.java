@@ -25,10 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -59,6 +56,9 @@ public class UserController {
     private ModelMap initNewOrder(ModelMap modelMap){
         OrderDTO newOrderDTO = new OrderDTO();
         newOrderDTO.setDeadilne(DateTimeFormatter.parseStringToDate(TodayManipulator.readToday()));
+        newOrderDTO.setPrice(10000);
+        newOrderDTO.setCount(2);
+
         Map<Integer,Integer> estimations = new HashMap<Integer, Integer>();
         for (int i = 1; i <= 5; i++) {
             estimations.put(i,i);
@@ -67,7 +67,6 @@ public class UserController {
         int count=0;
         for (int i = 0; i < 5; i++) {
             if(i==0){
-                countsDetail.put(count,"None");
                 count=1;
             }else{
                 countsDetail.put(count,count+"");
@@ -87,6 +86,11 @@ public class UserController {
             modelMap.addAttribute("errors","Not valid data");
             return "newOrder";
         }
+        if(orderDTO.getDeadilne().compareTo(DateTimeFormatter.parseStringToDate(TodayManipulator.readToday()))<=0){
+            modelMap=initNewOrder(modelMap);
+            modelMap.addAttribute("errors","This day ended or current! Please, enter future day!");
+            return "newOrder";
+        }
         System.out.println("New order posted!");
         //TODO catch new oder
         System.out.println(orderDTO.getRamCount());
@@ -98,20 +102,44 @@ public class UserController {
         else {
             Order order= new Order();
             Computer computer = new Computer();
-            computer.setDetailList(unit.getDetails());
+
             int produceTime=0;
             for(Detail detail:unit.getDetails()){
                 produceTime+=detail.getDetailType().getProduceTime();
             }
+            List<Detail> allDetails=new ArrayList<>();
+            for (int i=0; i<orderDTO.getCpuCount();i++){
+                   allDetails.add(unit.getDetails().get(0).clone());
+            }
+            for (int i=0; i<orderDTO.getGpuCount();i++){
+                allDetails.add(unit.getDetails().get(1).clone());
+            }
+            for (int i=0; i<orderDTO.getMbCount();i++){
+                allDetails.add(unit.getDetails().get(2).clone());
+            }
+            for (int i=0; i<orderDTO.getRamCount();i++){
+                allDetails.add(unit.getDetails().get(3).clone());
+            }
+            for (int i=0; i<orderDTO.getHddCount();i++){
+                allDetails.add(unit.getDetails().get(4).clone());
+            }
+            for(Detail detail:allDetails){
+                System.out.println("NAME:\t"+detail.getName());
+            }
+
+            computer.setDetailList(allDetails);
+            order.setPerformance_time(produceTime);
             order.setPerformance_time(produceTime);
             computer.setQuality(unit.getAverageQuality());
             computer.setPower(unit.getAveragePower());
+            computer.setPrice(unit.getTotalPrise());
             order.setComputer(computer);
             order.setContractList(null);
             order.setDeadilne(orderDTO.getDeadilne());
             order.setPropouse(null);
             order.setCountComputers(1);
-            order.setPrice(unit.getTotalPrise());
+            order.setPrice(unit.getTotalPrise()*orderDTO.getCount());
+            order.setCountComputers(orderDTO.getCount());
             order.setStatus(statusRepository.findOne(1));
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             order.setUser(userRepository.findOneByEmail(auth.getName()));

@@ -20,7 +20,7 @@
               <c:set var="rowStyle" value="info" />
               <c:set var="btnStyle" value="btn btn-primary" />
               <c:set var="btnName" value="Plan schedule" />
-              <c:set var="url" value="error" />
+              <c:set var="url" value="../planSchedule/${order.getId()}" />
             </c:when>
             <c:when test="${order.getStatus().getName()=='IN_QUEUE'}">
               <c:set var="orderStatus" value="Pending" />

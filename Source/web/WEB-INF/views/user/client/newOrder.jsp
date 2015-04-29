@@ -112,7 +112,7 @@
             <label for="hddCount">HDD: </label>
             <form:select path="hddCount" items="${countsDetail}">
             </form:select>
-            <label for="mbCount">Motherbord:</label>
+            <label for="mbCount">Motherboard:</label>
             <form:select path="mbCount" items="${countsDetail}">
             </form:select>
             <label for="id_date">Final date: </label>
@@ -123,6 +123,8 @@
                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                 </span>
             </div>
+            <label for="mbCount">Count of computers:</label>
+            <form:input cssClass="input-medium"  id="id_count"  path="count"/>
         </div>
     </form:form>
 </div>

@@ -18,7 +18,7 @@ public class Computer {
     private float power;
     private List<Detail> detailList;
 
-    @ManyToMany(cascade ={ CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade ={ CascadeType.PERSIST})
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
             name="computer_detail",

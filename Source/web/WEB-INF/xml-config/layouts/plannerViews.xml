@@ -22,5 +22,8 @@
        <definition name="changeDate" extends="StartTemplate">
               <put-attribute name="body" value="/WEB-INF/views/planner/changeDate.jsp" />
        </definition>
+       <definition name="scheduleVariants" extends="PlanerTemplateNonHtml">
+              <put-attribute name="body" value="/WEB-INF/views/planner/scheduleVariants.jsp" />
+       </definition>
 
 </tiles-definitions>

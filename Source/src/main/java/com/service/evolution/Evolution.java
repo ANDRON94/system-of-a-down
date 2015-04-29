@@ -13,7 +13,8 @@ public class Evolution {
 
     private Population population;
 
-    public Evolution(int prise, float power, float quality, List<List<Detail>> db) {
+    public Evolution(int prise, float power, float quality, List<List<Detail>> db, int[] detCount) {
+        Unit.detCount = detCount;
         population = new Population(prise, power, quality, db);
     }
 

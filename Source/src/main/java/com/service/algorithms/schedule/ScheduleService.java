@@ -29,14 +29,8 @@ public class ScheduleService {
     @Autowired
     private DetailRepository detailRepository;
 
-    public List<List<Contract>> schedule( Order newOrder ){
+    public List<List<Contract>> schedule( Order newOrder ,Date startDate){
         List<List<Contract>> schedules = new ArrayList<>();
-        Date startDate = DateTimeFormatter.parseStringToDate(TodayManipulator.readToday());
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(startDate);
-        calendar.add(Calendar.DATE, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        startDate = calendar.getTime();
         List<Worker> freeWorkers = workerRepository.findAll();
         List<Order> pendingOrders = orderRepository.findAllOrdersForPlane("IN_QUEUE");
         List<Order> processingOrders = orderRepository.findByStartAfterAndOrderStatusName("IN_PROSESS", startDate);
@@ -60,7 +54,7 @@ public class ScheduleService {
         //validate schedules
         Iterator<List<Contract>> currSchedule = schedules.iterator();
         while( currSchedule.hasNext() ){
-            if( validateSchedule(currSchedule.next()) ){
+            if( !validateSchedule(currSchedule.next()) ){
                 currSchedule.remove();
             }
         }
@@ -70,16 +64,31 @@ public class ScheduleService {
     private boolean validateSchedule( List<Contract> schedule ){
         Contract lastContract = null;
         for( Contract contract : schedule ){
+            System.out.println("CONTARCT_ID:\t"+contract.getId());
+            System.out.println("START_DATE:\t"+contract.getStart_date());
             if( lastContract == null ||
                 lastContract.getStart_date()
                         .compareTo(contract.getStart_date()) > 0  )
             {
                 lastContract = contract;
+
             }
         }
-        boolean isValid = lastContract.getEnd_date()
-                .compareTo( lastContract.getOrder().getDeadilne() ) <= 0;
-        return  isValid;
+        System.out.println("LAST_ID:\t"+lastContract.getId());
+        System.out.println("LAST_START_DATE:\t"+lastContract.getStart_date());
+        System.out.println("LAST_END_DATE:\t"+lastContract.getEnd_date().getTime());
+        System.out.println("LAST_ORDER_DEADLINE:\t"+lastContract.getOrder().getDeadilne().getTime());
+        return lastContract.getEnd_date()
+                .compareTo(lastContract.getOrder().getDeadilne()) <= 0;
         //TODO: validate schedule
+    }
+
+    public void deleteContractsAfterStartDate(Date startDate){
+        contractRepository.deleteContractsAfterDateAnd(startDate);
+    }
+    public void saveListOfContracts(List<Contract> contracts){
+        for(Contract contract : contracts){
+            contractRepository.save(contract);
+        }
     }
 }

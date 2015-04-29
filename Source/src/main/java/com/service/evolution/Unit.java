@@ -39,10 +39,11 @@ public class Unit {
         int sumQuality = 0;
         int sumPower = 0;
         totalPrise = 0;
+
         for(int i = 0; i <details.size(); i++ ){
-            sumPower += details.get(i).getPower();
-            sumQuality += details.get(i).getQuality();
-            totalPrise += details.get(i).getPrice();
+            sumPower += details.get(i).getPower() * detCount[i];
+            sumQuality += details.get(i).getQuality() * detCount[i];
+            totalPrise += details.get(i).getPrice() * detCount[i];
         }
         averageQuality = (float) sumQuality / details.size();
         averagePower = (float) sumPower / details.size();
