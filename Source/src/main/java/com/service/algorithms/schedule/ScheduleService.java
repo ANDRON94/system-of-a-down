@@ -7,8 +7,6 @@ import com.repository.ContractRepository;
 import com.repository.DetailRepository;
 import com.repository.OrderRepository;
 import com.repository.WorkerRepository;
-import com.util.DateTimeFormatter;
-import com.util.TodayManipulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,25 +60,34 @@ public class ScheduleService {
     }
 
     private boolean validateSchedule( List<Contract> schedule ){
-        Contract lastContract = null;
+        Map<Integer,Contract> lastContracts = new HashMap<>();
         for( Contract contract : schedule ){
+            Integer orderId = contract.getOrder().getId();
             System.out.println("CONTARCT_ID:\t"+contract.getId());
             System.out.println("START_DATE:\t"+contract.getStart_date());
-            if( lastContract == null ||
-                lastContract.getStart_date()
+            if( lastContracts.get(orderId) == null ||
+                lastContracts.get(orderId).getStart_date()
                         .compareTo(contract.getStart_date()) <= 0  )
             {
-                lastContract = contract;
-
+                lastContracts.put(orderId, contract);
             }
         }
-        System.out.println("LAST_ID:\t"+lastContract.getId());
-        System.out.println("LAST_START_DATE:\t"+lastContract.getStart_date());
-        System.out.println("LAST_END_DATE:\t"+lastContract.getEnd_date().getTime());
-        System.out.println("LAST_ORDER_DEADLINE:\t"+lastContract.getOrder().getDeadilne().getTime());
-        return lastContract.getEnd_date()
-                .compareTo(lastContract.getOrder().getDeadilne()) <= 0;
-        //TODO: validate schedule
+        boolean isValid = true;
+        for( Map.Entry<Integer,Contract> lastContractEntry : lastContracts.entrySet() ){
+            Contract lastContract = lastContractEntry.getValue();
+            System.out.println("LAST_ID:\t"+lastContract.getId());
+            System.out.println("LAST_START_DATE:\t" + lastContract.getStart_date());
+            System.out.println("LAST_END_DATE:\t"+lastContract.getEnd_date().getTime());
+            System.out.println("LAST_ORDER_DEADLINE:\t"+lastContract.getOrder().getDeadilne().getTime());
+            if( lastContract.getEnd_date()
+                    .compareTo(lastContract.getOrder().getDeadilne()) > 0 )
+            {
+                isValid = false;
+                break;
+            }
+        }
+
+        return isValid;
     }
 
     public void deleteContractsAfterStartDate(Date startDate){
