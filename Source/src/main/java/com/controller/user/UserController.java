@@ -104,32 +104,34 @@ public class UserController {
             Computer computer = new Computer();
 
             int produceTime=0;
-            for(Detail detail:unit.getDetails()){
-                produceTime+=detail.getDetailType().getProduceTime();
-            }
             List<Detail> allDetails=new ArrayList<>();
+            Detail currentDetail=unit.getDetails().get(0);
+            produceTime+=orderDTO.getCpuCount()*currentDetail.getDetailType().getProduceTime();
             for (int i=0; i<orderDTO.getCpuCount();i++){
-                   allDetails.add(unit.getDetails().get(0).clone());
+                   allDetails.add(currentDetail.clone());
             }
+            currentDetail=unit.getDetails().get(1);
+            produceTime+=orderDTO.getGpuCount()*currentDetail.getDetailType().getProduceTime();
             for (int i=0; i<orderDTO.getGpuCount();i++){
-                allDetails.add(unit.getDetails().get(1).clone());
+                allDetails.add(currentDetail.clone());
             }
+            currentDetail=unit.getDetails().get(2);
+            produceTime+=orderDTO.getMbCount()*currentDetail.getDetailType().getProduceTime();
             for (int i=0; i<orderDTO.getMbCount();i++){
-                allDetails.add(unit.getDetails().get(2).clone());
+                allDetails.add(currentDetail.clone());
             }
+            currentDetail=unit.getDetails().get(3);
+            produceTime+=orderDTO.getRamCount()*currentDetail.getDetailType().getProduceTime();
             for (int i=0; i<orderDTO.getRamCount();i++){
-                allDetails.add(unit.getDetails().get(3).clone());
+                allDetails.add(currentDetail.clone());
             }
+            currentDetail=unit.getDetails().get(4);
+            produceTime+=orderDTO.getHddCount()*currentDetail.getDetailType().getProduceTime();
             for (int i=0; i<orderDTO.getHddCount();i++){
-                allDetails.add(unit.getDetails().get(4).clone());
+                allDetails.add(currentDetail.clone());
             }
-            for(Detail detail:allDetails){
-                System.out.println("NAME:\t"+detail.getName());
-            }
-
             computer.setDetailList(allDetails);
-            order.setPerformance_time(produceTime);
-            order.setPerformance_time(produceTime);
+            order.setPerformance_time(produceTime*orderDTO.getCount());
             computer.setQuality(unit.getAverageQuality());
             computer.setPower(unit.getAveragePower());
             computer.setPrice(unit.getTotalPrise());
