@@ -1,6 +1,7 @@
 package com.service.algorithms.schedule;
 
 import com.model.Contract;
+import com.model.Detail;
 import com.model.Order;
 import com.model.Worker;
 import com.repository.ContractRepository;
@@ -55,7 +56,8 @@ public class ScheduleService {
 
         AmazingScheduling scheduler = new AmazingScheduling(startDate,freeWorkers);
         //first algorithm
-        DeadlineWorkCriteria deadlineWorkCriteria = new DeadlineWorkCriteria(works);
+        List<Order> firstWorks = new ArrayList<>(works);
+        DeadlineWorkCriteria deadlineWorkCriteria = new DeadlineWorkCriteria(firstWorks);
         DurationOperationCriteria durationOperationCriteria = new DurationOperationCriteria();
         BusyWorkerCriteria busyWorkerCriteria = new BusyWorkerCriteria(freeWorkers, null);
 
@@ -64,7 +66,32 @@ public class ScheduleService {
                 durationOperationCriteria,
                 busyWorkerCriteria
         ));
+        System.out.println( "Count of works after first: " + works.size() );
         //second algorithm
+        List<Order> secondWorks = new ArrayList<>(works);
+        //update duration for processing orders
+        for( Order order : secondWorks ){
+            if( order.getStatus().getName() == "IN_PROSESS" ){
+                int orderPerfomanceTime = 0;
+                for(Contract contract : order.getContractList() ){
+                    orderPerfomanceTime += contract.
+                            getDetail().
+                            getDetailType().
+                            getProduceTime();
+                }
+                order.setPerformance_time(orderPerfomanceTime);
+            }
+        }
+        DeadlineDurationRatioWorkCriteria deadlineDurationRatioWorkCriteria =
+                new DeadlineDurationRatioWorkCriteria( secondWorks );
+        busyWorkerCriteria.restart();
+
+        schedules.add( scheduler.makeSchedule(
+                deadlineDurationRatioWorkCriteria,
+                durationOperationCriteria,
+                busyWorkerCriteria
+        ));
+        //third algorithm
         //bla bla bla
         //validate schedules
         Iterator<List<Contract>> currSchedule = schedules.iterator();
@@ -112,5 +139,21 @@ public class ScheduleService {
     }
     public void saveListOfContracts(List<Contract> contracts){
             contractRepository.save(contracts);
+    }
+    public List<Double> getCaches( List<List<Contract>> schedules){
+        TotalSalaryOptimizeCashCriteria tsoc = new TotalSalaryOptimizeCashCriteria();
+        List<Double> cashes= new ArrayList<>();
+        for (List<Contract> variant : schedules){
+            double salary=tsoc.calcScheduleTotalSalary(variant);
+            System.out.println("SALARY:\t" +salary);
+            cashes.add(salary);
+        }
+        System.out.println();
+        return cashes;
+    }
+
+    public int getIndexOptimizeSchedule( List<Double> cashes ){
+        TotalSalaryOptimizeCashCriteria tsoc = new TotalSalaryOptimizeCashCriteria();
+        return tsoc.findOptimizeScheduleByCash(cashes);
     }
 }

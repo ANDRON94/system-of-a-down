@@ -17,12 +17,10 @@ public class DurationOperationCriteria implements FindOperationCriteria {
         List<Detail> operations = new ArrayList<Detail>();
         if( order.getStatus().getName().equals("NEW_ORDER") ){
             for( int i = 0; i < order.getCountComputers(); ++i ){
-                //TODO: check whether identical lists
                 List<Detail> temp = new ArrayList<Detail>(order.getComputer().getDetailList());
                 operations.addAll(temp);
             }
         } else{
-            //TODO: get list from contracts
             for( Contract contract : order.getContractList() ){
                 operations.add(contract.getDetail());
             }

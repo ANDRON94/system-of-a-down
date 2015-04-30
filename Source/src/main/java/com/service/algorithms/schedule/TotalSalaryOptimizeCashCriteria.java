@@ -22,7 +22,19 @@ public class TotalSalaryOptimizeCashCriteria implements FindOptimizeCashCriteria
         return optimizeSchedule;
     }
 
-    private double calcScheduleTotalSalary( List<Contract> schedule ){
+    public int findOptimizeScheduleByCash( List<Double> cashes ){
+        double minSalary = Double.MAX_VALUE;
+        int optimizeSchedule = -1;
+        for ( int i = 0; i < cashes.size(); ++i ){
+            if( minSalary > cashes.get(i) ){
+                minSalary = cashes.get(i);
+                optimizeSchedule = i;
+            }
+        }
+        return optimizeSchedule;
+    }
+
+    public double calcScheduleTotalSalary( List<Contract> schedule ){
         final int MILLI_TO_HOURS = 1000 * 60 * 60;
         double totalSalary = 0;
         for( Contract contract : schedule ){

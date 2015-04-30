@@ -3,9 +3,8 @@
 <c:choose>
   <c:when test="${ not empty scheduleVariants}">
     <c:forEach varStatus="status" var="schedule" items="${scheduleVariants}">
-        ${status.count}.<br>
+        ${status.count}.Total salary for all workers: ${schedule.getCash()}<br>
       ${schedule.planner.render()}
-
     </c:forEach>
   </c:when>
   <c:otherwise>

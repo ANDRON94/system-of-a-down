@@ -44,19 +44,23 @@ public class OrderController {
             newOrder.setStatus(orderService.findStatusByName("IN_QUEUE"));
             orderService.saveOrder(newOrder);
             List<Schedule> scheduleList= new ArrayList<>();
-            for(List<Contract> variant : scheduleContractVariants){
-                Schedule newSchedule= new Schedule(variant,orderService.getAllWorkers(),request);
+           List<Double> cashes= scheduleService.getCaches(scheduleContractVariants);
+            for (int i = 0; i < scheduleContractVariants.size(); i++) {
+                //TODO OPTIMIZE TO FOREACH
+                Schedule newSchedule= new Schedule(scheduleContractVariants.get(i),orderService.getAllWorkers(),request);
+                newSchedule.setCash(cashes.get(i));
                 scheduleList.add(newSchedule);
             }
+            int optimizeSchedule = scheduleService.getIndexOptimizeSchedule(cashes);
+
+
             scheduleService.deleteContractsAfterStartDate(startDate);
             System.out.println("Delete old contracts");
-            scheduleService.saveListOfContracts(scheduleContractVariants.get(0));
+            scheduleService.saveListOfContracts(scheduleContractVariants.get(optimizeSchedule));
             System.out.println("Save new contracts");
             modelMap.addAttribute("scheduleVariants",scheduleList);
             return "scheduleVariants";
         }
-
-
     }
     @RequestMapping(value = "/viewOrder/{orderId}", method = RequestMethod.GET)
     public ModelAndView viewOrderAction(@PathVariable Integer orderId ){

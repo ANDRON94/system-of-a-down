@@ -19,6 +19,7 @@ import java.util.List;
 public class Schedule {
     private EventsManager eventsManager;
     private DHXPlanner s;
+    private Double cash;
 
     public Schedule(List<Contract> contracts, List<Worker> workers,HttpServletRequest request) {
         s = new DHXPlanner("/resources/codebase/", DHXSkin.CLASSIC);
@@ -45,6 +46,15 @@ public class Schedule {
         s.calendars.attachMiniCalendar();
 
     }
+
+    public Double getCash() {
+        return cash;
+    }
+
+    public void setCash(Double cash) {
+        this.cash = cash;
+    }
+
     public DHXPlanner getPlanner(){
         return s;
     }

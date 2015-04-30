@@ -24,6 +24,13 @@ public class BusyWorkerCriteria implements  FindWorkerCriteria {
         }
     }
 
+    public void restart(){
+        for( Entry<Worker,Integer> busyFactorEntry : busyFactor.entrySet() ){
+            //at start point all workers has zero busy factor
+            busyFactorEntry.setValue(0);
+        }
+    }
+
     public Worker find( Detail operation ) {
         Entry<Worker, Integer> lessBusyWorker = null;
         for ( Entry<Worker, Integer> worker : busyFactor.entrySet() ){

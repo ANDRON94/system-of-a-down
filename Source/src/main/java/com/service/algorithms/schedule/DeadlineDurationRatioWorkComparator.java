@@ -11,17 +11,8 @@ import java.util.Comparator;
 public class DeadlineDurationRatioWorkComparator implements Comparator<Order> {
     @Override
     public int compare(Order o1, Order o2) {
-        double o1Ratio = (double)o1.getDeadilne().getTime() / getOrderDuration(o1);//TODO: get order duration
-        double o2Ratio = (double)o2.getDeadilne().getTime() / getOrderDuration(o2);
+        double o1Ratio = (double)o1.getDeadilne().getTime() / o1.getPerformance_time();
+        double o2Ratio = (double)o2.getDeadilne().getTime() / o2.getPerformance_time();
         return Double.compare(o1Ratio,o2Ratio);
-    }
-
-    private int getOrderDuration( Order order ){
-        int orderDuration = 0;
-        for(Detail detail : order.getComputer().getDetailList() ){
-            orderDuration += detail.getDetailType().getProduceTime();
-        }
-        orderDuration *= order.getCountComputers();
-        return orderDuration;
     }
 }
