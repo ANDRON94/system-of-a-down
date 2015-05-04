@@ -47,8 +47,6 @@ public class PlannerController {
     }
 
 
-
-
     //view orders page
     @RequestMapping(value = "/viewOrders/{pageNumber}",method = RequestMethod.GET)
     public ModelAndView viewOrdersAction(@PathVariable Integer pageNumber){

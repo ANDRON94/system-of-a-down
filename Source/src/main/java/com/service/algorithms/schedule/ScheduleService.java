@@ -156,4 +156,7 @@ public class ScheduleService {
         TotalSalaryOptimizeCashCriteria tsoc = new TotalSalaryOptimizeCashCriteria();
         return tsoc.findOptimizeScheduleByCash(cashes);
     }
+    public List<Worker> getAllWorkers(){
+        return workerRepository.findAll();
+    }
 }

@@ -56,12 +56,27 @@ public class OrderController {
 
             scheduleService.deleteContractsAfterStartDate(startDate);
             System.out.println("Delete old contracts");
+            modelMap.addAttribute("optimum", optimizeSchedule);
+            request.getSession().setAttribute("ScheduleVariants", scheduleContractVariants);
             scheduleService.saveListOfContracts(scheduleContractVariants.get(optimizeSchedule));
             System.out.println("Save new contracts");
             modelMap.addAttribute("scheduleVariants",scheduleList);
             return "scheduleVariants";
         }
     }
+
+    @RequestMapping(value = "/scheduleVariant/{variantId}", method = RequestMethod.GET)
+    public ModelAndView viewOrderAction(@PathVariable Integer variantId,HttpServletRequest request ){
+        List<List<Contract>> variants=(List<List<Contract>>)request.getSession().getAttribute("ScheduleVariants");
+        Schedule schedule = new Schedule(variants.get(variantId),scheduleService.getAllWorkers(),request);
+        try {
+            request.setAttribute("planner",schedule.getPlanner().render());
+        } catch (Exception e) {
+            request.setAttribute("planner",null);
+        }
+        return  new ModelAndView("schedule");
+    }
+
     @RequestMapping(value = "/viewOrder/{orderId}", method = RequestMethod.GET)
     public ModelAndView viewOrderAction(@PathVariable Integer orderId ){
         Order order = orderService.getOrderById(orderId);

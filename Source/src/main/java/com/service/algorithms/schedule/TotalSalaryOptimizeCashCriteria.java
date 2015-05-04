@@ -35,7 +35,7 @@ public class TotalSalaryOptimizeCashCriteria implements FindOptimizeCashCriteria
     }
 
     public double calcScheduleTotalSalary( List<Contract> schedule ){
-        final int MILLI_TO_HOURS = 1000 * 60 * 60;
+        final double MILLI_TO_HOURS = 1000 * 60 * 60;
         double totalSalary = 0;
         for( Contract contract : schedule ){
             double workTime = (contract.getEnd_date().getTime() -
