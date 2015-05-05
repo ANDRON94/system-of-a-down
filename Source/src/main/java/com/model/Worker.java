@@ -1,6 +1,8 @@
 package com.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -10,9 +12,12 @@ import java.util.List;
 @Table(name = "worker")
 public class Worker {
     private int id;
+    @NotNull
     private String name;
+    @NotNull
     private String sename;
     private List<DetailType> specializations;
+    @NotNull
     private int cash;
 
 

@@ -2,6 +2,8 @@
 package com.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -12,9 +14,13 @@ import java.util.Date;
 public class Detail{
     private int id;
     private DetailType detailType;
+    @NotNull
     private int price;
+    @NotNull
     private int quality;
+    @NotNull
     private int power;
+    @NotNull
     private String name;
 
     @Id
