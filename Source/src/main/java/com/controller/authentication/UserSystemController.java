@@ -1,5 +1,7 @@
 package com.controller.authentication;
 
+import com.controller.manager.DTO.WorkerDTO;
+import com.model.DetailType;
 import com.model.User;
 
 import com.service.RegistrationService;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
+import java.util.List;
 
 
 @Controller
@@ -63,6 +65,12 @@ public class UserSystemController {
             }
             else {
                 result.rejectValue("email", "emailExistError","Bad email data");
+            }
+            if(user.getFirstName().length()>20 || user.getLastName().length()>20 || user.getEmail().length()>20 || user.getPassword().length() >20 ){
+                result.rejectValue("email","limit","limit of 20 symbols to all fields");
+            }
+            if(user.getFirstName().contains(" ") || user.getLastName().contains(" ")|| user.getEmail().contains(" ") || user.getPassword().contains(" ") ){
+                result.rejectValue("email","space","Please not use white spaces");
             }
 
             return new ModelAndView("registration","user",user);

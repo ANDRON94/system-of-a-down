@@ -123,6 +123,14 @@ public class WorkerController {
             modelMap.addAttribute("error","Required name and sename");
             return "createWorker";
         }
+        if(workerDTO.getName().length()>20 || workerDTO.getSename().length()>20){
+            WorkerDTO worker = new WorkerDTO();
+            List<DetailType> types =  detailTypeRepository.findAll();
+            modelMap.addAttribute("specializationTypes", types);
+            modelMap.addAttribute("workerForm", worker);
+            modelMap.addAttribute("error","limit of 20 symbols to name and sename");
+            return "createWorker";
+        }
         if(workerDTO.getName().contains(" ") || workerDTO.getSename().contains(" ")){
             WorkerDTO worker = new WorkerDTO();
             List<DetailType> types =  detailTypeRepository.findAll();

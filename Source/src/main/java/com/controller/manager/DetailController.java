@@ -1,6 +1,7 @@
 package com.controller.manager;
 
 
+import com.controller.manager.DTO.WorkerDTO;
 import com.model.Detail;
 
 import com.model.DetailType;
@@ -47,6 +48,7 @@ public class DetailController {
         List<Detail> details= detailRepository.findAll();//all details
         model.addObject("details",details);
         model.setViewName("details");
+
         return model; //see first action
     }
     //generate form to edit
@@ -120,6 +122,11 @@ public class DetailController {
         if(detail.getName().equals("")){
             modelMap=initCreateFormData(modelMap);
             modelMap.addAttribute("error","Required name");
+            return "createDetail";
+        }
+        if(detail.getName().length()>20){
+            modelMap=initCreateFormData(modelMap);
+            modelMap.addAttribute("error","limit of 20 symbols to name");
             return "createDetail";
         }
 
