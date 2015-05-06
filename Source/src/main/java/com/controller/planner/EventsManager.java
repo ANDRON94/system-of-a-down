@@ -34,7 +34,7 @@ public class EventsManager extends DHXEventsManager {
             ev1.setId(contract.getId());
             ev1.setStart_date(contract.getStart_date());
             ev1.setEnd_date(contract.getEnd_date());
-            ev1.setText(contract.getOrder().getId() + "\n" + contract.getDetail().getName());
+            ev1.setText(contract.getOrder().getId() + "\n" + contract.getDetail().getDetailType().getName() + "\n" + contract.getDetail().getName());
             ev1.setEvent_topic(contract.getWorker().getId() + "");
             events.add(ev1);
         }
