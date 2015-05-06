@@ -13,7 +13,6 @@ import java.util.Map.Entry;
  * Created by andron94 on 22.04.15.
  */
 public class BusyWorkerCriteria implements  FindWorkerCriteria {
-    //TODO: fix busyFactor. and Criteria
 
     private Map<Worker,Integer> busyFactor = new HashMap<Worker, Integer>();
 

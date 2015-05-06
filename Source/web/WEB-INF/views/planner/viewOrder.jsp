@@ -71,7 +71,7 @@
     </tr>
     <tr>
       <td>Propose:</td>
-      <td>Uknown</td>
+      <td>${order.propouse}</td>
     </tr>
     <tr>
       <td>Computer components:</td>

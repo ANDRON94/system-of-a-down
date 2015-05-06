@@ -66,33 +66,31 @@ public class ScheduleService {
                 durationOperationCriteria,
                 busyWorkerCriteria
         ));
-        System.out.println( "Count of works after first: " + works.size() );
+        System.out.println("Count of works after first: " + works.size());
         //second algorithm
         List<Order> secondWorks = new ArrayList<>(works);
-        //update duration for processing orders
-        for( Order order : secondWorks ){
-            if( order.getStatus().getName() == "IN_PROSESS" ){
-                int orderPerfomanceTime = 0;
-                for(Contract contract : order.getContractList() ){
-                    orderPerfomanceTime += contract.
-                            getDetail().
-                            getDetailType().
-                            getProduceTime();
-                }
-                order.setPerformance_time(orderPerfomanceTime);
-            }
-        }
-        DeadlineDurationRatioWorkCriteria deadlineDurationRatioWorkCriteria =
-                new DeadlineDurationRatioWorkCriteria( secondWorks );
+        deadlineWorkCriteria.restart(secondWorks);
+        ExpectancyOperationCriteria expectancyOperationCriteria =
+                new ExpectancyOperationCriteria(secondWorks,freeWorkers);
         busyWorkerCriteria.restart();
 
+
         schedules.add( scheduler.makeSchedule(
-                deadlineDurationRatioWorkCriteria,
-                durationOperationCriteria,
+                deadlineWorkCriteria,
+                expectancyOperationCriteria,
                 busyWorkerCriteria
         ));
         //third algorithm
-        //bla bla bla
+        List<Order> thirdWorks = new ArrayList<>(works);
+        deadlineWorkCriteria.restart(thirdWorks);
+        //expectancyOperationCriteria
+        CheapWorkerCriteria cheapWorkerCriteria = new CheapWorkerCriteria(freeWorkers,null);
+
+        schedules.add( scheduler.makeSchedule(
+                deadlineWorkCriteria,
+                expectancyOperationCriteria,
+                cheapWorkerCriteria
+        ));
         //validate schedules
         Iterator<List<Contract>> currSchedule = schedules.iterator();
         while( currSchedule.hasNext() ){

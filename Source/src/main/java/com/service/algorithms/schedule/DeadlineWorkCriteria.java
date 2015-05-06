@@ -12,8 +12,11 @@ public class DeadlineWorkCriteria implements FindWorkCriteria {
     private List<Order> works = new ArrayList<Order>();
 
     public DeadlineWorkCriteria( List<Order> works ){
-        this.works = works;
+        restart(works);
+    }
 
+    public void restart( List<Order> works ){
+        this.works = works;
         Collections.sort(this.works, new DeadlineWorkComparator());
     }
 

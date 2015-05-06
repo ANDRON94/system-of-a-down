@@ -25,7 +25,7 @@ public class ChoiceService {
 
     private static final int detailTypeCount = Unit.detailTypeCount;
 
-    private static final int evolutionSteps = 10000;
+    private static final int evolutionSteps = 1000000;
 
     private List<List<Detail>> db = new ArrayList<List<Detail>>(detailTypeCount);
     private Evolution evolution;

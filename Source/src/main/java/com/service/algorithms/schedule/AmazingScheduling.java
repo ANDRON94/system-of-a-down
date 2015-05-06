@@ -41,6 +41,7 @@ public class AmazingScheduling  implements Scheduling{
             List<Detail> operations = findOperations.find(order);
             for( Detail operation : operations ){
                 Worker worker = findWorkers.find(operation);
+                //TODO: worker don't have such specialization - fix!!!
                 System.out.println("ORDER_ID:\t"+order.getId());
                 System.out.println("DETAIL_NAME:\t"+operation.getName());
                 System.out.println("WORKER_NAMA:\t"+worker.getName());

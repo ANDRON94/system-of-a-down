@@ -39,14 +39,16 @@ public class Unit {
         int sumQuality = 0;
         int sumPower = 0;
         totalPrise = 0;
+        int totalCount = 0;
 
         for(int i = 0; i <details.size(); i++ ){
             sumPower += details.get(i).getPower() * detCount[i];
             sumQuality += details.get(i).getQuality() * detCount[i];
             totalPrise += details.get(i).getPrice() * detCount[i];
+            totalCount += detCount[i];
         }
-        averageQuality = (float) sumQuality / details.size();
-        averagePower = (float) sumPower / details.size();
+        averageQuality = (float) sumQuality / totalCount;
+        averagePower = (float) sumPower / totalCount;
         if (details.size() == detailTypeCount){
             full = true;
         } else {
