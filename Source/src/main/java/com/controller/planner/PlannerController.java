@@ -37,8 +37,6 @@ public class PlannerController {
     @Autowired
     private WorkerRepository workerRepository;
 
-
-
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");

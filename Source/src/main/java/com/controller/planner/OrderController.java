@@ -6,6 +6,7 @@ import com.model.Schedule;
 import com.service.OrderService;
 import com.service.algorithms.schedule.ScheduleService;
 import com.util.DateTimeFormatter;
+import com.util.MailUtil;
 import com.util.TodayManipulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,11 @@ public class OrderController {
             newOrder.setStatus(orderService.findStatusByName("SYSTEM_CANCEL"));
             newOrder.setPropouse("Sorry we can`t perform this order. But if you increase deadline for few days,we`ll have done it");
             orderService.saveOrder(newOrder);
+            MailUtil.sendMail(newOrder.getUser().getEmail(),"Order decline!","Hello, dear "
+                    +newOrder.getUser().getFirstName()
+                    +" "+ newOrder.getUser().getLastName()+"!\n \t Your order is declined! Sorry. For more details <a href=\"http://localhost:8080/user/viewOrder/"+newOrder.getId()+"\">Activation Link</a>\"  \n\n\n \tCalendar system.");
             return "redirect:/planner/viewOrders/1";
+
         }
         else {
             newOrder.setStatus(orderService.findStatusByName("IN_QUEUE"));
@@ -60,6 +65,9 @@ public class OrderController {
             request.getSession().setAttribute("ScheduleVariants", scheduleContractVariants);
             scheduleService.saveListOfContracts(scheduleContractVariants.get(optimizeSchedule));
             System.out.println("Save new contracts");
+            MailUtil.sendMail(newOrder.getUser().getEmail(),"Order approved!","Hello, dear "
+                    +newOrder.getUser().getFirstName()
+                    +" "+ newOrder.getUser().getLastName()+"!\n \t Your order is approved! Thanks for order!\n\n\n \tCalendar system.");
             modelMap.addAttribute("scheduleVariants",scheduleList);
             return "scheduleVariants";
         }
