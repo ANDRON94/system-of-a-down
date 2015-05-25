@@ -1,9 +1,10 @@
-package com.dao;
+package com.integration.manager;
 
 import com.model.DetailType;
 import com.model.Worker;
 import com.repository.DetailTypeRepository;
 import com.repository.WorkerRepository;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,9 +21,9 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/database.xml"})
 public class WorkerDataTest extends Assert{
-    /*
+
     @Autowired
-    private WorkerRepository repository;
+    private WorkerRepository workerRepository;
     @Autowired
     private DetailTypeRepository detailTypeRepository;
 
@@ -32,9 +33,22 @@ public class WorkerDataTest extends Assert{
     @Before
     public void initWorker(){
         worker=new Worker();
-    }*/
+        worker.setCash(200);
+        worker.setName("Garry");
+        worker.setSename("Cooper");
+        List<DetailType> specializations=detailTypeRepository.findAll();
+        worker.setSpecializations(specializations);
+    }
     @Test
-    public void temp(){
-
+    public void successSaveWorker(){
+        workerRepository.save(worker);
+        Worker savedWorker=workerRepository.findOne(worker.getId());
+        assertEquals(savedWorker.getName(),"Garry");
+        assertEquals(savedWorker.getSename(),"Cooper");
+        assertEquals(savedWorker.getId(),worker.getId());
+    }
+    @After
+    public void deleteTestWorker(){
+        workerRepository.delete(worker.getId());
     }
 }

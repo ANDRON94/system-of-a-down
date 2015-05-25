@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.controller.user.DTO.OrderDTO;
 import com.model.Computer;
 import com.model.Contract;
 import com.model.Detail;
@@ -15,7 +16,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -31,11 +34,22 @@ public class OrderTest {
     private Date date=null;
     @Before
     public void initDate(){
+        OrderDTO orderDTO= new OrderDTO();
+        orderDTO.setCount(3);
+        orderDTO.setCpuCount(4);
         try {
-            date= new SimpleDateFormat("yyyy-MM-dd").parse("2015-05-20");
-        } catch (ParseException e) {
+            orderDTO.setDeadilne(new GregorianCalendar(2015, Calendar.AUGUST, 5).getTime());
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        orderDTO.setGpuCount(4);
+        orderDTO.setHddCount(4);
+        orderDTO.setMbCount(4);
+        orderDTO.setRamCount(4);
+        orderDTO.setCpuCount(4);
+        orderDTO.setPower(4);
+        orderDTO.setPrice(4);
+        orderDTO.setQuality(4);
     }
     @Test
     public void  testPedingOrders(){
@@ -89,15 +103,6 @@ public class OrderTest {
                 System.out.println();
                 System.out.println();
             }
-           /* for(Contract contract : order.getContractList()){
-                System.out.println("ID:\t"+contract.getId());
-                System.out.println("Detail_id:\t"+contract.getDetail().getId());
-                System.out.println("Detail_name:\t"+contract.getDetail().getName());
-                System.out.println("START:\t"+contract.getStart_date());
-                System.out.println("PARAM_DATE:\t"+date);
-                System.out.println();
-                System.out.println();
-            }*/
         }
 
     }

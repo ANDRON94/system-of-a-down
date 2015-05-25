@@ -1,4 +1,4 @@
-package algorithm;
+package com.unit.algorithm;
 
 import com.model.Order;
 import com.repository.OrderRepository;

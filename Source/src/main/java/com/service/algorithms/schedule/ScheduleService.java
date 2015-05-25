@@ -55,7 +55,7 @@ public class ScheduleService {
         }
 
         AmazingScheduling scheduler = new AmazingScheduling(startDate,freeWorkers);
-        //first algorithm
+        //first com.unit.algorithm
         List<Order> firstWorks = new ArrayList<>(works);
         DeadlineWorkCriteria deadlineWorkCriteria = new DeadlineWorkCriteria(firstWorks);
         DurationOperationCriteria durationOperationCriteria = new DurationOperationCriteria();
@@ -67,7 +67,7 @@ public class ScheduleService {
                 busyWorkerCriteria
         ));
         System.out.println( "Count of works after first: " + works.size() );
-        //second algorithm
+        //second com.unit.algorithm
         List<Order> secondWorks = new ArrayList<>(works);
         //update duration for processing orders
         for( Order order : secondWorks ){
@@ -91,7 +91,7 @@ public class ScheduleService {
                 durationOperationCriteria,
                 busyWorkerCriteria
         ));
-        //third algorithm
+        //third com.unit.algorithm
         //bla bla bla
         //validate schedules
         Iterator<List<Contract>> currSchedule = schedules.iterator();
