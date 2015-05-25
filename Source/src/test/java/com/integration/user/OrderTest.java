@@ -1,4 +1,4 @@
-package com.dao;
+package com.integration.user;
 
 import com.controller.user.DTO.OrderDTO;
 import com.model.Computer;
@@ -7,6 +7,10 @@ import com.model.Detail;
 import com.model.Order;
 import com.repository.ContractRepository;
 import com.repository.OrderRepository;
+import com.repository.StatusRepository;
+import com.service.ChoiceService;
+import com.service.evolution.Unit;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,19 +30,24 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/database.xml"})
-public class OrderTest {
+public class OrderTest extends Assert{
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
+    ChoiceService choiceService;
+    @Autowired
+    StatusRepository statusRepository;
+    @Autowired
     private ContractRepository contractRepository;
-    private Date date=null;
+    private OrderDTO orderDTO;
+    Date date=null;
     @Before
-    public void initDate(){
-        OrderDTO orderDTO= new OrderDTO();
+    public OrderDTO initOrderDTO(){
+         orderDTO= new OrderDTO();
         orderDTO.setCount(3);
         orderDTO.setCpuCount(4);
         try {
-            orderDTO.setDeadilne(new GregorianCalendar(2015, Calendar.AUGUST, 5).getTime());
+            orderDTO.setDeadilne(new GregorianCalendar(2016, Calendar.AUGUST, 5).getTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,9 +59,15 @@ public class OrderTest {
         orderDTO.setPower(4);
         orderDTO.setPrice(4);
         orderDTO.setQuality(4);
+        return orderDTO;
     }
     @Test
-    public void  testPedingOrders(){
+    public void succesResearhOfDetailsToOrder(){
+        Unit unit= choiceService.makeChoice(orderDTO);
+        assertNotEquals(unit,null);
+    }
+    @Test
+    public void  testPedingOrdersQuery(){
         System.out.println("\n\n\n\n\n Padding Test");
       List<Order> ordersList=orderRepository.findAllOrdersForPlane("IN_QUEUE");
         for(Order order : ordersList){
@@ -75,15 +90,14 @@ public class OrderTest {
                 System.out.println("Detail_id:\t"+contract.getDetail().getId());
                 System.out.println("Detail_name:\t"+contract.getDetail().getName());
                 System.out.println("START:\t"+contract.getStart_date());
-                System.out.println("PARAM_DATE:\t"+date);
                 System.out.println();
                 System.out.println();
             }
         }
-
     }
     @Test
     public void  testProcisedOrders(){
+
         try {
             date= new SimpleDateFormat("yyyy/MM/dd").parse("2015/05/22");
         } catch (ParseException e) {
@@ -116,10 +130,4 @@ public class OrderTest {
         }
 
     }
-    @Test
-    public void testOrderPerformTimeResearch(){
- //       System.out.println("\n\n\n\n Order Perform Time Research:");
-  //      System.out.println("TIME:\t"+orderRepository.findPerformanceTime(1));
-    }
-
 }

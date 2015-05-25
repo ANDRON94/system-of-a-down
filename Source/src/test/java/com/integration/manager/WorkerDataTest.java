@@ -31,13 +31,14 @@ public class WorkerDataTest extends Assert{
     List<DetailType> detailTypes;
 
     @Before
-    public void initWorker(){
+    public Worker initWorker(){
         worker=new Worker();
         worker.setCash(200);
         worker.setName("Garry");
         worker.setSename("Cooper");
         List<DetailType> specializations=detailTypeRepository.findAll();
         worker.setSpecializations(specializations);
+        return worker;
     }
     @Test
     public void successSaveWorker(){
