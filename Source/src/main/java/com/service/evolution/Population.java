@@ -26,6 +26,30 @@ public class Population {
         minQuality = quality;
     }
 
+    public Unit selectBestUnitEver(){
+        Unit theBest = Unit.getRandomUnit(db);
+        for (int i = 0; i < db.get(0).size(); i++){
+            for (int j = 0; j < db.get(1).size(); j++){
+                for (int k = 0; k < db.get(2).size(); k++){
+                    for (int l = 0; l < db.get(3).size(); l++){
+                        for (int m = 0; m < db.get(4).size(); m++){
+                            Unit temp = new Unit();
+                            temp.setDetail(db.get(0).get(i));
+                            temp.setDetail(db.get(1).get(j));
+                            temp.setDetail(db.get(2).get(k));
+                            temp.setDetail(db.get(3).get(l));
+                            temp.setDetail(db.get(4).get(m));
+                            if (isAlive(temp) && temp.isBetterThan(theBest)){
+                                theBest = temp;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return theBest;
+    }
+
     public boolean selectThePoplation(int maxAttempts){
         int attempts = 0;
         while ((attempts < maxAttempts) && (population.size() < maxPopulationSize)){
@@ -57,7 +81,10 @@ public class Population {
     }
 
     public boolean isAlive(Unit unit){
-        return !(unit.getAveragePower() < minPower || unit.getAverageQuality() < minQuality || unit.getTotalPrise() > maxPrise);
+       if (unit.getAveragePower() < minPower || unit.getAverageQuality() < minQuality || unit.getTotalPrise() > maxPrise) {
+          // unit.reanimation(db);
+       }
+       return !(unit.getAveragePower() < minPower || unit.getAverageQuality() < minQuality || unit.getTotalPrise() > maxPrise);
     }
 
     public Unit getRandomUnitFromPopulation(){
