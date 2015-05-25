@@ -38,6 +38,7 @@ public class DurationOperationCriteriaTest {
             e.printStackTrace();
         }
 
+
         List<Order> orders = orderRepository.findByStatus_Name("NEW_ORDER");
         System.out.println("Orders: " + orders.size());
         for( Order order : orders) {
