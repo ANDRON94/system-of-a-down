@@ -66,7 +66,7 @@ public class ScheduleService {
                 durationOperationCriteria,
                 busyWorkerCriteria
         ));
-        System.out.println("Count of works after first: " + works.size());
+        System.out.println( "Count of works after first: " + works.size() );
         //second algorithm
         List<Order> secondWorks = new ArrayList<>(works);
         deadlineWorkCriteria.restart(secondWorks);

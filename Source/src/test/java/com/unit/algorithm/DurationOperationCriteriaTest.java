@@ -1,6 +1,5 @@
-package algorithm;
+package com.unit.algorithm;
 
-import com.model.Contract;
 import com.model.Detail;
 import com.model.Order;
 import com.repository.ContractRepository;
@@ -8,7 +7,6 @@ import com.repository.OrderRepository;
 import com.service.algorithms.schedule.DurationOperationCriteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.aop.support.DelegatePerTargetObjectIntroductionInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -52,5 +50,6 @@ public class DurationOperationCriteriaTest {
                 System.out.println("Prdoduce time: " + detail.getDetailType().getProduceTime());
             }
         }
+
     }
 }

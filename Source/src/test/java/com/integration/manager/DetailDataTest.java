@@ -1,4 +1,4 @@
-package com.dao;
+package com.integration.manager;
 
 import com.model.Detail;
 import com.model.DetailType;

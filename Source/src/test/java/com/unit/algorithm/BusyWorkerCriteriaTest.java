@@ -1,4 +1,4 @@
-package algorithm;
+package com.unit.algorithm;
 
 import com.model.Detail;
 import com.model.DetailType;

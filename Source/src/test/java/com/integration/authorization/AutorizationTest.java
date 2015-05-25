@@ -1,4 +1,4 @@
-package com.dao;
+package com.integration.authorization;
 
 
 import com.model.User;
@@ -21,7 +21,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/database.xml"})
-public class getAutorizeUserTest extends Assert {
+public class AutorizationTest extends Assert {
 
     @Autowired
     private UserRepository userRepository;
@@ -37,5 +37,6 @@ public class getAutorizeUserTest extends Assert {
     public void testSuccessUserResearch(){
         User user=userRepository.findOneByEmail(email);
         assertEquals(user.getPassword(),password);
+        assertEquals(user.getEmail(),email);
     }
 }
