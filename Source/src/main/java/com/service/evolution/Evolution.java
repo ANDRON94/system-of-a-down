@@ -23,7 +23,7 @@ public class Evolution {
     }
 
     public boolean createPopulation(){
-        return  population.selectThePoplation(100000);
+        return  population.selectThePoplation(500);
     }
 
     public void makeStep(int count){
@@ -40,6 +40,4 @@ public class Evolution {
             }
         }
     }
-
-
 }
