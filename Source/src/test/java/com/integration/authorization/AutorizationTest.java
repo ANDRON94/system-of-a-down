@@ -25,12 +25,10 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/database.xml"})
 public class AutorizationTest extends Assert {
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private UserRoleRepository userRoleRepository;
-
     private String email;
     private String password;
     private User user;
