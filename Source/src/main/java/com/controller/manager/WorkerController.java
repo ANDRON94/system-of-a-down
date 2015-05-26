@@ -170,7 +170,6 @@ public class WorkerController {
             modelMap.addAttribute("error","Sorry this worker have some work");
             return "workers";
         }
-
         return TO_DETAILS_LIST;
     }
 }

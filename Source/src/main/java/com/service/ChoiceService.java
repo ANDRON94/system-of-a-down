@@ -35,7 +35,7 @@ public class ChoiceService {
 
     private static final int detailTypeCount = Unit.detailTypeCount;
 
-    private static final int evolutionSteps = 1000000;
+    private static final int evolutionSteps = 500;
 
     private List<List<Detail>> db = new ArrayList<List<Detail>>(detailTypeCount);
     private Evolution evolution;
@@ -45,15 +45,16 @@ public class ChoiceService {
 
     public Unit makeChoice(OrderDTO orderDTO){
         System.out.println("Choice service begin work!");
-        init(orderDTO);
-        if(evolution.createPopulation() != false){
-            System.out.println("Alpha before evolution\n" + evolution.getPopulation().getAlpha().toString());
-            evolution.makeStep(evolutionSteps);
-            System.out.println("Alpha after evolution\n" + evolution.getPopulation().getAlpha().toString());
-            return evolution.getPopulation().getAlpha();
-        } else {
-            return null;
-        }
+            init(orderDTO);
+            if (evolution.createPopulation() != false) {
+                System.out.println("Alpha before evolution\n" + evolution.getPopulation().getAlpha().toString());
+                evolution.makeStep(evolutionSteps);
+                System.out.println("Alpha after evolution\n" + evolution.getPopulation().getAlpha().toString());
+                   System.out.println("Best: \n" + evolution.getPopulation().selectBestUnitEver());
+                return evolution.getPopulation().getAlpha();
+            } else {
+                return null;
+            }
 
     }
 

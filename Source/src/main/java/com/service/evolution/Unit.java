@@ -36,23 +36,28 @@ public class Unit {
     }
 
     private void recount(){
-        int sumQuality = 0;
-        int sumPower = 0;
-        totalPrise = 0;
-        int totalCount = 0;
+        try {
+            int sumQuality = 0;
+            int sumPower = 0;
+            totalPrise = 0;
+            int totalCount = 0;
 
-        for(int i = 0; i <details.size(); i++ ){
-            sumPower += details.get(i).getPower() * detCount[i];
-            sumQuality += details.get(i).getQuality() * detCount[i];
-            totalPrise += details.get(i).getPrice() * detCount[i];
-            totalCount += detCount[i];
-        }
-        averageQuality = (float) sumQuality / totalCount;
-        averagePower = (float) sumPower / totalCount;
-        if (details.size() == detailTypeCount){
-            full = true;
-        } else {
-            full = false;
+            for (int i = 0; i < details.size(); i++) {
+                sumPower += details.get(i).getPower() * detCount[i];
+                sumQuality += details.get(i).getQuality() * detCount[i];
+                totalPrise += details.get(i).getPrice() * detCount[i];
+                totalCount += detCount[i];
+            }
+            averageQuality = (float) sumQuality / totalCount;
+            averagePower = (float) sumPower / totalCount;
+            if (details.size() == detailTypeCount) {
+                full = true;
+            } else {
+                full = false;
+            }
+        } catch (Throwable e){
+            System.err.println(this);
+            throw e;
         }
     }
 
@@ -72,6 +77,17 @@ public class Unit {
         rez.add(0, firstChild);
         rez.add(1, secondChild);
         return rez;
+    }
+
+    public void reanimation(List<List<Detail>> db) {
+        Detail worstDetail = details.get(0);
+        for (int i = 0; i < detailTypeCount; i++) {
+            if ((worstDetail.getPrice() / (worstDetail.getPower() + worstDetail.getQuality())) <
+                    (details.get(i).getPrice() / (details.get(i).getPower() + details.get(i).getQuality()))) {
+                worstDetail = details.get(i);
+            }
+        }
+        this.setDetail(db.get(worstDetail.getDetailType().getId() - 1).get(new Random().nextInt(db.get(worstDetail.getDetailType().getId() - 1).size())));
     }
 
     @Override

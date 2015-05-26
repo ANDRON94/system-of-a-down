@@ -1,4 +1,4 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces.criteria.operation.impl.util;
 
 import com.model.Contract;
 import com.model.Detail;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Operation {
 
-    protected List<Detail> getOperations( Order order ){
+    public List<Detail> getOperations( Order order ){
         List<Detail> operations = new ArrayList<Detail>();
         if( order.getStatus().getName().equals("NEW_ORDER") ){
             for( int i = 0; i < order.getCountComputers(); ++i ){
@@ -20,9 +20,9 @@ public class Operation {
                 operations.addAll(temp);
             }
         } else{
-            for( Contract contract : order.getContractList() ){
-                operations.add(contract.getDetail());
-            }
+                for( Contract contract : order.getContractList() ){
+                    operations.add(contract.getDetail());
+                }
         }
         return operations;
     }

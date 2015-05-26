@@ -1,8 +1,10 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces;
 
 import com.model.Contract;
+import com.service.algorithms.schedule.interfaces.criteria.operation.FindOperationCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.work.FindWorkCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.worker.FindWorkerCriteria;
 
-import java.util.Date;
 import java.util.List;
 
 /**

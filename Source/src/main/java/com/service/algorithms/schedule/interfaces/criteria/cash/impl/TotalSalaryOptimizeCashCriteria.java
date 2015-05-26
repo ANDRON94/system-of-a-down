@@ -1,6 +1,7 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces.criteria.cash.impl;
 
 import com.model.Contract;
+import com.service.algorithms.schedule.interfaces.criteria.cash.FindOptimizeCashCriteria;
 
 import java.util.List;
 

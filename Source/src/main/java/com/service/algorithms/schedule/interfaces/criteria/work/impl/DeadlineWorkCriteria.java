@@ -1,6 +1,7 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces.criteria.work.impl;
 
 import com.model.Order;
+import com.service.algorithms.schedule.interfaces.criteria.work.FindWorkCriteria;
 
 import java.util.*;
 

@@ -1,13 +1,18 @@
 package com.service.algorithms.schedule;
 
 import com.model.Contract;
-import com.model.Detail;
 import com.model.Order;
 import com.model.Worker;
 import com.repository.ContractRepository;
 import com.repository.DetailRepository;
 import com.repository.OrderRepository;
 import com.repository.WorkerRepository;
+import com.service.algorithms.schedule.interfaces.criteria.cash.impl.TotalSalaryOptimizeCashCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.operation.impl.DurationOperationCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.operation.impl.ExpectancyOperationCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.work.impl.DeadlineWorkCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.worker.impl.BusyWorkerCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.worker.impl.CheapWorkerCriteria;
 import com.util.DateTimeFormatter;
 import com.util.TodayManipulator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +80,7 @@ public class ScheduleService {
         busyWorkerCriteria.restart();
 
 
-        schedules.add( scheduler.makeSchedule(
+        schedules.add(scheduler.makeSchedule(
                 deadlineWorkCriteria,
                 expectancyOperationCriteria,
                 busyWorkerCriteria

@@ -27,22 +27,21 @@ public class WorkerDataTest extends Assert{
     @Autowired
     private DetailTypeRepository detailTypeRepository;
 
-    Worker worker;
-    List<DetailType> detailTypes;
+    private Worker worker;
+    private List<DetailType> detailTypes;
 
     @Before
-    public Worker initWorker(){
+    public void initWorker(){
         worker=new Worker();
         worker.setCash(200);
         worker.setName("Garry");
         worker.setSename("Cooper");
         List<DetailType> specializations=detailTypeRepository.findAll();
         worker.setSpecializations(specializations);
-        return worker;
+        worker=workerRepository.save(worker);
     }
     @Test
     public void successSaveWorker(){
-        workerRepository.save(worker);
         Worker savedWorker=workerRepository.findOne(worker.getId());
         assertEquals(savedWorker.getName(),"Garry");
         assertEquals(savedWorker.getSename(),"Cooper");

@@ -27,10 +27,8 @@ public class DetailDataTest extends Assert{
     private DetailRepository detailRepository;
     @Autowired
     private DetailTypeRepository detailTypeRepository;
-
     private Detail detail;
     private DetailType detailType;
-
     @Before
     public void setDetailData(){
         detailType=new DetailType();
@@ -43,7 +41,6 @@ public class DetailDataTest extends Assert{
         detail.setPrice(200);
         detail.setDetailType(detailType);
     }
-
     @Test
     public void testSaveDetail(){
         detail=detailRepository.save(detail);
@@ -51,7 +48,6 @@ public class DetailDataTest extends Assert{
         detailType=detailTypeRepository.findOne(detail.getDetailType().getId());
         assertEquals(detail.getName(),"Core I3");
         assertEquals(detail.getDetailType().getName(),"Processor");
-
     }
     @After
     public void deleteDetailData(){
