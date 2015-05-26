@@ -1,8 +1,9 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces.criteria.worker.impl;
 
 import com.model.Contract;
 import com.model.Detail;
 import com.model.Worker;
+import com.service.algorithms.schedule.interfaces.criteria.worker.FindWorkerCriteria;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Map.Entry;
 /**
  * Created by andron94 on 22.04.15.
  */
-public class BusyWorkerCriteria implements  FindWorkerCriteria {
+public class BusyWorkerCriteria implements FindWorkerCriteria {
 
     private Map<Worker,Integer> busyFactor = new HashMap<Worker, Integer>();
 

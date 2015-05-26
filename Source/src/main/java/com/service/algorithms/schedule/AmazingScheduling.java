@@ -4,6 +4,10 @@ import com.model.Contract;
 import com.model.Detail;
 import com.model.Order;
 import com.model.Worker;
+import com.service.algorithms.schedule.interfaces.criteria.operation.FindOperationCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.work.FindWorkCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.worker.FindWorkerCriteria;
+import com.service.algorithms.schedule.interfaces.Scheduling;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by andron94 on 20.04.15.
  */
-public class AmazingScheduling  implements Scheduling{
+public class AmazingScheduling  implements Scheduling {
 
     private Date start;
     private Map<Worker,Date> nextStartDate = new HashMap<Worker,Date>();

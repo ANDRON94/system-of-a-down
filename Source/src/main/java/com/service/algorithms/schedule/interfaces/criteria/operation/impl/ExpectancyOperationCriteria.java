@@ -1,9 +1,11 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces.criteria.operation.impl;
 
 import com.model.Detail;
 import com.model.DetailType;
 import com.model.Order;
 import com.model.Worker;
+import com.service.algorithms.schedule.interfaces.criteria.operation.FindOperationCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.operation.impl.util.Operation;
 
 import java.util.Collections;
 import java.util.HashMap;

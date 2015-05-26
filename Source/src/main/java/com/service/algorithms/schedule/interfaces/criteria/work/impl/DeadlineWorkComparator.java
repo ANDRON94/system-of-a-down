@@ -1,4 +1,4 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces.criteria.work.impl;
 
 import com.model.Order;
 

@@ -2,7 +2,10 @@ package com.integration.authorization;
 
 
 import com.model.User;
+import com.model.UserRole;
 import com.repository.UserRepository;
+import com.repository.UserRoleRepository;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,18 +28,38 @@ public class AutorizationTest extends Assert {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     private String email;
     private String password;
+    private User user;
     @Before
     public void setEmailAndPassword(){
-        password="2222";
-        email="kmetsmi@gmail.com";
+        password="test";
+        email="test@gmail.com";
+        user = new User();
+        user.setEmail(email);
+        user.setEnabled(true);
+        user.setFirstName("Vasya");
+        user.setLastName("Pupkin");
+        user.setPassword(password);
+        user.setUserRole(userRoleRepository.findOneByRole("ROLE_USER"));
+        user.setKey(null);
+        if(userRepository.findOneByEmail(user.getEmail())==null){
+            userRepository.save(user);
+
+        }
     }
     @Test
     public void testSuccessUserResearch(){
-        User user=userRepository.findOneByEmail(email);
-        assertEquals(user.getPassword(),password);
-        assertEquals(user.getEmail(),email);
+
+        user=userRepository.findOneByEmail(email);
+        assertEquals(user.getPassword(),"test");
+        assertEquals(user.getEmail(),"test@gmail.com");
+    }
+    @After
+    public void afterSuccessAutorization(){
+        userRepository.delete(user.getIduser());
     }
 }

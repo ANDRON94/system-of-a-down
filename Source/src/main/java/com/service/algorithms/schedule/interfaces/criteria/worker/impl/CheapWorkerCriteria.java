@@ -1,8 +1,9 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces.criteria.worker.impl;
 
 import com.model.Contract;
 import com.model.Detail;
 import com.model.Worker;
+import com.service.algorithms.schedule.interfaces.criteria.worker.FindWorkerCriteria;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,10 +1,10 @@
-package com.service.algorithms.schedule;
+package com.service.algorithms.schedule.interfaces.criteria.operation.impl;
 
-import com.model.Contract;
 import com.model.Detail;
 import com.model.Order;
+import com.service.algorithms.schedule.interfaces.criteria.operation.FindOperationCriteria;
+import com.service.algorithms.schedule.interfaces.criteria.operation.impl.util.Operation;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

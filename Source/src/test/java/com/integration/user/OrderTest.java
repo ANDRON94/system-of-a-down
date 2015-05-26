@@ -42,7 +42,7 @@ public class OrderTest extends Assert{
     private OrderDTO orderDTO;
     Date date=null;
     @Before
-    public OrderDTO initOrderDTO(){
+    public void initOrderDTO(){
          orderDTO= new OrderDTO();
         orderDTO.setCount(3);
         orderDTO.setCpuCount(4);
@@ -57,9 +57,8 @@ public class OrderTest extends Assert{
         orderDTO.setRamCount(4);
         orderDTO.setCpuCount(4);
         orderDTO.setPower(4);
-        orderDTO.setPrice(4);
+        orderDTO.setPrice(40000);
         orderDTO.setQuality(4);
-        return orderDTO;
     }
     @Test
     public void succesResearhOfDetailsToOrder(){
@@ -97,13 +96,11 @@ public class OrderTest extends Assert{
     }
     @Test
     public void  testProcisedOrders(){
-
         try {
             date= new SimpleDateFormat("yyyy/MM/dd").parse("2015/05/22");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         List<Order> orders=orderRepository.findByStartAfterAndOrderStatusName("IN_PROSESS");
         System.out.println("\n\n\n\n Process Order with contects after some date");
         for(Order order : orders){
@@ -118,7 +115,6 @@ public class OrderTest extends Assert{
                 System.out.println();
             }
         }
-
     }
 
     @Test
